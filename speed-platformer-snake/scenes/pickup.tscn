@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bhabbrhnkbcwb"]
+
+[ext_resource type="Script" uid="uid://0ifdy4mycke2" path="res://scripts/pickup.gd" id="1_pg2rt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p1s84"]
+radius = 16.0
+
+[node name="pickup" type="Node2D" unique_id=768821429]
+script = ExtResource("1_pg2rt")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2120645793]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1427733612]
+shape = SubResource("CircleShape2D_p1s84")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1634151247]
+polygon = PackedVector2Array(-16, 0, 0, -16, 16, 0, 0, 16)
+uv = PackedVector2Array(-16, 0, 0, -16, 16, 0, 0, 16)

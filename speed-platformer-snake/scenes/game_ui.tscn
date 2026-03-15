@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://du50hfe0ks5dj"]
+
+[ext_resource type="Script" uid="uid://we1ppbodmp8s" path="res://scripts/game_ui.gd" id="1_yubou"]
+[ext_resource type="PackedScene" uid="uid://ddytr54raob61" path="res://scenes/day_counter.tscn" id="3_u001w"]
+
+[node name="Game UI" type="Control" unique_id=421787168]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yubou")
+
+[node name="day counter" parent="." unique_id=668329901 instance=ExtResource("3_u001w")]
+layout_mode = 1
+offset_left = 216.0
+offset_top = 320.0
+offset_right = -384.0
+
+[node name="charges" type="ColorRect" parent="." unique_id=266714637]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 320.0
+offset_right = 384.0
+offset_bottom = 360.0
+color = Color(1, 0.25490198, 0, 1)
+
+[node name="pickup indicator" type="ColorRect" parent="." unique_id=1469169558]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 320.0
+offset_right = 424.0
+offset_bottom = 360.0
+color = Color(0.14509805, 0.16470589, 1, 1)

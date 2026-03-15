@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dqcaa0bjtj5wh"]
+
+[ext_resource type="Script" uid="uid://d1moe7g1kvpgy" path="res://scripts/base.gd" id="1_pvqg0"]
+[ext_resource type="Texture2D" uid="uid://bep0qrrarcvd2" path="res://assets/placeholder/campfire.png" id="2_baglu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pvqg0"]
+radius = 64.0
+
+[node name="base" type="Node2D" unique_id=1695991625]
+script = ExtResource("1_pvqg0")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2044436253]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1989925524]
+shape = SubResource("CircleShape2D_pvqg0")
+
+[node name="ColorRect" type="TextureRect" parent="." unique_id=1299663259]
+offset_left = -24.0
+offset_top = -58.0
+offset_right = 24.0
+texture = ExtResource("2_baglu")
+
+[node name="life timer" type="Timer" parent="." unique_id=1754869928]
+wait_time = 10.0
+
+[connection signal="timeout" from="life timer" to="." method="_on_life_timer_timeout"]
