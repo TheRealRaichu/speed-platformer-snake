@@ -1,9 +1,3 @@
 extends Node
 
 ## AUTOLOADED REFERENCE FOR GLOBAL VARIABLES
-
-enum PICKUP_TYPES {
-	FUEL,
-	SUGAR,
-	# etc..
-}
