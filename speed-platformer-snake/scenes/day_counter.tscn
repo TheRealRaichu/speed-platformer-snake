@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://ddytr54raob61"]
+
+[ext_resource type="Script" uid="uid://cw0du4e65e4o2" path="res://scripts/day_counter.gd" id="1_2vqhv"]
+[ext_resource type="FontFile" uid="uid://bd5rkgn5d5465" path="res://assets/font/yoster.ttf" id="1_8nji6"]
+
+[node name="day counter" type="Control" unique_id=668329901]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_2vqhv")
+
+[node name="day counter" type="ColorRect" parent="." unique_id=655400572]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(1, 0.92423326, 0.6768388, 1)
+
+[node name="Label" type="Label" parent="." unique_id=1425337488]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0.10747976, 0.10747973, 0.10747973, 1)
+theme_override_constants/line_spacing = 0
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("1_8nji6")
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1

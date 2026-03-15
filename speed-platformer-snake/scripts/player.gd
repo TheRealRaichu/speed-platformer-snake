@@ -2,6 +2,52 @@ extends CharacterBody2D
 
 ## PLAYER
 
+# PICKUPS ===============
+
+var pickup_on_hand := false # player is carrying fuel?
+var pickup_type : Globals.PICKUP_TYPES
+
+# getter for pickup on hand
+func has_pickup():
+	return pickup_on_hand
+
+# called from pickup
+func attempt_recieve_pickup(type : Globals.PICKUP_TYPES) -> bool:
+	if pickup_on_hand: # if already has pickup
+		return false # don't accept it
+	pickup_on_hand = true # otherwise accept pickup
+	pickup_type = type # record type
+	return true # and return true
+
+# called from process on input
+func use_pickup():
+	pass
+
+# FUEL ==================
+
+var fuel_on_hand := false # player is carrying fuel?
+
+# getter for fuel on hand
+func has_fuel():
+	return fuel_on_hand
+
+# called from pickup
+func attempt_recieve_fuel() -> bool:
+	if fuel_on_hand: # if already has fuel
+		return false # don't accept it
+	print_debug("nabbed")
+	fuel_on_hand = true # otherwise accept fuel
+	return true # and return true
+
+# called from base, return true if fuel is had and can be given, false if not
+func attempt_give_fuel() -> bool:
+	if !fuel_on_hand: # doesn't have fuel?
+		return false
+	print_debug("give")
+	# we have fuel so "give" it to the base
+	fuel_on_hand = false # lose fuel
+	return true # tells base to recieve fuel
+
 # CONTROLLER ==============
 
 # base movement

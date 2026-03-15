@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vuxw8qacfs36"
-path="res://.godot/imported/day.png-a4cf415b836d0d91bf6f02ff79fe3c84.ctex"
+uid="uid://bep0qrrarcvd2"
+path="res://.godot/imported/campfire.png-060e85fd3067961f41cbcf46a7ed557b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/day.png"
-dest_files=["res://.godot/imported/day.png-a4cf415b836d0d91bf6f02ff79fe3c84.ctex"]
+source_file="res://assets/placeholder/campfire.png"
+dest_files=["res://.godot/imported/campfire.png-060e85fd3067961f41cbcf46a7ed557b.ctex"]
 
 [params]
 
