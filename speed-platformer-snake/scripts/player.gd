@@ -56,11 +56,12 @@ const JUMP_VELOCITY := -500.0 # jump impulse
 
 # normal jump
 const BASE_GRAVITY := 1600 # gravity on inital jump/falling of ledge
-const RELEASE_GRAVITY := 6400 # gravity applied after jump key is released, 
+const HARD_GRAVITY := 6400 # gravity applied after jump key is released, or in fast_fall
 const HELD_APEX_GRAVITY := 800 # gravity from when approaching jump apex while jump key is held
 const PRE_APEX_INTERVAL := .2 # timer before apex gravity is in effect
 var is_jump := false # tracks if player is in their own jump or just falling
 var jump_released := false # tracks when player releases jump input mid jump
+var fast_fall := false # tracks fast fall state
 var current_gravity := BASE_GRAVITY # current gravity used in physics_process
 
 # wall jump
@@ -73,9 +74,11 @@ const WALL_SLIDE_Y_VELOCITY := 100 # target velocity when sliding down a wall
 
 # blink
 const TELEPORTATION_DISTANCE := 100 # distance teleported in pixels
-const BLINK_OUT_VELOCITY := 500 # amount of velocity added in blink direction after charge blink
+const BLINK_OUT_VELOCITY := 300 # amount of velocity added in blink direction after charge blink
 const BLINK_DURATION := .2 # how long blink takes from start to finish
 const MAX_BLINK := 3 # max amount of blink charges that can be held
+const BLINK_COOLDOWN := .5 # blink cooldown duration
+var blink_on_cooldown := false # is blink on cooldown?
 var current_blink : int # current number of blinks on hand
 
 # HELPERS FOR CHARACTER CONTROLLER
@@ -86,7 +89,7 @@ func set_apex_timer():
 	apex_timer.one_shot = true
 	apex_timer.wait_time = PRE_APEX_INTERVAL
 	apex_timer.timeout.connect(func():
-		if Input.is_action_pressed("jump") and not jump_released: # only if jump is still held and was never released
+		if Input.is_action_pressed("jump") and not jump_released and not fast_fall: # only if jump is still held and was never released and not in fast fall
 			current_gravity = HELD_APEX_GRAVITY)
 	add_child(apex_timer) # add child
 	apex_timer.start() # begin timer
@@ -98,7 +101,21 @@ func set_walljump_ignore_x_timer(): # ensures that x impulse from wall has some 
 	ignore_timer.wait_time = WALLJUMP_IGNORE_DURATION 
 	ignore_timer.timeout.connect(func(): walljump_ignore_x = false) # stop ignoring x input
 	add_child(ignore_timer) # add child
-	ignore_timer.start() # beginm timer
+	ignore_timer.start() # begin timer
+
+func set_blink_cooldown_timer(): # keeps from spamming blinks too quickly
+	var cooldown_timer = Timer.new() # initialize ignore timer
+	cooldown_timer.one_shot = true
+	cooldown_timer.wait_time = BLINK_COOLDOWN # set wait time
+	cooldown_timer.timeout.connect(func(): blink_on_cooldown = false) # end cooldown state
+	add_child(cooldown_timer) # add child
+	cooldown_timer.start() # begin timer
+
+func reset_jump_attributes():
+	is_jump = false # not currently jumping
+	jump_released = false # not jumping so reset
+	fast_fall = false # not fast falling
+	current_gravity = BASE_GRAVITY # reset gravity
 
 func _physics_process(delta: float) -> void:
 	# MOVEMENT
@@ -119,9 +136,7 @@ func _physics_process(delta: float) -> void:
 	# JUMPING
 	# reset all jump status if on the floor
 	if is_on_floor() or is_on_wall():
-		is_jump = false # not currently jumping
-		jump_released = false # not jumping so reset
-		current_gravity = BASE_GRAVITY # reset gravity
+		reset_jump_attributes()
 	
 	# base jump if on floor
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
@@ -132,7 +147,12 @@ func _physics_process(delta: float) -> void:
 	# releasing while in jump makes you fall REALLY FAST
 	if Input.is_action_just_released("jump") and is_jump: # if are jumping and jump was released
 		jump_released = true # flag for jump key has been released
-		current_gravity = RELEASE_GRAVITY # adjust gravity accordingly
+		current_gravity = HARD_GRAVITY # adjust gravity accordingly
+	
+	# FAST FALL
+	if not is_on_floor() and Input.is_action_pressed("ui_down"):
+		fast_fall = true
+		current_gravity = HARD_GRAVITY
 	
 	# GRAVITY
 	if not is_on_floor():
@@ -161,19 +181,21 @@ func _physics_process(delta: float) -> void:
 	
 
 	# BLINKING
-	if Input.is_action_just_pressed("ability"): # when blink input pressed
+	if Input.is_action_just_pressed("ability") and not blink_on_cooldown: # when blink input pressed and cooldown not active
+		# cooldown
+		blink_on_cooldown = true # start cooldown
+		set_blink_cooldown_timer() # start timer to end cooldown
+		# check direction
 		var blink_vector := Vector2(horizontal_direction, vertical_direction) # take direction of blink
 		blink_vector = blink_vector.normalized() # normalize
 		
-		# flag as a jump and reset jump release
-		is_jump = true
-		jump_released = false
-		
-		var cur_velocity := velocity # record velocity
+		# fix jump flags
+		reset_jump_attributes()
+		# record new position
 		var new_pos := Vector2( # compute new position
 			self.position.x + TELEPORTATION_DISTANCE * blink_vector.x,
 			self.position.y + TELEPORTATION_DISTANCE * blink_vector.y)
-		
+		# animate
 		self.visible = false # disappear (will be animation later)
 		
 		await get_tree().create_timer(.2).timeout
@@ -182,12 +204,10 @@ func _physics_process(delta: float) -> void:
 		
 		# set new position
 		position = new_pos
-		if not Input.is_action_pressed("ability"): # if ability is not held
-			velocity = cur_velocity # just restore velocity
-		else: # ability is held
-			velocity = cur_velocity + Vector2( # also add extra velocity
-				BLINK_OUT_VELOCITY * blink_vector.x,
-				BLINK_OUT_VELOCITY * blink_vector.y)
+		# set velocity
+		velocity = Vector2(
+			BLINK_OUT_VELOCITY * blink_vector.x,
+			BLINK_OUT_VELOCITY * blink_vector.y)
 	
 	move_and_slide() # duh
 
