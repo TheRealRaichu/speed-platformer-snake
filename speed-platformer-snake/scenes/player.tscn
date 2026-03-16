@@ -9,14 +9,20 @@ radius = 8.0
 [node name="player" type="CharacterBody2D" unique_id=1759500252 groups=["player"]]
 script = ExtResource("1_3vyb7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=854408467]
+[node name="collision box" type="CollisionShape2D" parent="." unique_id=854408467]
 position = Vector2(0, -15)
 shape = SubResource("CapsuleShape2D_u8vuu")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1296139944]
+[node name="blink refresh timer" type="Timer" parent="." unique_id=803798667]
+wait_time = 5.0
+one_shot = true
+
+[node name="sprite" type="TextureRect" parent="." unique_id=1296139944]
 offset_left = -8.0
 offset_top = -32.0
 offset_right = 8.0
 texture = ExtResource("2_g2els")
 expand_mode = 1
 stretch_mode = 4
+
+[connection signal="timeout" from="blink refresh timer" to="." method="_on_blink_refresh_timer_timeout"]
