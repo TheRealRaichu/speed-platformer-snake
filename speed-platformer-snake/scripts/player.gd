@@ -65,7 +65,8 @@ var facing_right := false
 
 # normal jump
 const BASE_GRAVITY := 1600 # gravity on inital jump/falling of ledge
-const HARD_GRAVITY := 6400 # gravity applied after jump key is released, or in fast_fall
+const RELEASE_GRAVITY := 3200 # gravity applied after jump key is released, or in fast_fall
+const FAST_FALL_GRAVITY := 6400 # gravity applied after jump key is released, or in fast_fall
 const HELD_APEX_GRAVITY := 800 # gravity from when approaching jump apex while jump key is held
 const PRE_APEX_INTERVAL := .2 # timer before apex gravity is in effect
 var is_jump := false # tracks if player is in their own jump or just falling
@@ -155,12 +156,12 @@ func _physics_process(delta: float) -> void:
 	# releasing while in jump makes you fall REALLY FAST
 	if Input.is_action_just_released("jump") and is_jump: # if are jumping and jump was released
 		jump_released = true # flag for jump key has been released
-		current_gravity = HARD_GRAVITY # adjust gravity accordingly
+		current_gravity = RELEASE_GRAVITY # adjust gravity accordingly
 	
 	# FAST FALL
 	if not is_on_floor() and Input.is_action_pressed("ui_down"):
 		fast_fall = true
-		current_gravity = HARD_GRAVITY
+		current_gravity = FAST_FALL_GRAVITY
 	
 	# GRAVITY
 	if not is_on_floor():
