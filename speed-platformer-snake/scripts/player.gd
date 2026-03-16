@@ -1,6 +1,10 @@
+class_name Player
 extends CharacterBody2D
 
 ## PLAYER
+# child references
+@onready var texturerect := $TextureRect
+
 
 # PICKUPS ===============
 
@@ -35,7 +39,6 @@ func has_fuel():
 func attempt_recieve_fuel() -> bool:
 	if fuel_on_hand: # if already has fuel
 		return false # don't accept it
-	print_debug("nabbed")
 	fuel_on_hand = true # otherwise accept fuel
 	return true # and return true
 
@@ -43,7 +46,6 @@ func attempt_recieve_fuel() -> bool:
 func attempt_give_fuel() -> bool:
 	if !fuel_on_hand: # doesn't have fuel?
 		return false
-	print_debug("give")
 	# we have fuel so "give" it to the base
 	fuel_on_hand = false # lose fuel
 	return true # tells base to recieve fuel
@@ -55,10 +57,11 @@ const MAX_SPEED := 300.0 # running speed
 const GROUND_ACCEL := 100.0 # accleration on ground
 const AIR_ACCEL := 60.0 # acceleration in air
 const JUMP_VELOCITY := -350.0 # jump impulse ~ 2.5 blocks
-const BUFFER_DURATION := .1 # duration of coyote and buffer time 
+const BUFFER_DURATION := 0.1 # duration of coyote and buffer time 
 var jump_buffer := false # is the player's jump currently buffered?
 var right_buffer := false # is the right input currently buffered?
 var left_buffer := false # is the left input currently buffered?
+var facing_right := false
 
 # normal jump
 const BASE_GRAVITY := 1600 # gravity on inital jump/falling of ledge
@@ -106,6 +109,10 @@ func _physics_process(delta: float) -> void:
 	var horizontal_direction := Input.get_axis("move_left", "move_right") # get horizontal axis input
 	var vertical_direction := Input.get_axis("move_up", "move_down") # get vertical axis input
 	
+	# FACING
+	if horizontal_direction:
+		texturerect.flip_h = false if horizontal_direction < 0 else true 
+	
 	# BUFFERING
 	# rightward
 	if (Input.is_action_just_released("move_right") or Input.is_action_just_pressed("move_right")) and not right_buffer: # if right just released and buffer not already active
@@ -116,7 +123,7 @@ func _physics_process(delta: float) -> void:
 		left_buffer = true # set left buffer flag to true
 		get_tree().create_timer(BUFFER_DURATION).timeout.connect(func(): left_buffer = false) # set buffer flag to false after buffer duration
 	# jump
-	if (Input.is_action_just_released("jump") or Input.is_action_just_pressed("jump")) and not jump_buffer: # if left just released and buffer not already active
+	if Input.is_action_just_pressed("jump") and not jump_buffer: # if left just released and buffer not already active
 		jump_buffer = true # set jump buffer flag to true
 		get_tree().create_timer(BUFFER_DURATION).timeout.connect(func(): jump_buffer = false) # set buffer flag to false after buffer duration
 	
@@ -136,7 +143,8 @@ func _physics_process(delta: float) -> void:
 		reset_jump_attributes()
 	
 	# base jump if on floor
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
+	if is_on_floor() and (Input.is_action_just_pressed("jump") or jump_buffer):
+		jump_buffer = false # reset jump buffer
 		velocity.y += JUMP_VELOCITY # apply jump velocity
 		is_jump = true # currently jumping
 		# create apex grav timer
@@ -159,7 +167,8 @@ func _physics_process(delta: float) -> void:
 		velocity.y += current_gravity * delta # apply gravity to y velocity
 	
 	# WALL JUMPING
-	if is_on_wall_only() and Input.is_action_just_pressed("jump"): # on wall only and jumped
+	if is_on_wall_only() and (Input.is_action_just_pressed("jump") or jump_buffer): # on wall only and jumped (or jump buffered)
+		jump_buffer = false # reset jump buffer
 		velocity.y = WALLJUMP_VELOCITY # set y velocity accordingly
 		# set flags for wall jump
 		walljump_ignore_x = true 

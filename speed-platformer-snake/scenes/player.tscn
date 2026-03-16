@@ -1,19 +1,23 @@
 [gd_scene format=3 uid="uid://g5s3jnkbsdnp"]
 
 [ext_resource type="Script" uid="uid://476kcg0wdvdb" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://doh4ej1dpa4d6" path="res://assets/placeholder/player.png" id="2_g2els"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u8vuu"]
-height = 40.0
+radius = 8.0
+height = 32.0
 
 [node name="player" type="CharacterBody2D" unique_id=1759500252 groups=["player"]]
 script = ExtResource("1_3vyb7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=854408467]
-position = Vector2(0, -20)
+position = Vector2(0, -16)
 shape = SubResource("CapsuleShape2D_u8vuu")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1646014691]
-offset_left = -10.0
-offset_top = -40.0
-offset_right = 10.0
-color = Color(0.21568628, 1, 0.5882353, 1)
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1296139944]
+offset_left = -8.0
+offset_top = -32.0
+offset_right = 8.0
+texture = ExtResource("2_g2els")
+expand_mode = 1
+stretch_mode = 4

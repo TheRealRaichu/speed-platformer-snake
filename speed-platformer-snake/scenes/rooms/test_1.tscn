@@ -17,7 +17,7 @@ tile_set = ExtResource("1_6kctw")
 position = Vector2(320, 320)
 
 [node name="player" parent="for scale" unique_id=1759500252 instance=ExtResource("3_vgspx")]
-position = Vector2(264, 320)
+position = Vector2(240, 320)
 
 [node name="pickup" parent="." unique_id=768821429 instance=ExtResource("4_vgspx")]
 position = Vector2(608, 32)
