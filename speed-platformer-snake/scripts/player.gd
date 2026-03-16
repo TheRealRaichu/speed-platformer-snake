@@ -5,11 +5,34 @@ extends CharacterBody2D
 # child references
 @onready var texturerect := $TextureRect
 
+# SCARF ================
+
+# BLINK MECH ===============
+
+const MAX_BLINK := 3 # max amount of blink charges that can be held
+var current_blink : int # current number of blinks on hand
+
+func blinked_charge_update():
+	pass
 
 # PICKUPS ===============
 
+# holding variables
 var pickup_on_hand := false # player is carrying fuel?
-var pickup_type # taken from pickup
+var pickup_type : Globals.PICKUP_TYPES # taken from pickup
+
+# sugar --
+const SUGAR_DURATION := 8 # duration of sugar effect
+const SUGAR_SPEED := 500.0 # speed during sugar effect
+const SUGAR_JUMP := -500.0 # jump velocity during sugar effect
+var sugar_active := false # sugar active flag
+var current_sugar_timer # reference to current sugar timer for refreshes
+# reset sugar flags
+var sugar_timeout := func(): sugar_active = false; current_sugar_timer = null; current_speed = BASE_SPEED; current_jump_velocity = BASE_JUMP_VELOCITY;
+
+
+
+signal pickup_update # whenever pickup get or used
 
 # getter for pickup on hand
 func has_pickup():
@@ -19,13 +42,38 @@ func has_pickup():
 func attempt_recieve_pickup(type) -> bool:
 	if pickup_on_hand: # if already has pickup
 		return false # don't accept it
+	
 	pickup_on_hand = true # otherwise accept pickup
 	pickup_type = type # record type
+	pickup_update.emit(type) # exclaim
 	return true # and return true
 
 # called from process on input
 func attempt_use_pickup():
-	pass
+	if not pickup_on_hand: # if no pickup skip
+		return
+	
+	match pickup_type: # do effect based on held pickup
+		Globals.PICKUP_TYPES.NULL:
+			pass
+		Globals.PICKUP_TYPES.SUGAR:
+			use_sugar()
+	
+	# reset pickup held flags
+	pickup_on_hand = false 
+	pickup_type = Globals.PICKUP_TYPES.NULL
+	pickup_update.emit(pickup_type)
+
+func use_sugar():
+	# sugar refresh case
+	if sugar_active: # if sugar already active
+		current_sugar_timer.timeout.disconnect(sugar_timeout) # disconnect old timer
+	# base case
+	sugar_active = true # set sugar flag
+	current_speed = SUGAR_SPEED # set sugar speed
+	current_jump_velocity = SUGAR_JUMP # set sugar jump
+	current_sugar_timer = get_tree().create_timer(SUGAR_DURATION) # create and store timer
+	current_sugar_timer.timeout.connect(sugar_timeout) # after duration, disable sugar effects
 
 # FUEL ==================
 
@@ -53,15 +101,20 @@ func attempt_give_fuel() -> bool:
 # CONTROLLER ==============
 
 # base movement and buffers
-const MAX_SPEED := 300.0 # running speed
+const BASE_SPEED := 300.0 # running speed
+var current_speed := BASE_SPEED # current speed used in calculations
 const GROUND_ACCEL := 100.0 # accleration on ground
 const AIR_ACCEL := 60.0 # acceleration in air
-const JUMP_VELOCITY := -350.0 # jump impulse ~ 2.5 blocks
-const BUFFER_DURATION := 0.1 # duration of coyote and buffer time 
+const BASE_JUMP_VELOCITY := -350.0 # jump impulse ~ 2.5 blocks
+var current_jump_velocity := BASE_JUMP_VELOCITY # current jump velocity for calculations
+const BUFFER_DURATION := 0.1 # duration of buffer time 
+const COYOTE_DURATION := 0.05 # duration of coyote time 
 var jump_buffer := false # is the player's jump currently buffered?
+var coyote_buffer := false # is the player's grounded state buffered?
+var was_on_floor := false # coyote helper flagd
 var right_buffer := false # is the right input currently buffered?
 var left_buffer := false # is the left input currently buffered?
-var facing_right := false
+var facing_right := false # direction player is facing
 
 # normal jump
 const BASE_GRAVITY := 1600 # gravity on inital jump/falling of ledge
@@ -75,7 +128,8 @@ var fast_fall := false # tracks fast fall state
 var current_gravity := BASE_GRAVITY # current gravity used in physics_process
 
 # wall jump
-const WALLJUMP_VELOCITY := -400.0 # y velocity after wall jump
+const BASE_WALLJUMP_VELOCITY := -400.0 # y velocity after wall jump
+const current_wall_jump_velocity := BASE_WALLJUMP_VELOCITY
 const WALL_PUSHBACK_VELOCITY := 300 # x velocity after wall jump
 const WALLJUMP_IGNORE_DURATION := .15 # duration to ignore x input after wall jump
 var walljump_ignore_x := false # should ignore deceleration and run input?
@@ -86,8 +140,6 @@ const WALL_SLIDE_Y_VELOCITY := 100 # target velocity when sliding down a wall
 const BLINKING_VELOCITY := 600 # velocity while player is travelling in blink, affects blink distance
 const BLINK_OUT_VELOCITY := 400 # amount of velocity set in blink direction after charge blink
 const BLINK_DURATION := .1 # how long blink takes from start to finish
-const MAX_BLINK := 3 # max amount of blink charges that can be held
-var current_blink : int # current number of blinks on hand
 const BLINK_COOLDOWN := .5 # blink cooldown duration
 var is_blinking := false # ignore all other physics while true
 var blink_on_cooldown := false # is blink on cooldown?
@@ -127,6 +179,13 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and not jump_buffer: # if left just released and buffer not already active
 		jump_buffer = true # set jump buffer flag to true
 		get_tree().create_timer(BUFFER_DURATION).timeout.connect(func(): jump_buffer = false) # set buffer flag to false after buffer duration
+	# coyote
+	if is_on_floor(): # check grounded status
+		was_on_floor = true # prepare was grounded flag 
+	if was_on_floor and not is_on_floor() and not is_jump: # if was grounded and now not, and not because of jump
+		was_on_floor = false # reset grounded tag
+		coyote_buffer = true # set flag to true
+		get_tree().create_timer(COYOTE_DURATION).timeout.connect(func(): coyote_buffer = false) # set buffer flag to false after buffer duration
 	
 	# RUNNING
 	if not walljump_ignore_x: # if x velocity change is being accepted
@@ -134,7 +193,7 @@ func _physics_process(delta: float) -> void:
 		var horizontal_acceleration = GROUND_ACCEL if is_on_floor() else AIR_ACCEL # 100 on ground, 60 in air
 		# move in direction of acceleration or decelerate
 		if horizontal_direction:
-			velocity.x = move_toward(velocity.x, horizontal_direction * MAX_SPEED, horizontal_acceleration) # accelerate toward top speed
+			velocity.x = move_toward(velocity.x, horizontal_direction * current_speed, horizontal_acceleration) # accelerate toward top speed
 		else: # no dir held
 			velocity.x = move_toward(velocity.x, 0, horizontal_acceleration) # decelerate to 0
 	
@@ -144,9 +203,9 @@ func _physics_process(delta: float) -> void:
 		reset_jump_attributes()
 	
 	# base jump if on floor
-	if is_on_floor() and (Input.is_action_just_pressed("jump") or jump_buffer):
+	if (is_on_floor() or coyote_buffer) and (Input.is_action_just_pressed("jump") or jump_buffer):
 		jump_buffer = false # reset jump buffer
-		velocity.y += JUMP_VELOCITY # apply jump velocity
+		velocity.y = current_jump_velocity # apply jump velocity
 		is_jump = true # currently jumping
 		# create apex grav timer
 		get_tree().create_timer(PRE_APEX_INTERVAL).timeout.connect(func(): # after a timer with apex interval duration
@@ -170,7 +229,7 @@ func _physics_process(delta: float) -> void:
 	# WALL JUMPING
 	if is_on_wall_only() and (Input.is_action_just_pressed("jump") or jump_buffer): # on wall only and jumped (or jump buffered)
 		jump_buffer = false # reset jump buffer
-		velocity.y = WALLJUMP_VELOCITY # set y velocity accordingly
+		velocity.y = current_wall_jump_velocity # set y velocity accordingly
 		# set flags for wall jump
 		walljump_ignore_x = true 
 		is_jump = true
@@ -195,6 +254,7 @@ func _physics_process(delta: float) -> void:
 	# BLINKING
 	if Input.is_action_just_pressed("ability") and not blink_on_cooldown: # when blink input pressed and cooldown not active
 		# cooldown
+		blinked_charge_update() # tell blink management system that blink was used
 		blink_on_cooldown = true # start cooldown
 		get_tree().create_timer(BLINK_COOLDOWN).timeout.connect(func(): blink_on_cooldown = false) # start timer to end cooldown
 		# check direction

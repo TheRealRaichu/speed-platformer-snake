@@ -4,13 +4,15 @@ extends Node2D
 # child references
 @onready var area = $Area2D # reference to area for player detection
 
-@export var type : PICKUP_TYPES # globals contains all pickup types
-
+# it sucks but i gotta have a local one because the export is broken
 enum PICKUP_TYPES {
+	NULL,
 	FUEL,
 	SUGAR,
 	# etc..
 }
+
+@export var type : PICKUP_TYPES # globals contains all pickup types
 
 signal collected # emitted when pickup is collected
 
@@ -22,7 +24,7 @@ func _process(delta: float) -> void:
 		
 		var accepeted := false # is accepted by player?
 		 # if pickup is fuel
-		if type == PICKUP_TYPES.FUEL: 
+		if type == Globals.PICKUP_TYPES.FUEL: 
 			accepeted = body.attempt_recieve_fuel() # returns true if player takes fuel
 		# is pickup of another type
 		else: accepeted = body.attempt_recieve_pickup(type) # returns true if player takes pickup
