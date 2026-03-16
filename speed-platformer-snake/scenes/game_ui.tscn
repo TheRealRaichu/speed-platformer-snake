@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://we1ppbodmp8s" path="res://scripts/game_ui.gd" id="1_yubou"]
 [ext_resource type="PackedScene" uid="uid://ddytr54raob61" path="res://scenes/day_counter.tscn" id="3_u001w"]
+[ext_resource type="PackedScene" uid="uid://bjvlppq5mr4ye" path="res://scenes/pickup_indicator.tscn" id="3_u2dgd"]
 
 [node name="Game UI" type="Control" unique_id=421787168]
 layout_mode = 3
@@ -26,10 +27,9 @@ offset_right = 384.0
 offset_bottom = 360.0
 color = Color(1, 0.25490198, 0, 1)
 
-[node name="pickup indicator" type="ColorRect" parent="." unique_id=1469169558]
+[node name="pickup indicator" parent="." unique_id=1768973162 instance=ExtResource("3_u2dgd")]
 layout_mode = 0
 offset_left = 384.0
 offset_top = 320.0
-offset_right = 424.0
-offset_bottom = 360.0
-color = Color(0.14509805, 0.16470589, 1, 1)
+offset_right = 384.0
+offset_bottom = 320.0

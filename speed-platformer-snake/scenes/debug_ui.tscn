@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://ds6q3u82sj6f5"]
+
+[ext_resource type="Script" uid="uid://c6hrppwpfdadr" path="res://scripts/debug_ui.gd" id="1_loc82"]
+
+[node name="debug UI" type="Control" unique_id=199605950]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_loc82")
+
+[node name="right buffer" type="Label" parent="." unique_id=776065164]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 32.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "right buf"
+
+[node name="left buffer" type="Label" parent="." unique_id=869943740]
+layout_mode = 0
+offset_top = 32.0
+offset_right = 67.0
+offset_bottom = 64.0
+text = "left buf"
+
+[node name="jump buffer" type="Label" parent="." unique_id=1338582535]
+layout_mode = 0
+offset_top = 64.0
+offset_right = 67.0
+offset_bottom = 96.0
+text = "jump buf"
