@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ptry1uquv1at" path="res://scenes/level.tscn" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://du50hfe0ks5dj" path="res://scenes/game_ui.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://g5s3jnkbsdnp" path="res://scenes/player.tscn" id="4_iywne"]
+[ext_resource type="PackedScene" uid="uid://ds6q3u82sj6f5" path="res://scenes/debug_ui.tscn" id="6_p57ef"]
 
 [node name="game" type="Node2D" unique_id=1548409513]
 script = ExtResource("1_uwrxv")
@@ -17,3 +18,6 @@ script = ExtResource("1_uwrxv")
 position = Vector2(344, 312)
 
 [node name="Game UI" parent="." unique_id=421787168 instance=ExtResource("3_lnu2h")]
+
+[node name="debug UI" parent="." unique_id=199605950 node_paths=PackedStringArray("player") instance=ExtResource("6_p57ef")]
+player = NodePath("../player")

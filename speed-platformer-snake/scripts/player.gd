@@ -15,8 +15,8 @@ func _ready() -> void:
 
 # SCARF ================
 
-const TARGET_SCARF_SPEED := 50
-const SCARF_DECELERATION := 70
+const TARGET_SCARF_SPEED := 20 # top speed while moving in scarf
+const SCARF_DECELERATION := 70 # rate at which you match that scarf speed
 
 func check_in_scarf() -> bool: # check if overlapping with scarf via scarf box
 	for area in scarf_box.get_overlapping_areas(): # check each body
@@ -25,6 +25,8 @@ func check_in_scarf() -> bool: # check if overlapping with scarf via scarf box
 	return false
 
 func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
+	if is_blinking: # dont apply during blink
+		return
 	# if moving faster than max scarf speed, slowdown to scarf speed
 	if velocity.y > TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, TARGET_SCARF_SPEED, SCARF_DECELERATION)
 	if velocity.y < -TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, -TARGET_SCARF_SPEED, SCARF_DECELERATION)
@@ -34,7 +36,7 @@ func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
 func scarf_increment(): # call scarf to increment lifespan
 	scarf.increment_node_lifespan()
 
-# BLINK MECH ===============
+# BLINK COUNT ===============
 
 const MAX_BLINK := 3 # max amount of blink charges that can be held
 const BLINK_REFRESH_DURATION := 3 # time it takes to charge another blink
