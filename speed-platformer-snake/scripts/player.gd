@@ -3,17 +3,53 @@ extends CharacterBody2D
 
 ## PLAYER
 # child references
-@onready var texturerect := $TextureRect
+@onready var scarf := $Scarf
+@onready var scarf_box := $"scarf detector"
+@onready var texturerect := $sprite
+@onready var wall_detector := $"wall detector"
+@onready var blink_refresh_timer := $"blink refresh timer"
+
+# ready
+func _ready() -> void:
+	blink_refresh_timer.wait_time = BLINK_REFRESH_DURATION # set blink timer duration
 
 # SCARF ================
+
+const TARGET_SCARF_SPEED := 50
+const SCARF_DECELERATION := 70
+
+func check_in_scarf() -> bool: # check if overlapping with scarf via scarf box
+	for area in scarf_box.get_overlapping_areas(): # check each body
+		if area.get_parent().is_active: # only if that scarf is active
+			return true
+	return false
+
+func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
+	# if moving faster than max scarf speed, slowdown to scarf speed
+	if velocity.y > TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, TARGET_SCARF_SPEED, SCARF_DECELERATION)
+	if velocity.y < -TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, -TARGET_SCARF_SPEED, SCARF_DECELERATION)
+	if velocity.x > TARGET_SCARF_SPEED: velocity.x = move_toward(velocity.x, TARGET_SCARF_SPEED, SCARF_DECELERATION)
+	if velocity.x < -TARGET_SCARF_SPEED: velocity.x = move_toward(velocity.y, -TARGET_SCARF_SPEED, SCARF_DECELERATION)
+
+func scarf_increment(): # call scarf to increment lifespan
+	scarf.increment_node_lifespan()
 
 # BLINK MECH ===============
 
 const MAX_BLINK := 3 # max amount of blink charges that can be held
-var current_blink : int # current number of blinks on hand
+const BLINK_REFRESH_DURATION := 3 # time it takes to charge another blink
+var current_blink_count := MAX_BLINK # current number of blinks on hand
 
-func blinked_charge_update():
-	pass
+func _on_blink_refresh_timer_timeout() -> void:
+	if current_blink_count < MAX_BLINK: # if blinks are not full
+		current_blink_count += 1 # add blink charge
+	if current_blink_count < MAX_BLINK: # if still not full
+		blink_refresh_timer.start() # start timer
+
+func blinked_charge_update(): 
+	current_blink_count -= 1 # remove blink charge
+	if blink_refresh_timer.is_stopped(): # if refresh timer not going
+		blink_refresh_timer.start() # start timer
 
 # PICKUPS ===============
 
@@ -25,14 +61,12 @@ var pickup_type : Globals.PICKUP_TYPES # taken from pickup
 const SUGAR_DURATION := 8 # duration of sugar effect
 const SUGAR_SPEED := 500.0 # speed during sugar effect
 const SUGAR_JUMP := -500.0 # jump velocity during sugar effect
+const SUGAR_WALL_JUMP := -520 # wall jump velocity during sugar effect
 var sugar_active := false # sugar active flag
 var current_sugar_timer # reference to current sugar timer for refreshes
 # reset sugar flags
-var sugar_timeout := func(): sugar_active = false; current_sugar_timer = null; current_speed = BASE_SPEED; current_jump_velocity = BASE_JUMP_VELOCITY;
-
-
-
-signal pickup_update # whenever pickup get or used
+var sugar_timeout := func(): sugar_active = false; current_sugar_timer = null; current_speed = BASE_SPEED; current_jump_velocity = BASE_JUMP_VELOCITY; current_wall_jump_velocity = BASE_WALLJUMP_VELOCITY;
+# ... --
 
 # getter for pickup on hand
 func has_pickup():
@@ -45,7 +79,6 @@ func attempt_recieve_pickup(type) -> bool:
 	
 	pickup_on_hand = true # otherwise accept pickup
 	pickup_type = type # record type
-	pickup_update.emit(type) # exclaim
 	return true # and return true
 
 # called from process on input
@@ -62,7 +95,6 @@ func attempt_use_pickup():
 	# reset pickup held flags
 	pickup_on_hand = false 
 	pickup_type = Globals.PICKUP_TYPES.NULL
-	pickup_update.emit(pickup_type)
 
 func use_sugar():
 	# sugar refresh case
@@ -72,6 +104,7 @@ func use_sugar():
 	sugar_active = true # set sugar flag
 	current_speed = SUGAR_SPEED # set sugar speed
 	current_jump_velocity = SUGAR_JUMP # set sugar jump
+	current_wall_jump_velocity = SUGAR_WALL_JUMP # set sugar wall jump
 	current_sugar_timer = get_tree().create_timer(SUGAR_DURATION) # create and store timer
 	current_sugar_timer.timeout.connect(sugar_timeout) # after duration, disable sugar effects
 
@@ -96,6 +129,7 @@ func attempt_give_fuel() -> bool:
 		return false
 	# we have fuel so "give" it to the base
 	fuel_on_hand = false # lose fuel
+	scarf_increment() # fuel given, increment scarf
 	return true # tells base to recieve fuel
 
 # CONTROLLER ==============
@@ -129,7 +163,7 @@ var current_gravity := BASE_GRAVITY # current gravity used in physics_process
 
 # wall jump
 const BASE_WALLJUMP_VELOCITY := -400.0 # y velocity after wall jump
-const current_wall_jump_velocity := BASE_WALLJUMP_VELOCITY
+var current_wall_jump_velocity := BASE_WALLJUMP_VELOCITY
 const WALL_PUSHBACK_VELOCITY := 300 # x velocity after wall jump
 const WALLJUMP_IGNORE_DURATION := .15 # duration to ignore x input after wall jump
 var walljump_ignore_x := false # should ignore deceleration and run input?
@@ -227,6 +261,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += current_gravity * delta # apply gravity to y velocity
 	
 	# WALL JUMPING
+	
 	if is_on_wall_only() and (Input.is_action_just_pressed("jump") or jump_buffer): # on wall only and jumped (or jump buffered)
 		jump_buffer = false # reset jump buffer
 		velocity.y = current_wall_jump_velocity # set y velocity accordingly
@@ -252,7 +287,7 @@ func _physics_process(delta: float) -> void:
 	
 
 	# BLINKING
-	if Input.is_action_just_pressed("ability") and not blink_on_cooldown: # when blink input pressed and cooldown not active
+	if Input.is_action_just_pressed("ability") and not blink_on_cooldown and current_blink_count > 0: # when blink input pressed and cooldown not active and atleast one blink charge
 		# cooldown
 		blinked_charge_update() # tell blink management system that blink was used
 		blink_on_cooldown = true # start cooldown
@@ -283,6 +318,8 @@ func _physics_process(delta: float) -> void:
 			BLINK_OUT_VELOCITY * blink_vector.y)
 	
 	move_and_slide() # duh
+	
+	
 
 # PROCESS ====== (general use, call back up)
 
@@ -290,3 +327,7 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("use_item"): # when item button is pressed
 		attempt_use_pickup() # try to use item
+	
+	# scarf penalty
+	if check_in_scarf():
+		scarf_slowdown()

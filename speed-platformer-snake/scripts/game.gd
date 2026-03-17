@@ -13,12 +13,13 @@ var scene_manager
 @onready var background = $background
 
 # GAME DATA
-var day_count := 0 # score for how many days survived
+var day_count := 1 # score for how many days survived, start at one for day one
 
 func _ready() -> void:
 	# connect signals
 	level.base_recieved_fuel.connect(base_recieved_fuel)
-	player.connect("pickup_update", show_pickup, 1)
+	# set player reference
+	UI.player_ref = player
 
 func base_recieved_fuel():
 	increment_day_counter()
@@ -26,7 +27,3 @@ func base_recieved_fuel():
 func increment_day_counter():
 	day_count += 1 # inc day count
 	UI.update_day_count(day_count) # relay to UI
-
-
-func show_pickup(type : Globals.PICKUP_TYPES):
-	UI.show_pickup(type) # relay to UI

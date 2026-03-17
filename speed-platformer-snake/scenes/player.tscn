@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://476kcg0wdvdb" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://doh4ej1dpa4d6" path="res://assets/placeholder/player.png" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://cikfjfms70sbh" path="res://scenes/scarf.tscn" id="3_qhqgy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u8vuu"]
 radius = 8.0
@@ -9,14 +10,31 @@ radius = 8.0
 [node name="player" type="CharacterBody2D" unique_id=1759500252 groups=["player"]]
 script = ExtResource("1_3vyb7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=854408467]
+[node name="collision box" type="CollisionShape2D" parent="." unique_id=854408467]
 position = Vector2(0, -15)
 shape = SubResource("CapsuleShape2D_u8vuu")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1296139944]
+[node name="blink refresh timer" type="Timer" parent="." unique_id=803798667]
+wait_time = 5.0
+one_shot = true
+
+[node name="sprite" type="TextureRect" parent="." unique_id=1296139944]
 offset_left = -8.0
 offset_top = -32.0
 offset_right = 8.0
 texture = ExtResource("2_g2els")
 expand_mode = 1
 stretch_mode = 4
+
+[node name="Scarf" parent="." unique_id=539848075 instance=ExtResource("3_qhqgy")]
+
+[node name="scarf detector" type="Area2D" parent="." unique_id=1339937401]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="scarf box" type="CollisionShape2D" parent="scarf detector" unique_id=735355682]
+position = Vector2(0, -15)
+shape = SubResource("CapsuleShape2D_u8vuu")
+
+[connection signal="timeout" from="blink refresh timer" to="." method="_on_blink_refresh_timer_timeout"]

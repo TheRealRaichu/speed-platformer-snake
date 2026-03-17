@@ -1,6 +1,8 @@
 class_name Pickup
 extends Node2D
 
+## PICKUP
+
 # child references
 @onready var area = $Area2D # reference to area for player detection
 

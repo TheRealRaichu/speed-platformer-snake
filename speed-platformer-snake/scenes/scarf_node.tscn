@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dxftjigdk45r7"]
+
+[ext_resource type="Script" uid="uid://b1e2r7c85v2rw" path="res://scripts/scarf_node.gd" id="1_rmpgl"]
+
+[node name="ScarfNode" type="Line2D" unique_id=305474712]
+top_level = true
+script = ExtResource("1_rmpgl")

@@ -1,5 +1,7 @@
 extends Control
 
+## PICKUP INDICATOR
+# child references
 @onready var label := $Label
 
 # update indicator based on held pickup

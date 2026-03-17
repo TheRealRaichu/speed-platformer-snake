@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://sch5k12631xx"]
+
+[ext_resource type="Script" uid="uid://cjpkodimv5irw" path="res://scripts/charge indicator.gd" id="1_0s8vh"]
+
+[node name="charge indicator" type="Control" unique_id=658306353]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_0s8vh")
+
+[node name="charge 1" type="ColorRect" parent="." unique_id=729172965]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 16.00003
+offset_right = 41.390198
+offset_bottom = 55.99991
+scale = Vector2(0.95836574, 0.6000024)
+
+[node name="charge 2" type="ColorRect" parent="." unique_id=1902005440]
+layout_mode = 0
+offset_left = 48.00003
+offset_top = 16.00003
+offset_right = 81.3902
+offset_bottom = 55.99997
+scale = Vector2(0.95836574, 0.6000024)
+
+[node name="charge 3" type="ColorRect" parent="." unique_id=1243912464]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 16.0
+offset_right = 121.3902
+offset_bottom = 55.99994
+scale = Vector2(0.95836574, 0.6000024)

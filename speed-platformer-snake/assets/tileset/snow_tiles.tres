@@ -406,7 +406,7 @@ texture = ExtResource("1_uyvch")
 6:6/0/terrains_peering_bit/top_side = 0
 
 [resource]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 3
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Snow Tiles"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
