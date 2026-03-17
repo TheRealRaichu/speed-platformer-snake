@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dngkijbx275g6"]
+
+[ext_resource type="Script" uid="uid://b857gynkyw8li" path="res://scripts/door.gd" id="1_hpvv5"]
+[ext_resource type="TileSet" uid="uid://cc5fna00x7ehi" path="res://assets/tileset/snow_tiles.tres" id="2_uvdjg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5f452"]
+size = Vector2(16, 48)
+
+[node name="door" type="Node2D" unique_id=1406542479]
+script = ExtResource("1_hpvv5")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2024281613]
+offset_top = -48.0
+offset_right = 16.0
+color = Color(0.66245234, 0.66245234, 0.6624523, 1)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1596559190]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2053443636]
+position = Vector2(8, -24)
+shape = SubResource("RectangleShape2D_5f452")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1388518928]
+tile_set = ExtResource("2_uvdjg")

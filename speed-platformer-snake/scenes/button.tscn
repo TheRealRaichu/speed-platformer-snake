@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cukh6qf3i5aji"]
+
+[ext_resource type="Script" uid="uid://8m0ehb5w6vis" path="res://scripts/button.gd" id="1_mi6dp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4pas"]
+size = Vector2(32, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mi6dp"]
+size = Vector2(32, 16)
+
+[node name="button" type="Node2D" unique_id=1879702441]
+script = ExtResource("1_mi6dp")
+
+[node name="button" type="ColorRect" parent="." unique_id=966385019]
+offset_left = -8.0
+offset_top = -24.0
+offset_right = 8.0
+offset_bottom = -8.0
+color = Color(2.9841065e-06, 0.4890021, 0.56344724, 1)
+
+[node name="body" type="ColorRect" parent="." unique_id=811306257]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+
+[node name="indicator" type="ColorRect" parent="." unique_id=337889916]
+offset_left = -6.0
+offset_top = -14.0
+offset_right = 6.0
+offset_bottom = -2.0
+color = Color(1, 0, 0, 1)
+
+[node name="detector" type="Area2D" parent="." unique_id=1763917991]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detector" unique_id=1333416389]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_n4pas")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1678561983]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1384874462]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_mi6dp")
+
+[connection signal="body_entered" from="detector" to="." method="_on_detector_body_entered"]

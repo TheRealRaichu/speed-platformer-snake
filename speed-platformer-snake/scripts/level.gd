@@ -29,26 +29,33 @@ var pickup_rooms := [
 	preload("res://scenes/rooms/pickup_2.tscn"),
 ]
 
+# which room list is currently being used
+var active_room_list
 # use dict to track 3 types of rooms
 var previous_room := {} # track previous room so that you dont get 2 in a row
 
-
 func next_room():
-	clear_room()
-	var room_list
-	if Globals.day_count % 10 == 0: # if on tenth day of cycle
-		room_list = boss_rooms # room list is boss rooms
-	elif Globals.day_count % 5 == 0: # if on fifth day of cycle
-		room_list = pickup_rooms # room list is pickup rooms
-	else: # otherwise
-		room_list = rooms # set to default list of rooms
+	clear_room() # clear old room
+	pick_room_type() # select room type by day and chance
 	
-	var room = room_list.pick_random() # pick random room
-	while room == previous_room.get(room_list): # make sure room isn't duplicated
-		room = room_list.pick_random() # repick
-	previous_room[room_list] = room # room selected, update previous
+	var room = active_room_list.pick_random() # pick random room
+	while room == previous_room.get(active_room_list): # make sure room isn't duplicated
+		room = active_room_list.pick_random() # repick
+	previous_room[active_room_list] = room # room selected, update previous
 	
 	room_root.add_child(room.instantiate()) # add as child of room root
+
+# called from next room
+func pick_room_type():
+	# pick room type
+	if Globals.day_count % 10 == 0: # if on tenth day of cycle
+		active_room_list = boss_rooms # room list is boss rooms
+	elif randi_range(1, 5) == 1: # 1/5 chance for any non-boss room to be a pickup room
+		active_room_list = pickup_rooms # room list is pickup rooms
+	elif Globals.day_count % 5 == 0: # if on fifth day of cycle
+		active_room_list = pickup_rooms # room list is pickup rooms
+	else: # otherwise
+		active_room_list = rooms # set to default list of rooms
 
 func clear_room():
 	for child in room_root.get_children(): # clear all children of level

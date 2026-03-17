@@ -16,7 +16,8 @@ func _ready() -> void:
 # SCARF ================
 
 const TARGET_SCARF_SPEED := 20 # top speed while moving in scarf
-const SCARF_DECELERATION := 70 # rate at which you match that scarf speed
+const SCARF_DECELERATION := 70 # rate at which you match that scarf speed\
+var scarf_invincible := false
 
 func check_in_scarf() -> bool: # check if overlapping with scarf via scarf box
 	for area in scarf_box.get_overlapping_areas(): # check each body
@@ -25,7 +26,7 @@ func check_in_scarf() -> bool: # check if overlapping with scarf via scarf box
 	return false
 
 func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
-	if is_blinking: # dont apply during blink
+	if is_blinking or scarf_invincible: # dont apply during blink or invinciblity
 		return
 	# if moving faster than max scarf speed, slowdown to scarf speed
 	if velocity.y > TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, TARGET_SCARF_SPEED, SCARF_DECELERATION)
@@ -177,6 +178,7 @@ const BLINKING_VELOCITY := 600 # velocity while player is travelling in blink, a
 const BLINK_OUT_VELOCITY := 400 # amount of velocity set in blink direction after charge blink
 const BLINK_DURATION := .1 # how long blink takes from start to finish
 const BLINK_COOLDOWN := .5 # blink cooldown duration
+const BLINK_SCARF_I_DURATION := .25 # duration of being invincible to scarf after blink
 var is_blinking := false # ignore all other physics while true
 var blink_on_cooldown := false # is blink on cooldown?
 
@@ -313,6 +315,9 @@ func _physics_process(delta: float) -> void:
 		
 		# flag update
 		is_blinking = false # no longer blinking
+		scarf_invincible = true # post blink invincibility
+		# set timer to remove invincibility
+		get_tree().create_timer(BLINK_SCARF_I_DURATION).timeout.connect(func(): scarf_invincible = false) # start timer to end cooldown
 		
 		# set velocity
 		velocity = Vector2(
