@@ -13,6 +13,17 @@ extends CharacterBody2D
 func _ready() -> void:
 	blink_refresh_timer.wait_time = BLINK_REFRESH_DURATION # set blink timer duration
 
+# SOUND ===============
+
+const BASE_STEP_INTERVAL := .3 # time interval between step sounds
+var current_step_interval := BASE_STEP_INTERVAL
+var step_sound_on_cooldown := false # is the step noise on cooldown?
+
+func attempt_play_step_sound():
+	AudioManager.play("step") # play step
+	step_sound_on_cooldown = true # set cooldown flag
+	get_tree().create_timer(current_step_interval).timeout.connect(func(): step_sound_on_cooldown = false) # reset cooldown after timer
+
 # SCARF ================
 
 const TARGET_SCARF_SPEED := 20 # top speed while moving in scarf
@@ -65,10 +76,18 @@ const SUGAR_DURATION := 8 # duration of sugar effect
 const SUGAR_SPEED := 500.0 # speed during sugar effect
 const SUGAR_JUMP := -500.0 # jump velocity during sugar effect
 const SUGAR_WALL_JUMP := -520 # wall jump velocity during sugar effect
+const SUGAR_STEP_INTERVAL := .15
 var sugar_active := false # sugar active flag
 var current_sugar_timer # reference to current sugar timer for refreshes
 # reset sugar flags
-var sugar_timeout := func(): sugar_active = false; current_sugar_timer = null; current_speed = BASE_SPEED; current_jump_velocity = BASE_JUMP_VELOCITY; current_wall_jump_velocity = BASE_WALLJUMP_VELOCITY;
+var sugar_timeout := func(): 
+	sugar_active = false
+	current_sugar_timer = null
+	current_speed = BASE_SPEED
+	current_jump_velocity = BASE_JUMP_VELOCITY
+	current_wall_jump_velocity = BASE_WALLJUMP_VELOCITY
+	current_step_interval = BASE_STEP_INTERVAL
+	
 # ... --
 
 # getter for pickup on hand
@@ -108,6 +127,8 @@ func use_sugar():
 	current_speed = SUGAR_SPEED # set sugar speed
 	current_jump_velocity = SUGAR_JUMP # set sugar jump
 	current_wall_jump_velocity = SUGAR_WALL_JUMP # set sugar wall jump
+	current_step_interval = SUGAR_STEP_INTERVAL
+	# reset timer
 	current_sugar_timer = get_tree().create_timer(SUGAR_DURATION) # create and store timer
 	current_sugar_timer.timeout.connect(sugar_timeout) # after duration, disable sugar effects
 
@@ -326,6 +347,9 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide() # duh
 	
+	# STEPPING (SOUND)
+	if is_on_floor() and velocity.x and not step_sound_on_cooldown: # if moving on ground and step sound off cooldown
+		attempt_play_step_sound()
 	
 
 # PROCESS ====== (general use, call back up)
