@@ -25,7 +25,8 @@ var boss_rooms := [
 ]
 
 var pickup_rooms := [
-	preload("res://scenes/rooms/test_3.tscn"),
+	preload("res://scenes/rooms/pickup_1.tscn"),
+	preload("res://scenes/rooms/pickup_2.tscn"),
 ]
 
 # use dict to track 3 types of rooms
