@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cikfjfms70sbh"]
+
+[ext_resource type="Script" uid="uid://bbkyd8t6eel5x" path="res://scripts/scarf.gd" id="1_vi8wd"]
+
+[node name="Scarf" type="Node2D" unique_id=539848075]
+script = ExtResource("1_vi8wd")

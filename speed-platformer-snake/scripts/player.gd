@@ -3,6 +3,8 @@ extends CharacterBody2D
 
 ## PLAYER
 # child references
+@onready var scarf := $Scarf
+@onready var scarf_box := $"scarf detector"
 @onready var texturerect := $sprite
 @onready var wall_detector := $"wall detector"
 @onready var blink_refresh_timer := $"blink refresh timer"
@@ -12,6 +14,25 @@ func _ready() -> void:
 	blink_refresh_timer.wait_time = BLINK_REFRESH_DURATION # set blink timer duration
 
 # SCARF ================
+
+const TARGET_SCARF_SPEED := 50
+const SCARF_DECELERATION := 70
+
+func check_in_scarf() -> bool: # check if overlapping with scarf via scarf box
+	for area in scarf_box.get_overlapping_areas(): # check each body
+		if area.get_parent().is_active: # only if that scarf is active
+			return true
+	return false
+
+func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
+	# if moving faster than max scarf speed, slowdown to scarf speed
+	if velocity.y > TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, TARGET_SCARF_SPEED, SCARF_DECELERATION)
+	if velocity.y < -TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, -TARGET_SCARF_SPEED, SCARF_DECELERATION)
+	if velocity.x > TARGET_SCARF_SPEED: velocity.x = move_toward(velocity.x, TARGET_SCARF_SPEED, SCARF_DECELERATION)
+	if velocity.x < -TARGET_SCARF_SPEED: velocity.x = move_toward(velocity.y, -TARGET_SCARF_SPEED, SCARF_DECELERATION)
+
+func scarf_increment(): # call scarf to increment lifespan
+	scarf.increment_node_lifespan()
 
 # BLINK MECH ===============
 
@@ -108,6 +129,7 @@ func attempt_give_fuel() -> bool:
 		return false
 	# we have fuel so "give" it to the base
 	fuel_on_hand = false # lose fuel
+	scarf_increment() # fuel given, increment scarf
 	return true # tells base to recieve fuel
 
 # CONTROLLER ==============
@@ -296,6 +318,8 @@ func _physics_process(delta: float) -> void:
 			BLINK_OUT_VELOCITY * blink_vector.y)
 	
 	move_and_slide() # duh
+	
+	
 
 # PROCESS ====== (general use, call back up)
 
@@ -303,3 +327,7 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("use_item"): # when item button is pressed
 		attempt_use_pickup() # try to use item
+	
+	# scarf penalty
+	if check_in_scarf():
+		scarf_slowdown()

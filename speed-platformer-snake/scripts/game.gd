@@ -13,7 +13,7 @@ var scene_manager
 @onready var background = $background
 
 # GAME DATA
-var day_count := 0 # score for how many days survived
+var day_count := 1 # score for how many days survived, start at one for day one
 
 func _ready() -> void:
 	# connect signals

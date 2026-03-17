@@ -76,6 +76,7 @@ use_item={
 
 2d_physics/layer_1="base collision"
 2d_physics/layer_2="walljump"
+2d_physics/layer_3="scarf"
 
 [rendering]
 

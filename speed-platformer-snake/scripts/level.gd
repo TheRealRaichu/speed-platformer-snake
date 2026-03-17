@@ -31,7 +31,6 @@ func next_room():
 		room = rooms.pick_random() # repick
 	previous_room = room # room selected, update previous
 	
-	room = preload("res://scenes/rooms/test_3.tscn")
 	room_root.add_child(room.instantiate())
 
 func clear_room():

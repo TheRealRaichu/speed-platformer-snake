@@ -2,7 +2,6 @@
 
 [ext_resource type="TileSet" uid="uid://cc5fna00x7ehi" path="res://assets/tileset/snow_tiles.tres" id="1_fn7wp"]
 [ext_resource type="PackedScene" uid="uid://bhabbrhnkbcwb" path="res://scenes/pickup.tscn" id="2_f20ln"]
-[ext_resource type="PackedScene" uid="uid://g5s3jnkbsdnp" path="res://scenes/player.tscn" id="4_qptk8"]
 
 [node name="test_2" type="Node2D" unique_id=846762763]
 
@@ -13,6 +12,3 @@ tile_set = ExtResource("1_fn7wp")
 [node name="pickup" parent="." unique_id=768821429 instance=ExtResource("2_f20ln")]
 position = Vector2(600, 160)
 type = 1
-
-[node name="player" parent="." unique_id=1759500252 instance=ExtResource("4_qptk8")]
-position = Vector2(264, 232)

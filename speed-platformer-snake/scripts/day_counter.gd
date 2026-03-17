@@ -6,7 +6,7 @@ extends Control
 @onready var label = $Label
 
 func _ready() -> void:
-	update_label(0) # update on ready
+	update_label(1) # update on ready
 
 # set day count to given integer
 func set_day_count(day_count : int):
