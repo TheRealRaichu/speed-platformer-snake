@@ -19,7 +19,8 @@ func _ready() -> void:
 	level.base_received_fuel.connect(base_received_fuel)
 	level.base_died_out.connect(game_over)
 	# set player reference
-	UI.player_ref = player
+	UI.player = player
+	UI.base = level.base
 
 func game_over(): # called when campfire dies and by signal
 	player.die() # tell player to do death animation

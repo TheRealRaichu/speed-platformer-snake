@@ -6,12 +6,6 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_pvqg0"]
 radius = 64.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_baglu"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t45w4"]
-bg_color = Color(0.9223651, 0.48365545, 0, 1)
-
 [node name="base" type="Node2D" unique_id=1695991625]
 script = ExtResource("1_pvqg0")
 
@@ -35,15 +29,5 @@ offset_left = -16.0
 offset_top = -40.0
 offset_right = 24.0
 color = Color(0.21962553, 0.4457081, 1, 1)
-
-[node name="life bar" type="ProgressBar" parent="." unique_id=763591874]
-offset_left = -48.0
-offset_top = 2.0
-offset_right = 48.0
-offset_bottom = 6.0
-theme_override_styles/background = SubResource("StyleBoxFlat_baglu")
-theme_override_styles/fill = SubResource("StyleBoxFlat_t45w4")
-max_value = 1.0
-show_percentage = false
 
 [connection signal="timeout" from="life timer" to="." method="_on_life_timer_timeout"]

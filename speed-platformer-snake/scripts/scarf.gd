@@ -39,7 +39,7 @@ func reel():
 	# quickly kill all victims
 	while get_children(): # while children exist
 		kill_node() # kill them all
-		await get_tree().create_timer(0.0005).timeout # wait a small bit
+		await get_tree().create_timer(0.0001).timeout # wait a small bit
 
 func _physics_process(delta: float) -> void:
 	create_node() # create every tick
