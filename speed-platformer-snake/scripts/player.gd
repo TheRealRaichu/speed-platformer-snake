@@ -113,6 +113,14 @@ func attempt_use_pickup():
 			pass
 		Globals.PICKUP_TYPES.SUGAR:
 			use_sugar()
+		Globals.PICKUP_TYPES.SCARF_REELER:
+			use_reeler()
+		Globals.PICKUP_TYPES.PACKAGED_FUEL:
+			if not fuel_on_hand: # only if fuel not already on hand
+				use_packed_fuel()
+		Globals.PICKUP_TYPES.BLINK_RESTORE:
+			if current_blink_count < MAX_BLINK: # only if blinks are less than max
+				use_blink_restore()
 	
 	# reset pickup held flags
 	pickup_on_hand = false 
@@ -132,6 +140,15 @@ func use_sugar():
 	current_sugar_timer = get_tree().create_timer(SUGAR_DURATION) # create and store timer
 	current_sugar_timer.timeout.connect(sugar_timeout) # after duration, disable sugar effects
 
+func use_reeler():
+	scarf.reel() # tell scarf to reel back
+
+func use_packed_fuel():
+	recieve_fuel()
+
+func use_blink_restore():
+	current_blink_count = MAX_BLINK
+
 # FUEL ==================
 
 var fuel_on_hand := false # player is carrying fuel?
@@ -144,8 +161,11 @@ func has_fuel():
 func attempt_recieve_fuel() -> bool:
 	if fuel_on_hand: # if already has fuel
 		return false # don't accept it
-	fuel_on_hand = true # otherwise accept fuel
+	recieve_fuel() # otherwise accept fuel
 	return true # and return true
+
+func recieve_fuel():
+	fuel_on_hand = true
 
 # called from base, return true if fuel is had and can be given, false if not
 func attempt_give_fuel() -> bool:

@@ -15,3 +15,9 @@ tile_map_data = PackedByteArray("AAD//wAAAQACAAEAAAD//wEAAQACAAEAAAD//wIAAQACAAE
 tile_set = ExtResource("3_w8frs")
 
 [node name="roomroot" type="Node2D" parent="." unique_id=257807599]
+
+[node name="mask" type="ColorRect" parent="." unique_id=657882297]
+modulate = Color(1, 1, 1, 0)
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0, 0, 0, 1)
