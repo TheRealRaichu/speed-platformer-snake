@@ -15,18 +15,20 @@ func _ready() -> void:
 
 # list of room preloads, are randomly selected from
 var rooms := [
-	preload("res://scenes/rooms/test_1.tscn"),
+	# regular
+	preload("res://scenes/rooms/regular/room_1.tscn"),
 	preload("res://scenes/rooms/test_2.tscn"),
+	# doors
 ]
 
 var boss_rooms := [
-	preload("res://scenes/rooms/blue_fire_1.tscn"),
-	preload("res://scenes/rooms/blue_fire_2.tscn"),
+	preload("res://scenes/rooms/blue_fire/blue_fire_1.tscn"),
+	preload("res://scenes/rooms/blue_fire/blue_fire_2.tscn"),
 ]
 
 var pickup_rooms := [
-	preload("res://scenes/rooms/pickup_1.tscn"),
-	preload("res://scenes/rooms/pickup_2.tscn"),
+	preload("res://scenes/rooms/pickup/sugar_1.tscn"),
+	preload("res://scenes/rooms/pickup/sugar_2.tscn"),
 ]
 
 # which room list is currently being used

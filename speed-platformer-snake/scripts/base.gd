@@ -6,9 +6,10 @@ extends Node2D
 @onready var life_timer := $"life timer" # reference to Timer to count life through round
 # temp blue indicator
 @onready var blue_fire := $ColorRect
+@onready var life_bar := $"life bar"
 
 const REG_LIFESPAN := 10 # time in seconds per level
-const BOSS_LIFESPAN := 15 # time in seconds per boss level
+const BOSS_LIFESPAN := 18 # time in seconds per boss level
 
 # success checks
 var is_blue_fire := false
@@ -66,3 +67,10 @@ func _process(delta: float) -> void:
 		if body.attempt_give_fuel(): # returns true if player has fuel
 			recieve_fuel() # continue in function
 		break # there will only be one player, so quit looking
+
+	
+	# set modulate of campfire to timer ratio
+	$texture.modulate.a = lerp(0.0, 1.0, life_timer_remaining_ratio())
+	
+	# set life bar percentage
+	life_bar.value = life_timer_remaining_ratio()
