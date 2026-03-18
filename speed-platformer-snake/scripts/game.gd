@@ -14,7 +14,6 @@ var scene_manager
 
 # GAME DATA
 
-
 func _ready() -> void:
 	# connect signals
 	level.base_received_fuel.connect(base_received_fuel)
