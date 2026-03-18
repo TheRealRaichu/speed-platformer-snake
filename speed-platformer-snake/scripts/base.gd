@@ -9,7 +9,7 @@ extends Node2D
 @onready var life_bar := $"life bar"
 
 const REG_LIFESPAN := 10 # time in seconds per level
-const BOSS_LIFESPAN := 18 # time in seconds per boss level
+const BOSS_LIFESPAN := 19 # time in seconds per boss level
 
 # success checks
 var is_blue_fire := false
@@ -23,6 +23,7 @@ func _ready() -> void:
 
 # called from process, when player is in range and has fuel
 func recieve_fuel():
+	AudioManager.play("campfire")
 	current_fuel_count += 1
 	check_success()
 

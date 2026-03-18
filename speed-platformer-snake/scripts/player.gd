@@ -135,7 +135,7 @@ func attempt_use_pickup():
 	pickup_type = Globals.PICKUP_TYPES.NULL
 
 func use_sugar():
-	AudioManager.play("usesugar") # play sugar use noise
+	AudioManager.play("usesugar", -5) # play sugar use noise
 	# sugar refresh case
 	if sugar_active: # if sugar already active
 		current_sugar_timer.timeout.disconnect(sugar_timeout) # disconnect old timer
