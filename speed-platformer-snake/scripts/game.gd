@@ -14,7 +14,6 @@ var scene_manager
 
 # GAME DATA
 
-
 func _ready() -> void:
 	# connect signals
 	level.base_received_fuel.connect(base_received_fuel)
@@ -23,7 +22,8 @@ func _ready() -> void:
 	UI.player_ref = player
 
 func game_over(): # called when campfire dies and by signal
-	#await get_tree().create_timer(2) # give time for player freeze animation and campfire smoke
+	player.die() # tell player to do death animation
+	await get_tree().create_timer(2).timeout # give time for player freeze animation and campfire smoke
 	scene_manager.game_over()
 
 func base_received_fuel():

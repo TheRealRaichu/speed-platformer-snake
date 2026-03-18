@@ -18,6 +18,9 @@ func show_pickup(type : Globals.PICKUP_TYPES):
 	pickup_indicator.show_pickup(type) 
 
 func _process(delta: float) -> void:
+	if not player_ref: # wait on player ref
+		return
+	
 	show_pickup(player_ref.pickup_type) # keep pickup counter updated
 	
 	# charges
