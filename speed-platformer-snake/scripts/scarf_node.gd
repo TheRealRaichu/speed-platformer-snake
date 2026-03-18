@@ -8,9 +8,7 @@ var activation_time : float # time it takes to activate
 var lifespan : float # total time alive
 # status
 var activate := func(): is_active = true; self.default_color = Color.PURPLE
-var is_active := false 
-# reeling
-var reeling_victim := false # will be removed by reel pickup activated
+var is_active := false
 
 signal lifespan_over # when should die, ask manager to kill it
 

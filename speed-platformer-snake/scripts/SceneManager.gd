@@ -3,17 +3,24 @@ extends Node
 ## Manager for SceneRoot
 
 # SCENE REFERENCES
-const main_menu_scene := preload("res://scenes/main_menu.tscn")
-const game_scene := preload("res://scenes/game.tscn") 
+const SCENES := {
+	"main_menu" : preload("res://scenes/main_menu.tscn"),
+	"game" : preload("res://scenes/game.tscn"),
+	"game_over" : preload("res://scenes/game_over.tscn"),
+
+}
 
 ## initialize game
 func _ready() -> void:
 	clear_child_scenes() # ensure no children
 	# load into main menu
-	switch_scene(main_menu_scene)
+	switch_scene(SCENES.get("main_menu"))
 
 func start_game(): # called from main menu
-	switch_scene(game_scene)
+	switch_scene(SCENES.get("game"))
+
+func game_over():
+	switch_scene(SCENES.get("game_over"))
 
 func switch_scene(scene : Variant):
 	clear_child_scenes()

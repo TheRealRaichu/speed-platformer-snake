@@ -121,6 +121,14 @@ func attempt_use_pickup():
 			pass
 		Globals.PICKUP_TYPES.SUGAR:
 			use_sugar()
+		Globals.PICKUP_TYPES.SCARF_REELER:
+			use_reeler()
+		Globals.PICKUP_TYPES.PACKAGED_FUEL:
+			if not fuel_on_hand: # only if fuel not already on hand
+				use_packed_fuel()
+		Globals.PICKUP_TYPES.BLINK_RESTORE:
+			if current_blink_count < MAX_BLINK: # only if blinks are less than max
+				use_blink_restore()
 	
 	# reset pickup held flags
 	pickup_on_hand = false 
@@ -163,7 +171,7 @@ func has_fuel():
 func attempt_recieve_fuel() -> bool:
 	if fuel_on_hand: # if already has fuel
 		return false # don't accept it
-	fuel_on_hand = true # otherwise accept fuel
+	recieve_fuel() # otherwise accept fuel
 	return true # and return true
 
 func recieve_fuel():

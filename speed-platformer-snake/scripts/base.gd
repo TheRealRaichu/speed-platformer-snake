@@ -16,6 +16,7 @@ var is_blue_fire := false
 var current_fuel_count := 0
 
 signal fuel_received
+signal died_out
 
 func _ready() -> void:
 	life_timer.start(REG_LIFESPAN) # begin life timer
@@ -55,8 +56,9 @@ func become_reg_fire():
 func life_timer_remaining_ratio() -> float:
 	return life_timer.time_left/life_timer.wait_time 
 
-func _on_life_timer_timeout() -> void:
-	pass # GAME OVER
+func _on_life_timer_timeout() -> void: # GAME OVER
+	died_out.emit() # tell everyone campfire died
+	
 
 func _process(delta: float) -> void:
 	
@@ -67,7 +69,6 @@ func _process(delta: float) -> void:
 		if body.attempt_give_fuel(): # returns true if player has fuel
 			recieve_fuel() # continue in function
 		break # there will only be one player, so quit looking
-
 	
 	# set modulate of campfire to timer ratio
 	$texture.modulate.a = lerp(0.0, 1.0, life_timer_remaining_ratio())

@@ -34,5 +34,12 @@ func kill_node(): # remove node from front and kill it
 	var node = nodes.pop_front()
 	node.die()
 
+# reel scarf back, called from player
+func reel():
+	# quickly kill all victims
+	while get_children(): # while children exist
+		kill_node() # kill them all
+		await get_tree().create_timer(0.0005).timeout # wait a small bit
+
 func _physics_process(delta: float) -> void:
 	create_node() # create every tick

@@ -17,6 +17,7 @@ var scene_manager
 func _ready() -> void:
 	# connect signals
 	level.base_received_fuel.connect(base_received_fuel)
+	level.base_died_out.connect(game_over)
 	# set player reference
 	UI.player_ref = player
 
