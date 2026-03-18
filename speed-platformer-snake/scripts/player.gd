@@ -13,6 +13,14 @@ extends CharacterBody2D
 func _ready() -> void:
 	blink_refresh_timer.wait_time = BLINK_REFRESH_DURATION # set blink timer duration
 
+# GAME OVER ===========
+
+var dying := false # is currently in dying animation, diables physics
+
+func die():
+	dying = true # set flag
+	AudioManager.play("death") # play death sound
+
 # SOUND ===============
 
 const BASE_STEP_INTERVAL := .3 # time interval between step sounds
@@ -113,12 +121,21 @@ func attempt_use_pickup():
 			pass
 		Globals.PICKUP_TYPES.SUGAR:
 			use_sugar()
+		Globals.PICKUP_TYPES.SCARF_REELER:
+			use_reeler()
+		Globals.PICKUP_TYPES.PACKAGED_FUEL:
+			if not fuel_on_hand: # only if fuel not already on hand
+				use_packed_fuel()
+		Globals.PICKUP_TYPES.BLINK_RESTORE:
+			if current_blink_count < MAX_BLINK: # only if blinks are less than max
+				use_blink_restore()
 	
 	# reset pickup held flags
 	pickup_on_hand = false 
 	pickup_type = Globals.PICKUP_TYPES.NULL
 
 func use_sugar():
+	AudioManager.play("usesugar") # play sugar use noise
 	# sugar refresh case
 	if sugar_active: # if sugar already active
 		current_sugar_timer.timeout.disconnect(sugar_timeout) # disconnect old timer
@@ -132,6 +149,16 @@ func use_sugar():
 	current_sugar_timer = get_tree().create_timer(SUGAR_DURATION) # create and store timer
 	current_sugar_timer.timeout.connect(sugar_timeout) # after duration, disable sugar effects
 
+func use_reeler():
+	scarf.reel() # tell scarf to reel back
+
+func use_packed_fuel():
+	recieve_fuel()
+
+func use_blink_restore():
+	AudioManager.play("blinkrestore") # play blink restore use noise
+	current_blink_count = MAX_BLINK # reset blinks
+
 # FUEL ==================
 
 var fuel_on_hand := false # player is carrying fuel?
@@ -144,16 +171,23 @@ func has_fuel():
 func attempt_recieve_fuel() -> bool:
 	if fuel_on_hand: # if already has fuel
 		return false # don't accept it
-	fuel_on_hand = true # otherwise accept fuel
+	recieve_fuel() # otherwise accept fuel
 	return true # and return true
+
+func recieve_fuel():
+	fuel_on_hand = true
+
+func give_fuel():
+	AudioManager.play("fueldeposit", -5) # play fuel deposit noise
+	fuel_on_hand = false # lose fuel
+	scarf_increment() # fuel given, increment scarf
 
 # called from base, return true if fuel is had and can be given, false if not
 func attempt_give_fuel() -> bool:
 	if !fuel_on_hand: # doesn't have fuel?
 		return false
 	# we have fuel so "give" it to the base
-	fuel_on_hand = false # lose fuel
-	scarf_increment() # fuel given, increment scarf
+	give_fuel()
 	return true # tells base to recieve fuel
 
 # CONTROLLER ==============
@@ -213,9 +247,12 @@ func reset_jump_attributes():
 	current_gravity = BASE_GRAVITY # reset gravity
 
 func _physics_process(delta: float) -> void:
+	if dying: # if flag
+		return # freeze physics
 	if is_blinking: # if currently in blink
 		move_and_slide()
 		return
+	
 	# MOVEMENT
 	# TAKE INPUT DIRECTIONS
 	var horizontal_direction := Input.get_axis("move_left", "move_right") # get horizontal axis input
@@ -263,6 +300,7 @@ func _physics_process(delta: float) -> void:
 	
 	# base jump if on floor
 	if (is_on_floor() or coyote_buffer) and (Input.is_action_just_pressed("jump") or jump_buffer):
+		AudioManager.play("jump", -5) # play jump noise
 		jump_buffer = false # reset jump buffer
 		velocity.y = current_jump_velocity # apply jump velocity
 		is_jump = true # currently jumping
