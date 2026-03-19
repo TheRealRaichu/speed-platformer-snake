@@ -19,27 +19,23 @@ func _ready() -> void:
 
 var current_room # current room loaded by level
 
+# loads rooms from directory specified
+func load_rooms_from_dir(path: String) -> Array:
+	var result := []
+	var dir := DirAccess.open(path)
+	if dir:
+		dir.list_dir_begin()
+		var file := dir.get_next()
+		while file != "":
+			if file.ends_with(".tscn"):
+				result.append(load(path + "/" + file))
+			file = dir.get_next()
+	return result
+
 # list of room preloads, are randomly selected from
-var rooms := [
-	# regular
-	#preload("res://scenes/rooms/regular/room_1.tscn"),
-	#preload("res://scenes/rooms/test_2.tscn"),
-	# doors
-
-	## For Testing
-	preload("res://scenes/rooms/Testing/test_4.tscn"),
-	preload("res://scenes/rooms/Testing/test_3.tscn"),
-]
-
-var boss_rooms := [
-	preload("res://scenes/rooms/blue_fire/blue_fire_1.tscn"),
-	preload("res://scenes/rooms/blue_fire/blue_fire_2.tscn"),
-]
-
-var pickup_rooms := [
-	preload("res://scenes/rooms/pickup/sugar_1.tscn"),
-	preload("res://scenes/rooms/pickup/sugar_2.tscn"),
-]
+var rooms := load_rooms_from_dir("res://scenes/rooms/regular")
+var boss_rooms := load_rooms_from_dir("res://scenes/rooms/blue_fire")
+var pickup_rooms := load_rooms_from_dir("res://scenes/rooms/pickup")
 
 # which room list is currently being used
 var active_room_list

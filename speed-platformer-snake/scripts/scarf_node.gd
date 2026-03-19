@@ -15,6 +15,9 @@ var is_active := false
 signal lifespan_over # when should die, ask manager to kill it
 
 func _ready() -> void:
+	# initialize timers
+	get_tree().create_timer(activation_time, false).timeout.connect(activate)
+	get_tree().create_timer(lifespan, false).timeout.connect(lifespan_over.emit)
 	# Moved and edited the initialzied timers into _process to be able to pause the scarf once used.
 	init_hitbox()
 

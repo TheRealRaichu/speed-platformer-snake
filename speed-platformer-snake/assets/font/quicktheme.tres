@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://c7qmg3irhyxb7"]
+
+[ext_resource type="FontFile" uid="uid://bd5rkgn5d5465" path="res://assets/font/yoster.ttf" id="1_6jg7x"]
+
+[resource]
+default_font = ExtResource("1_6jg7x")
