@@ -41,5 +41,9 @@ func reel():
 		kill_node() # kill them all
 		await get_tree().create_timer(0.0001, false).timeout # wait a small bit
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
+	# Freezes the scarf
+	if get_tree().paused:
+		return
+	
 	create_node() # create every tick

@@ -6,6 +6,8 @@ var collision_box
 # timers
 var activation_time : float # time it takes to activate
 var lifespan : float # total time alive
+var elapsed_time : float # time passed since the scarf node spawned
+
 # status
 var activate := func(): is_active = true; self.default_color = Color.PURPLE
 var is_active := false
@@ -16,7 +18,17 @@ func _ready() -> void:
 	# initialize timers
 	get_tree().create_timer(activation_time, false).timeout.connect(activate)
 	get_tree().create_timer(lifespan, false).timeout.connect(lifespan_over.emit)
+	# Moved and edited the initialzied timers into _process to be able to pause the scarf once used.
 	init_hitbox()
+
+# Pauses the lifepsan and activation timers of the scarf when player pauses the game
+func _process(delta: float) -> void:
+	# Creates a timer
+	elapsed_time += delta
+	if not is_active and elapsed_time >= activation_time: # If both true, then can run the activation of the scarf. If not, then pauses the scarf.
+		activate.call()
+	if elapsed_time >= lifespan: # If true, then continue running. False pauses the lifespan of the scarf.
+		lifespan_over.emit()
 
 func init_hitbox():
 	# initialize hitbox

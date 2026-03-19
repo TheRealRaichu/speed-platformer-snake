@@ -29,6 +29,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel") and not scene_manager.is_paused: # esc pressed, pause
 		var pause_inst = PAUSE_MENU.instantiate()
 		pause_inst.scene_manager = scene_manager
+		pause_inst.player = player
 		add_child(pause_inst)
 
 # Have Option to restart the game

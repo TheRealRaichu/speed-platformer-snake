@@ -71,9 +71,6 @@ mouse_filter = 2
 theme = ExtResource("2_r33we")
 text = "Quit"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1923561675]
-libraries/ = SubResource("AnimationLibrary_k5gjg")
-
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
