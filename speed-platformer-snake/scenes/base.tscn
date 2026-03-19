@@ -22,6 +22,7 @@ texture = ExtResource("2_baglu")
 
 [node name="life timer" type="Timer" parent="." unique_id=1754869928]
 wait_time = 10.0
+one_shot = true
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1617747557]
 visible = false

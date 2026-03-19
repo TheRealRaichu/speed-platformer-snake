@@ -19,6 +19,7 @@ const SOUNDS := {
 	"back" : "res://assets/sfx/menu/backbutton.wav",
 }
 
+# create and configure audio stream for this sound effect
 func play(sound : String, volume_db: float = 0.0):
 	var player := AudioStreamPlayer.new()
 	add_child(player)

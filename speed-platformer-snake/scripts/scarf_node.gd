@@ -14,8 +14,8 @@ signal lifespan_over # when should die, ask manager to kill it
 
 func _ready() -> void:
 	# initialize timers
-	get_tree().create_timer(activation_time).timeout.connect(activate)
-	get_tree().create_timer(lifespan).timeout.connect(lifespan_over.emit)
+	get_tree().create_timer(activation_time, false).timeout.connect(activate)
+	get_tree().create_timer(lifespan, false).timeout.connect(lifespan_over.emit)
 	init_hitbox()
 
 func init_hitbox():
