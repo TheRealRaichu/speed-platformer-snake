@@ -28,8 +28,9 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"): # esc pressed
 		var pause_inst = PAUSE_MENU.instantiate()
 		pause_inst.scene_manager = scene_manager
+		pause_inst.player = player
 		add_child(pause_inst)
-		get_tree().paused = true
+		pause_inst.pause()
 
 # Have Option to restart the game
 func game_over(): # called when campfire dies and by signal

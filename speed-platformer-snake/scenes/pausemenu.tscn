@@ -20,6 +20,7 @@ process_mode = 3
 script = ExtResource("1_k5gjg")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=864970074]
+z_index = 8
 offset_left = 272.0
 offset_top = 122.0
 offset_right = 351.0
