@@ -7,7 +7,6 @@ const SCENES := {
 	"main_menu" : preload("res://scenes/main_menu.tscn"),
 	"game" : preload("res://scenes/game.tscn"),
 	"game_over" : preload("res://scenes/game_over.tscn"),
-
 }
 
 ## initialize game
@@ -31,9 +30,3 @@ func switch_scene(scene : Variant):
 func clear_child_scenes():
 	for child in get_children():
 		child.queue_free()
-
-func _process(_delta: float) -> void:
-	
-	# temp before pause menu
-	if Input.is_action_just_pressed("ui_cancel"): # esc pressed
-		get_tree().quit() # quit game
