@@ -39,7 +39,7 @@ func _on_restart_pressed() -> void:
 ## Quits to menu
 func _on_quit_pressed() -> void: 
 	resume()
-	scene_manager.switch_scene(scene_manager.SCENES.get("game"))
+	scene_manager.switch_scene(scene_manager.SCENES.get("main_menu"))
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
