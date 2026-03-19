@@ -25,6 +25,10 @@ var rooms := [
 	preload("res://scenes/rooms/regular/room_1.tscn"),
 	preload("res://scenes/rooms/test_2.tscn"),
 	# doors
+
+	## For Testing
+	#preload("res://scenes/rooms/Testing/test_4.tscn"),
+	#preload("res://scenes/rooms/Testing/test_3.tscn"),
 ]
 
 var boss_rooms := [
