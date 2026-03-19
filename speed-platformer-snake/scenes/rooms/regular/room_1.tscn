@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://divpgsltq3qr8"]
+[gd_scene format=4 uid="uid://brat56gyxwucw"]
 
 [ext_resource type="TileSet" uid="uid://cc5fna00x7ehi" path="res://assets/tileset/snow_tiles.tres" id="1_2dgkb"]
 [ext_resource type="PackedScene" uid="uid://bhabbrhnkbcwb" path="res://scenes/pickup.tscn" id="2_op4xm"]

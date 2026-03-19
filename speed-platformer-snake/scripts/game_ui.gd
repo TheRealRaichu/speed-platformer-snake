@@ -6,22 +6,26 @@ extends Control
 @onready var day_counter := $"day counter"
 @onready var pickup_indicator := $"pickup indicator"
 @onready var charge_indicator := $"charge indicator"
+@onready var life_bar := $"life bar"
 
-var player_ref : Player # set from Game
+var player : Player # set from Game
+var base # set from Game
 
 # day count relay from game to day counter
 func update_day_count():
-	day_counter.set_day_count(Globals.day_count)
+	day_counter.set_day_count(Globals.day_count, base.recent_quick_success)
 
 # show pickup relay from game to pickup indicator
 func show_pickup(type : Globals.PICKUP_TYPES):
 	pickup_indicator.show_pickup(type) 
 
-func _process(delta: float) -> void:
-	if not player_ref: # wait on player ref
-		return
+
+func _process(_delta: float) -> void:
 	
-	show_pickup(player_ref.pickup_type) # keep pickup counter updated
+	show_pickup(player.pickup_type) # keep pickup counter updated
 	
 	# charges
-	charge_indicator.allign_charges(player_ref.current_blink_count)
+	charge_indicator.allign_charges(player.current_blink_count)
+	
+	# set life bar percentage
+	life_bar.value = base.life_timer_remaining_ratio()

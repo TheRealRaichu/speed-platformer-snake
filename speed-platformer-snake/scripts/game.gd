@@ -12,6 +12,9 @@ var scene_manager
 @onready var UI = $"Game UI"
 @onready var background = $background
 
+# references to scenes
+const PAUSE_MENU = preload("res://scenes/pausemenu.tscn")
+
 # GAME DATA
 
 func _ready() -> void:
@@ -19,15 +22,24 @@ func _ready() -> void:
 	level.base_received_fuel.connect(base_received_fuel)
 	level.base_died_out.connect(game_over)
 	# set player reference
-	UI.player_ref = player
+	UI.player = player
+	UI.base = level.base
 
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("ui_cancel") and not scene_manager.is_paused: # esc pressed, pause
+		var pause_inst = PAUSE_MENU.instantiate()
+		pause_inst.scene_manager = scene_manager
+		pause_inst.player = player
+		add_child(pause_inst)
+
+# Have Option to restart the game
 func game_over(): # called when campfire dies and by signal
 	player.die() # tell player to do death animation
 	await get_tree().create_timer(2).timeout # give time for player freeze animation and campfire smoke
 	scene_manager.game_over()
 
 func base_received_fuel():
-	increment_day_counter()
+	increment_day_counter() # inc day counter after signal
 
 func increment_day_counter():
 	UI.update_day_count() # relay to UI

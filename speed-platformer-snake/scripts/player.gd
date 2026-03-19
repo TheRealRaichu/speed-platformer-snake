@@ -5,13 +5,23 @@ extends CharacterBody2D
 # child references
 @onready var scarf := $Scarf
 @onready var scarf_box := $"scarf detector"
-@onready var texturerect := $sprite
-@onready var wall_detector := $"wall detector"
+@onready var anim_sprite := $AnimatedSprite2D
 @onready var blink_refresh_timer := $"blink refresh timer"
+
 
 # ready
 func _ready() -> void:
 	blink_refresh_timer.wait_time = BLINK_REFRESH_DURATION # set blink timer duration
+
+# ANIMATION HANDLER ======
+
+var no_interrupt := false
+
+func play_anim(animation_name : String): # get animation from process
+	# suffix fuel status for player
+	if has_fuel(): animation_name += "_has_fuel"
+	else: animation_name += "_no_fuel"
+	anim_sprite.play(animation_name)
 
 # GAME OVER ===========
 
@@ -19,7 +29,10 @@ var dying := false # is currently in dying animation, diables physics
 
 func die():
 	dying = true # set flag
-	AudioManager.play("death") # play death sound
+	# play appropriate freeze animation
+	if is_on_floor(): play_anim("freeze_ground")
+	else: play_anim("freeze_fall")
+	AudioManager.play("deathfreeze") # play death sound
 
 # SOUND ===============
 
@@ -36,13 +49,16 @@ func attempt_play_step_sound():
 
 const TARGET_SCARF_SPEED := 20 # top speed while moving in scarf
 const SCARF_DECELERATION := 70 # rate at which you match that scarf speed\
-var scarf_invincible := false
+var scarf_invincible := false # is invincible to scarf?
+var is_in_scarf := false # is currently in scarf?
 
 func check_in_scarf() -> bool: # check if overlapping with scarf via scarf box
 	for area in scarf_box.get_overlapping_areas(): # check each body
 		if area.get_parent().is_active: # only if that scarf is active
-			return true
-	return false
+			is_in_scarf = true
+			return is_in_scarf
+	is_in_scarf = false
+	return is_in_scarf
 
 func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
 	if is_blinking or scarf_invincible: # dont apply during blink or invinciblity
@@ -55,8 +71,6 @@ func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
 
 func scarf_increment(): # call scarf to increment lifespan
 	scarf.increment_node_lifespan()
-
-# BLINK COUNT ===============
 
 const MAX_BLINK := 3 # max amount of blink charges that can be held
 const BLINK_REFRESH_DURATION := 3 # time it takes to charge another blink
@@ -135,7 +149,7 @@ func attempt_use_pickup():
 	pickup_type = Globals.PICKUP_TYPES.NULL
 
 func use_sugar():
-	AudioManager.play("usesugar") # play sugar use noise
+	AudioManager.play("usesugar", -5) # play sugar use noise
 	# sugar refresh case
 	if sugar_active: # if sugar already active
 		current_sugar_timer.timeout.disconnect(sugar_timeout) # disconnect old timer
@@ -150,13 +164,14 @@ func use_sugar():
 	current_sugar_timer.timeout.connect(sugar_timeout) # after duration, disable sugar effects
 
 func use_reeler():
+	AudioManager.play("usescarfreeler", 3) # play blink restore use noise
 	scarf.reel() # tell scarf to reel back
 
 func use_packed_fuel():
 	recieve_fuel()
 
 func use_blink_restore():
-	AudioManager.play("blinkrestore") # play blink restore use noise
+	AudioManager.play("useblinkrestore") # play blink restore use noise
 	current_blink_count = MAX_BLINK # reset blinks
 
 # FUEL ==================
@@ -175,10 +190,11 @@ func attempt_recieve_fuel() -> bool:
 	return true # and return true
 
 func recieve_fuel():
+	AudioManager.play("fuelpickup") # play fuel pickup noise
 	fuel_on_hand = true
 
 func give_fuel():
-	AudioManager.play("fueldeposit", -5) # play fuel deposit noise
+	AudioManager.play("fueldeposit", -2) # play fuel deposit noise
 	fuel_on_hand = false # lose fuel
 	scarf_increment() # fuel given, increment scarf
 
@@ -225,13 +241,13 @@ var current_wall_jump_velocity := BASE_WALLJUMP_VELOCITY
 const WALL_PUSHBACK_VELOCITY := 300 # x velocity after wall jump
 const WALLJUMP_IGNORE_DURATION := .15 # duration to ignore x input after wall jump
 var walljump_ignore_x := false # should ignore deceleration and run input?
-var wall_slide := false # is sliding on wall?
+var is_wall_slide := false # is sliding on wall?
 const WALL_SLIDE_Y_VELOCITY := 100 # target velocity when sliding down a wall
 
 # blink
-const BLINKING_VELOCITY := 600 # velocity while player is travelling in blink, affects blink distance
+const BLINKING_VELOCITY := 500 # velocity while player is travelling in blink, affects blink distance
 const BLINK_OUT_VELOCITY := 400 # amount of velocity set in blink direction after charge blink
-const BLINK_DURATION := .1 # how long blink takes from start to finish
+const BLINK_DURATION := .15 # how long blink takes from start to finish
 const BLINK_COOLDOWN := .5 # blink cooldown duration
 const BLINK_SCARF_I_DURATION := .25 # duration of being invincible to scarf after blink
 var is_blinking := false # ignore all other physics while true
@@ -248,7 +264,13 @@ func reset_jump_attributes():
 
 func _physics_process(delta: float) -> void:
 	if dying: # if flag
-		return # freeze physics
+		# gravity and decelerate
+		velocity.y += current_gravity * delta # apply gravity to y velocity
+		velocity.x = move_toward(velocity.x, 0, GROUND_ACCEL if is_on_floor() else AIR_ACCEL) # decelerate to 0, taken from part below
+		if is_on_floor() and (not anim_sprite.is_playing() or anim_sprite.animation == "freeze_fall"): # be grounded and await death animation finish
+			play_anim("fainted") # ends both air and ground fainting animations
+		move_and_slide() # duh
+		return # dont do anything else
 	if is_blinking: # if currently in blink
 		move_and_slide()
 		return
@@ -257,10 +279,6 @@ func _physics_process(delta: float) -> void:
 	# TAKE INPUT DIRECTIONS
 	var horizontal_direction := Input.get_axis("move_left", "move_right") # get horizontal axis input
 	var vertical_direction := Input.get_axis("move_up", "move_down") # get vertical axis input
-	
-	# FACING
-	if horizontal_direction:
-		texturerect.flip_h = false if horizontal_direction < 0 else true 
 	
 	# BUFFERING
 	# rightward
@@ -300,7 +318,7 @@ func _physics_process(delta: float) -> void:
 	
 	# base jump if on floor
 	if (is_on_floor() or coyote_buffer) and (Input.is_action_just_pressed("jump") or jump_buffer):
-		AudioManager.play("jump", -5) # play jump noise
+		AudioManager.play("jump", -7) # play jump noise
 		jump_buffer = false # reset jump buffer
 		velocity.y = current_jump_velocity # apply jump velocity
 		is_jump = true # currently jumping
@@ -309,23 +327,10 @@ func _physics_process(delta: float) -> void:
 			if Input.is_action_pressed("jump") and is_jump and not jump_released and not fast_fall: # only if jump is still held and was never released and not in fast fall during jump
 				current_gravity = HELD_APEX_GRAVITY) # set gravity to apex gravity
 	
-	# releasing while in jump makes you fall REALLY FAST
-	if Input.is_action_just_released("jump") and is_jump: # if are jumping and jump was released
-		jump_released = true # flag for jump key has been released
-		current_gravity = RELEASE_GRAVITY # adjust gravity accordingly
-	
-	# FAST FALL
-	if not is_on_floor() and Input.is_action_pressed("ui_down"):
-		fast_fall = true
-		current_gravity = FAST_FALL_GRAVITY
-	
-	# GRAVITY
-	if not is_on_floor():
-		velocity.y += current_gravity * delta # apply gravity to y velocity
-	
 	# WALL JUMPING
-	
-	if is_on_wall_only() and (Input.is_action_just_pressed("jump") or jump_buffer): # on wall only and jumped (or jump buffered)
+	# put on elif to avoid duplicate jumps
+	elif is_on_wall_only() and (Input.is_action_just_pressed("jump") or jump_buffer): # on wall only and jumped (or jump buffered)
+		AudioManager.play("walljump", 2) # play jump noise
 		jump_buffer = false # reset jump buffer
 		velocity.y = current_wall_jump_velocity # set y velocity accordingly
 		# set flags for wall jump
@@ -339,18 +344,35 @@ func _physics_process(delta: float) -> void:
 		# create timer to reset ignore flag after ignore duration
 		get_tree().create_timer(WALLJUMP_IGNORE_DURATION).timeout.connect(func(): walljump_ignore_x = false)
 	
-	# check if wall sliding
-	if is_on_wall_only() and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
-		wall_slide = true
-	else:
-		wall_slide = false
+	# JUMP RELEASE
+	if Input.is_action_just_released("jump") and is_jump: # if are jumping and jump was released
+		jump_released = true # flag for jump key has been released
+		current_gravity = RELEASE_GRAVITY # adjust gravity accordingly
 	
-	if wall_slide and velocity.y > 0: # if wall sliding downward 
+	# FAST FALL
+	if not is_on_floor() and Input.is_action_pressed("ui_down"):
+		fast_fall = true
+		current_gravity = FAST_FALL_GRAVITY
+	
+	# GRAVITY
+	if not is_on_floor():
+		velocity.y += current_gravity * delta # apply gravity to y velocity
+	
+	# WALL SLIDING
+	if is_on_wall_only() and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
+		is_wall_slide = true # set flag
+	else:
+		is_wall_slide = false # set flag
+	AudioManager.play_wall_slide(is_wall_slide) # play audio accodingly
+	
+	 
+	if is_wall_slide and velocity.y > 0: # if wall sliding downward 
 		velocity.y = move_toward(velocity.y, WALL_SLIDE_Y_VELOCITY, 50)  # move toward wall sliding speed 
 	
 
 	# BLINKING
 	if Input.is_action_just_pressed("ability") and not blink_on_cooldown and current_blink_count > 0: # when blink input pressed and cooldown not active and atleast one blink charge
+		AudioManager.play("blink") # play audio
 		# cooldown
 		blinked_charge_update() # tell blink management system that blink was used
 		blink_on_cooldown = true # start cooldown
@@ -365,12 +387,12 @@ func _physics_process(delta: float) -> void:
 		velocity = blink_vector*BLINKING_VELOCITY # set velocity during blink
 		is_blinking = true # mark player as blinking
 		
-		# animate
-		#self.visible = false # disappear (will be animation later)
+		no_interrupt = true # mark as unanimatable
+		play_anim("blink_in") # play in animation
 		
 		await get_tree().create_timer(BLINK_DURATION).timeout
 		
-		self.visible = true # come back
+		play_anim("blink_out") # play out animation
 		
 		# flag update
 		is_blinking = false # no longer blinking
@@ -382,21 +404,61 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2(
 			BLINK_OUT_VELOCITY * blink_vector.x,
 			BLINK_OUT_VELOCITY * blink_vector.y)
-	
-	move_and_slide() # duh
-	
-	# STEPPING (SOUND)
-	if is_on_floor() and velocity.x and not step_sound_on_cooldown: # if moving on ground and step sound off cooldown
-		attempt_play_step_sound()
-	
-
-# PROCESS ====== (general use, call back up)
-
-func _process(delta: float) -> void:
-	
-	if Input.is_action_just_pressed("use_item"): # when item button is pressed
-		attempt_use_pickup() # try to use item
+		
+		# finish blink out animation and mark as animatable
+		await anim_sprite.animation_finished
+		no_interrupt = false
 	
 	# scarf penalty
 	if check_in_scarf():
-		scarf_slowdown()
+		scarf_slowdown() # enact scarf penalty
+	AudioManager.scarf_collision_playing = true if is_in_scarf else false # set scarf collision noise depending on if in scarf
+	
+	
+	move_and_slide() # duh
+	
+	# SOUND
+	# stepping
+	if is_on_floor() and velocity.x and not step_sound_on_cooldown: # if moving on ground and step sound off cooldown
+		attempt_play_step_sound()
+	
+	# ANIMATION PROCESS
+	# ordered by precedence (e.g. check tangle after run)
+	# facing
+	if horizontal_direction:
+		anim_sprite.flip_h = false if horizontal_direction < 0 else true
+	# don't interrupt
+	if not no_interrupt:
+		# blink in
+		if is_blinking:
+			pass # handled in blink controller
+		# death pass
+		elif dying:
+			pass
+		# tangled in scarf
+		elif is_in_scarf:
+			play_anim("tangled")
+		# wall slide
+		elif is_wall_slide:
+			play_anim("wall_slide")
+		# jump rise
+		elif velocity.y < 0 and not is_on_floor():
+			play_anim("jump_rise")
+		# jump fall
+		elif velocity.y > 0 and not is_on_floor():
+			play_anim("jump_fall")
+		# run
+		elif horizontal_direction:
+			play_anim("run")
+		# idle
+		elif not velocity.x and is_on_floor(): # if "idle"
+			play_anim("idle")
+		# DEATH IS HANDLED IN THE die() FUNCTION AND AT THE TOP OF PHYSICS PROCESS
+
+
+# PROCESS ====== (general use, call back up)
+
+func _process(_delta: float) -> void:
+	
+	if Input.is_action_just_pressed("use_item"): # when item button is pressed
+		attempt_use_pickup() # try to use item

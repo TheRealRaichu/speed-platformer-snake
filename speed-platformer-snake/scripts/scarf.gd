@@ -7,8 +7,8 @@ var node_scene := preload("res://scenes/scarf_node.tscn")
 
 # node properties
 var NODE_ACTIVATION_TIME := 1 # time to activate in seconds
-var NODE_LIFESPAN := 2 # total lifespan of a node, determines length of scarf
-var NODE_LIFESPAN_INCREMENT := .1 # amount of time to increment node lifespan by
+var NODE_LIFESPAN := 1.5 # total lifespan of a node, determines length of scarf
+var NODE_LIFESPAN_INCREMENT := .2 # amount of time to increment node lifespan by
 const NODE_POS_OFFSET = Vector2(0, -16)
 
 # manager properties
@@ -39,7 +39,11 @@ func reel():
 	# quickly kill all victims
 	while get_children(): # while children exist
 		kill_node() # kill them all
-		await get_tree().create_timer(0.0005).timeout # wait a small bit
+		await get_tree().create_timer(0.0001, false).timeout # wait a small bit
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
+	# Freezes the scarf
+	if get_tree().paused:
+		return
+	
 	create_node() # create every tick

@@ -5,6 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://bjvlppq5mr4ye" path="res://scenes/pickup_indicator.tscn" id="3_u2dgd"]
 [ext_resource type="PackedScene" uid="uid://sch5k12631xx" path="res://scenes/charge indicator.tscn" id="4_u2dgd"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2dgd"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bt76a"]
+bg_color = Color(0.9223651, 0.48365545, 0, 1)
+
 [node name="Game UI" type="Control" unique_id=421787168]
 layout_mode = 3
 anchors_preset = 15
@@ -33,3 +39,14 @@ offset_left = 256.0
 offset_top = 316.0
 offset_right = 256.0
 offset_bottom = 316.0
+
+[node name="life bar" type="ProgressBar" parent="." unique_id=876191967]
+layout_mode = 0
+offset_left = 272.0
+offset_top = 324.0
+offset_right = 368.0
+offset_bottom = 328.0
+theme_override_styles/background = SubResource("StyleBoxFlat_u2dgd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bt76a")
+max_value = 1.0
+show_percentage = false
