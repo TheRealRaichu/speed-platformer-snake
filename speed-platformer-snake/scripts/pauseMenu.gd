@@ -1,5 +1,6 @@
 extends Control
 var scene_manager
+var player
 
 ## PAUSE MENU
 # child reference
@@ -15,13 +16,19 @@ func resume():
 	scene_manager.is_paused = false
 	get_tree().paused = false
 
+# Get Reference to scarf and pause the scarg movement temporarily
 func pause():
 	scene_manager.is_paused = true
+	if player:
+		player.scarf_pause(true)
 	get_tree().paused = true
 
 ## Continue the game
 func _on_continue_pressed() -> void:
 	resume()
+	if player:
+		player.scarf_pause(false)
+	get_tree().paused = false
 	queue_free()
 
 ## Restart game

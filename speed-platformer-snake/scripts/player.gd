@@ -56,7 +56,14 @@ func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
 func scarf_increment(): # call scarf to increment lifespan
 	scarf.increment_node_lifespan()
 
-# BLINK COUNT ===============
+func scarf_pause(paused: bool) -> void:
+	# pause player movement and inputs
+	set_physics_process(not paused)
+	set_process(not paused)
+	
+	# pause scarf
+	scarf.set_physics_process(not paused)
+	scarf.set_process(not paused)
 
 const MAX_BLINK := 3 # max amount of blink charges that can be held
 const BLINK_REFRESH_DURATION := 3 # time it takes to charge another blink
@@ -392,7 +399,7 @@ func _physics_process(delta: float) -> void:
 
 # PROCESS ====== (general use, call back up)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("use_item"): # when item button is pressed
 		attempt_use_pickup() # try to use item
