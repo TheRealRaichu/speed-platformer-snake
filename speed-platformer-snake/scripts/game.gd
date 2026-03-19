@@ -22,15 +22,15 @@ func _ready() -> void:
 	level.base_received_fuel.connect(base_received_fuel)
 	level.base_died_out.connect(game_over)
 	# set player reference
-	UI.player_ref = player
+	UI.player = player
+	UI.base = level.base
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_cancel"): # esc pressed
+	if Input.is_action_just_pressed("ui_cancel") and not scene_manager.is_paused: # esc pressed, pause
 		var pause_inst = PAUSE_MENU.instantiate()
 		pause_inst.scene_manager = scene_manager
 		pause_inst.player = player
 		add_child(pause_inst)
-		pause_inst.pause()
 
 # Have Option to restart the game
 func game_over(): # called when campfire dies and by signal
@@ -39,7 +39,7 @@ func game_over(): # called when campfire dies and by signal
 	scene_manager.game_over()
 
 func base_received_fuel():
-	increment_day_counter()
+	increment_day_counter() # inc day counter after signal
 
 func increment_day_counter():
 	UI.update_day_count() # relay to UI

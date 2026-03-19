@@ -12,12 +12,14 @@ const SOUNDS := {
 	"usesugar" : "res://assets/sfx/game/usesugar.mp3",
 	"fueldeposit" : "res://assets/sfx/game/fueldeposit.wav",
 	"blinkrestore" : "res://assets/sfx/game/blinkrestore.wav",
+	"campfire" : "res://assets/sfx/game/campfire.mp3",
 	# menu
 	"nav" : "res://assets/sfx/menu/navigation.wav",
 	"select" : "res://assets/sfx/menu/select.wav",
 	"back" : "res://assets/sfx/menu/backbutton.wav",
 }
 
+# create and configure audio stream for this sound effect
 func play(sound : String, volume_db: float = 0.0):
 	var player := AudioStreamPlayer.new()
 	add_child(player)

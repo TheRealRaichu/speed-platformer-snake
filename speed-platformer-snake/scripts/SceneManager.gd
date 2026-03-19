@@ -2,6 +2,8 @@ extends Node
 
 ## Manager for SceneRoot
 
+var is_paused := false # pause menu open?
+
 # SCENE REFERENCES
 const SCENES := {
 	"main_menu" : preload("res://scenes/main_menu.tscn"),
