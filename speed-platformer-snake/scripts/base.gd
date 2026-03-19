@@ -72,7 +72,7 @@ func _on_life_timer_timeout() -> void: # GAME OVER
 	died_out.emit() # tell everyone campfire died
 	
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	# check if player is in area
 	for body in area.get_overlapping_bodies(): # check all overlapping bodies

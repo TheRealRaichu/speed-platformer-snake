@@ -6,7 +6,6 @@ extends CharacterBody2D
 @onready var scarf := $Scarf
 @onready var scarf_box := $"scarf detector"
 @onready var anim_sprite := $AnimatedSprite2D
-@onready var wall_detector := $"wall detector"
 @onready var blink_refresh_timer := $"blink refresh timer"
 
 
@@ -73,19 +72,9 @@ func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
 func scarf_increment(): # call scarf to increment lifespan
 	scarf.increment_node_lifespan()
 
-func scarf_pause(paused: bool) -> void:
-	# pause player movement and inputs
-	set_physics_process(not paused)
-	set_process(not paused)
-	
-	# pause scarf
-	scarf.set_physics_process(not paused)
-	scarf.set_process(not paused)
-
 const MAX_BLINK := 3 # max amount of blink charges that can be held
 const BLINK_REFRESH_DURATION := 3 # time it takes to charge another blink
 var current_blink_count := MAX_BLINK # current number of blinks on hand
-signal blink_over # signal for when blink finishes, used for animations, called from process
 
 func _on_blink_refresh_timer_timeout() -> void:
 	if current_blink_count < MAX_BLINK: # if blinks are not full
@@ -435,7 +424,6 @@ func _physics_process(delta: float) -> void:
 	
 	# ANIMATION PROCESS
 	# ordered by precedence (e.g. check tangle after run)
-	var was_blinking := false
 	# facing
 	if horizontal_direction:
 		anim_sprite.flip_h = false if horizontal_direction < 0 else true

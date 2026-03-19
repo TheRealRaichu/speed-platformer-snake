@@ -52,7 +52,7 @@ func play_wall_slide(playing : bool):
 func play_scarf_reeler(playing : bool):
 	scarf_collision_playing = playing # set flag
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# wall slide player
 	if wall_slide_playing and not wall_slide_player.playing: # if should be playing and isn't
 		wall_slide_player.play() # play
