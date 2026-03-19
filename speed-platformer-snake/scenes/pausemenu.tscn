@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://di52sumstvfi3" path="res://scripts/pauseMenu.gd" id="1_k5gjg"]
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_r33we"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r33we"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [sub_resource type="Animation" id="Animation_1tq2b"]
 resource_name = "PauseEnter"
 length = 0.001
@@ -24,27 +27,20 @@ anchors_preset = 0
 script = ExtResource("1_k5gjg")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=864970074]
-visible = false
 layout_mode = 0
 offset_left = 272.0
 offset_top = 128.0
 offset_right = 368.0
-offset_bottom = 219.0
+offset_bottom = 256.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_r33we")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=89715535]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1923561675]
-libraries/ = SubResource("AnimationLibrary_k5gjg")
-
-[node name="Continue" type="Button" parent="." unique_id=1349178131]
-layout_mode = 0
-offset_left = 272.0
-offset_top = 128.0
-offset_right = 368.0
-offset_bottom = 160.0
+[node name="Continue" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1349178131]
+layout_mode = 2
 size_flags_vertical = 3
 focus_neighbor_bottom = NodePath("../Restart")
 focus_next = NodePath("../Restart")
@@ -54,12 +50,8 @@ theme = ExtResource("2_r33we")
 button_mask = 0
 text = "Continue"
 
-[node name="Restart" type="Button" parent="." unique_id=1566292456]
-layout_mode = 0
-offset_left = 272.0
-offset_top = 160.0
-offset_right = 368.0
-offset_bottom = 192.0
+[node name="Restart" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1566292456]
+layout_mode = 2
 size_flags_vertical = 3
 focus_neighbor_top = NodePath("../Continue")
 focus_neighbor_bottom = NodePath("../Quit")
@@ -69,12 +61,8 @@ mouse_filter = 2
 theme = ExtResource("2_r33we")
 text = "Restart"
 
-[node name="Quit" type="Button" parent="." unique_id=489824200]
-layout_mode = 0
-offset_left = 272.0
-offset_top = 192.0
-offset_right = 368.0
-offset_bottom = 224.0
+[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer" unique_id=489824200]
+layout_mode = 2
 size_flags_vertical = 3
 focus_neighbor_top = NodePath("../Restart")
 focus_next = NodePath("../Continue")
@@ -83,6 +71,9 @@ mouse_filter = 2
 theme = ExtResource("2_r33we")
 text = "Quit"
 
-[connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]
-[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1923561675]
+libraries/ = SubResource("AnimationLibrary_k5gjg")
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
