@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dyw4obfopi6ch"]
+
+[ext_resource type="Script" uid="uid://durwu3r0lxlo2" path="res://scripts/MusicManager.gd" id="1_k17rw"]
+[ext_resource type="AudioStream" uid="uid://bnr2q2tv1kqip" path="res://assets/music/freeze timing - drum and bass.mp3" id="2_mvbrv"]
+[ext_resource type="AudioStream" uid="uid://3r5qlcis22dm" path="res://assets/music/freeze timing - piano.mp3" id="3_i3r22"]
+[ext_resource type="AudioStream" uid="uid://dvh1s2bgnn0ny" path="res://assets/music/freeze timing - backing.mp3" id="4_wh65u"]
+
+[node name="MusicManager" type="Node" unique_id=15124038]
+script = ExtResource("1_k17rw")
+
+[node name="drums_bass" type="AudioStreamPlayer" parent="." unique_id=709933937]
+stream = ExtResource("2_mvbrv")
+autoplay = true
+parameters/looping = true
+
+[node name="piano" type="AudioStreamPlayer" parent="." unique_id=12973461]
+stream = ExtResource("3_i3r22")
+parameters/looping = true
+
+[node name="backing" type="AudioStreamPlayer" parent="." unique_id=996553648]
+stream = ExtResource("4_wh65u")
+parameters/looping = true

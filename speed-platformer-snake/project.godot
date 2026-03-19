@@ -23,6 +23,7 @@ config/icon="res://assets/icon.svg"
 
 Globals="*uid://cfvsi8e68huy3"
 AudioManager="*uid://bqbc4lrwk44fn"
+MusicManager="*uid://dyw4obfopi6ch"
 
 [display]
 
