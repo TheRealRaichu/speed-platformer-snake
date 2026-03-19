@@ -18,7 +18,11 @@ func _ready() -> void:
 	load_sounds_from_dir("res://assets/sfx/menu")
 	# load sounds for special streams
 	wall_slide_player.stream = load(SOUNDS.get("wallslide"))
+	wall_slide_player.volume_db = 2
+	add_child(wall_slide_player)
 	scarf_collision_player.stream = load(SOUNDS.get("scarfcollision"))
+	scarf_collision_player.volume_db = 4
+	add_child(scarf_collision_player)
 
 # loads all sound effects and creates dictionary on startup, courtesy of claude ai 
 func load_sounds_from_dir(path: String) -> void:

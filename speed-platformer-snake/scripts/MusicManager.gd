@@ -10,7 +10,12 @@ enum STATE {
 	GAME_OVER,   # piano only
 }
 
-const FADE_DURATION := 2.0 # crossfade time between states
+const FADE_DURATION := 1.0 # crossfade time between states
+const PAUSE_FADE_DURATION := 0.3
+var target_volume := 1.0
+
+const MUSIC_BUS := "Music"
+const LOWPASS_EFFECT_IDX := 0 # index of the lowpass effect on the bus
 
 # stem players
 @onready var piano := $piano
@@ -23,9 +28,10 @@ func _ready() -> void:
 	drums_bass.play()
 	elements.play()
 	# start silent
-	piano.volume_db = linear_to_db(0.0)
+	piano.volume_db = linear_to_db(target_volume)
 	drums_bass.volume_db = linear_to_db(0.0)
-	elements.volume_db = linear_to_db(0.0)
+	elements.volume_db = linear_to_db(target_volume)
+	set_paused(false) # set not paused
 
 func set_state(state: STATE) -> void:
 	match state:
@@ -45,3 +51,9 @@ func set_state(state: STATE) -> void:
 func fade(player: AudioStreamPlayer, target_volume: float) -> void:
 	var tween := create_tween()
 	tween.tween_property(player, "volume_db", linear_to_db(target_volume) if target_volume > 0 else -80.0, FADE_DURATION).set_trans(Tween.TRANS_SINE)
+
+func set_paused(paused: bool) -> void:
+	var bus_idx := AudioServer.get_bus_index(MUSIC_BUS)
+	var effect := AudioServer.get_bus_effect(bus_idx, LOWPASS_EFFECT_IDX) as AudioEffectLowPassFilter
+	var tween := create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.tween_property(effect, "cutoff_hz", 500.0 if paused else 20500.0, PAUSE_FADE_DURATION)

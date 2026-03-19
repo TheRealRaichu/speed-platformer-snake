@@ -13,11 +13,13 @@ func _ready() -> void:
 	pause() # pause game
 
 func resume():
+	MusicManager.set_paused(false)
 	scene_manager.is_paused = false
 	get_tree().paused = false
 
 # Get Reference to scarf and pause the scarg movement temporarily
 func pause():
+	MusicManager.set_paused(true)
 	scene_manager.is_paused = true
 	if player:
 		player.scarf_pause(true)

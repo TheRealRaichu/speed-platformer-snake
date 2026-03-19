@@ -30,7 +30,7 @@ func _ready() -> void:
 
 # called from process, when player is in range and has fuel
 func recieve_fuel():
-	AudioManager.play("campfire")
+	AudioManager.play("campfire", 3)
 	current_fuel_count += 1
 	check_success()
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bc1m13m64yhfx"]
 
-[ext_resource type="Script" uid="uid://bldstivarsngb" path="res://scenes/menu_button.gd" id="1_xsssc"]
+[ext_resource type="Script" uid="uid://bldstivarsngb" path="res://scripts/menu_button.gd" id="1_xsssc"]
 
 [node name="MenuButton" type="Button" unique_id=1943041356]
 offset_right = 8.0

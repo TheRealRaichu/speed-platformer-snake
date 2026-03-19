@@ -205,7 +205,7 @@ func recieve_fuel():
 	fuel_on_hand = true
 
 func give_fuel():
-	AudioManager.play("fueldeposit", -5) # play fuel deposit noise
+	AudioManager.play("fueldeposit", -2) # play fuel deposit noise
 	fuel_on_hand = false # lose fuel
 	scarf_increment() # fuel given, increment scarf
 
@@ -422,7 +422,9 @@ func _physics_process(delta: float) -> void:
 	
 	# scarf penalty
 	if check_in_scarf():
-		scarf_slowdown()
+		scarf_slowdown() # enact scarf penalty
+	AudioManager.scarf_collision_playing = true if is_in_scarf else false # set scarf collision noise depending on if in scarf
+	
 	
 	move_and_slide() # duh
 	
