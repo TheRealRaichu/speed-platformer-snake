@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dpbf48iijvff5" path="res://scripts/mainMenu.gd" id="1_l6cm7"]
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_ekxnf"]
+[ext_resource type="Script" uid="uid://bldstivarsngb" path="res://scripts/menu_button.gd" id="3_bqqt6"]
 
 [node name="mainMenu" type="Control" unique_id=1836141774]
 layout_mode = 3
@@ -10,33 +11,60 @@ script = ExtResource("1_l6cm7")
 
 [node name="Game Title" type="Label" parent="." unique_id=1262799951]
 layout_mode = 0
-offset_left = 2.0
-offset_top = 18.0
-offset_right = 322.0
-offset_bottom = 210.0
+offset_top = 16.0
+offset_right = 320.0
+offset_bottom = 51.0
 scale = Vector2(2, 2)
 theme = ExtResource("2_ekxnf")
 theme_type_variation = &"HeaderLarge"
-text = "Game Title"
+theme_override_font_sizes/font_size = 32
+text = "Threadrunner"
 horizontal_alignment = 1
 
-[node name="start game" type="Button" parent="." unique_id=703194764]
+[node name="start game" type="Button" parent="." unique_id=1698580644]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 146.0
-offset_right = 120.0
-offset_bottom = 234.0
+offset_left = 32.0
+offset_top = 144.0
+offset_right = 128.0
+offset_bottom = 184.0
+focus_neighbor_bottom = NodePath("../how to play")
+focus_next = NodePath("../how to play")
+focus_previous = NodePath("../quit game")
 theme = ExtResource("2_ekxnf")
+button_mask = 0
 text = "START"
+script = ExtResource("3_bqqt6")
+metadata/_custom_type_script = "uid://bldstivarsngb"
 
-[node name="quit game" type="Button" parent="." unique_id=203337305]
+[node name="how to play" type="Button" parent="." unique_id=1617542420]
 layout_mode = 0
-offset_left = 9.0
-offset_top = 247.0
-offset_right = 121.0
-offset_bottom = 335.0
+offset_left = 24.0
+offset_top = 184.0
+offset_right = 138.0
+offset_bottom = 232.0
+focus_neighbor_top = NodePath("../start game")
+focus_neighbor_bottom = NodePath("../quit game")
+focus_next = NodePath("../quit game")
+focus_previous = NodePath("../start game")
+theme = ExtResource("2_ekxnf")
+text = "HOW TO PLAY"
+script = ExtResource("3_bqqt6")
+metadata/_custom_type_script = "uid://bldstivarsngb"
+
+[node name="quit game" type="Button" parent="." unique_id=184044242]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 232.0
+offset_right = 128.0
+offset_bottom = 272.0
+focus_neighbor_top = NodePath("../how to play")
+focus_next = NodePath("../start game")
+focus_previous = NodePath("../how to play")
 theme = ExtResource("2_ekxnf")
 text = "QUIT"
+script = ExtResource("3_bqqt6")
+metadata/_custom_type_script = "uid://bldstivarsngb"
 
 [connection signal="pressed" from="start game" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="how to play" to="." method="_on_how_to_play_pressed"]
 [connection signal="pressed" from="quit game" to="." method="_on_quit_game_pressed"]

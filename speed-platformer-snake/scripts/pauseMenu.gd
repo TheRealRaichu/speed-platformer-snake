@@ -4,9 +4,9 @@ var player
 
 ## PAUSE MENU
 # child reference
-@onready var continue_button := $PanelContainer/VBoxContainer/Continue
-@onready var restart_button := $PanelContainer/VBoxContainer/Restart
-@onready var quit_button := $PanelContainer/VBoxContainer/Quit
+@onready var continue_button := $Continue
+@onready var restart_button := $Restart
+@onready var quit_button := $Quit
 
 func _ready() -> void:
 	continue_button.grab_focus() # continue button takes focus for key navigation

@@ -2,22 +2,7 @@
 
 [ext_resource type="Script" uid="uid://di52sumstvfi3" path="res://scripts/pauseMenu.gd" id="1_k5gjg"]
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_r33we"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r33we"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="Animation" id="Animation_1tq2b"]
-resource_name = "PauseEnter"
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_k5gjg"]
-length = 0.001
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_k5gjg"]
-_data = {
-&"PauseEnter": SubResource("Animation_1tq2b"),
-&"RESET": SubResource("Animation_k5gjg")
-}
+[ext_resource type="Script" uid="uid://bldstivarsngb" path="res://scripts/menu_button.gd" id="3_8ljkb"]
 
 [node name="PauseMenu" type="Control" unique_id=1585469177]
 process_mode = 3
@@ -26,21 +11,12 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_k5gjg")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=864970074]
+[node name="Continue" type="Button" parent="." unique_id=1608239532]
 layout_mode = 0
 offset_left = 272.0
 offset_top = 128.0
 offset_right = 368.0
-offset_bottom = 256.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_r33we")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=89715535]
-layout_mode = 2
-theme_override_constants/separation = 4
-alignment = 1
-
-[node name="Continue" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1349178131]
-layout_mode = 2
+offset_bottom = 168.0
 size_flags_vertical = 3
 focus_neighbor_bottom = NodePath("../Restart")
 focus_next = NodePath("../Restart")
@@ -49,9 +25,15 @@ mouse_filter = 2
 theme = ExtResource("2_r33we")
 button_mask = 0
 text = "Continue"
+script = ExtResource("3_8ljkb")
+metadata/_custom_type_script = "uid://bldstivarsngb"
 
-[node name="Restart" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1566292456]
-layout_mode = 2
+[node name="Restart" type="Button" parent="." unique_id=1678923840]
+layout_mode = 0
+offset_left = 272.0
+offset_top = 168.0
+offset_right = 368.0
+offset_bottom = 208.0
 size_flags_vertical = 3
 focus_neighbor_top = NodePath("../Continue")
 focus_neighbor_bottom = NodePath("../Quit")
@@ -60,9 +42,15 @@ focus_previous = NodePath("../Continue")
 mouse_filter = 2
 theme = ExtResource("2_r33we")
 text = "Restart"
+script = ExtResource("3_8ljkb")
+metadata/_custom_type_script = "uid://bldstivarsngb"
 
-[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer" unique_id=489824200]
-layout_mode = 2
+[node name="Quit" type="Button" parent="." unique_id=1225490070]
+layout_mode = 0
+offset_left = 272.0
+offset_top = 208.0
+offset_right = 368.0
+offset_bottom = 248.0
 size_flags_vertical = 3
 focus_neighbor_top = NodePath("../Restart")
 focus_next = NodePath("../Continue")
@@ -70,7 +58,9 @@ focus_previous = NodePath("../Restart")
 mouse_filter = 2
 theme = ExtResource("2_r33we")
 text = "Quit"
+script = ExtResource("3_8ljkb")
+metadata/_custom_type_script = "uid://bldstivarsngb"
 
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

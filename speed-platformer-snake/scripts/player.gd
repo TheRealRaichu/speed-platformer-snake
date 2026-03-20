@@ -48,8 +48,7 @@ func attempt_play_step_sound():
 # SCARF ================
 
 const TARGET_SCARF_SPEED := 30 # top speed while moving in scarf
-const HORIZONTAL_SCARF_DECELERATION := 180 # rate at which you match that scarf speed
-const VERTICAL_SCARF_DECELERATION := 180 # rate at which you match that scarf speed
+const SCARF_DECELERATION := 1000 # rate at which you match that scarf speed
 var scarf_invincible := false # is invincible to scarf?
 var is_in_scarf := false # is currently in scarf?
 
@@ -65,10 +64,10 @@ func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
 	if is_blinking or scarf_invincible: # dont apply during blink or invinciblity
 		return
 	# if moving faster than max scarf speed, slowdown to scarf speed
-	if velocity.y > TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, TARGET_SCARF_SPEED, VERTICAL_SCARF_DECELERATION)
-	if velocity.y < -TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, -TARGET_SCARF_SPEED, VERTICAL_SCARF_DECELERATION)
-	if velocity.x > TARGET_SCARF_SPEED: velocity.x = move_toward(velocity.x, TARGET_SCARF_SPEED, HORIZONTAL_SCARF_DECELERATION)
-	if velocity.x < -TARGET_SCARF_SPEED: velocity.x = move_toward(velocity.x, -TARGET_SCARF_SPEED, HORIZONTAL_SCARF_DECELERATION)
+	if velocity.y > TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, TARGET_SCARF_SPEED, SCARF_DECELERATION)
+	if velocity.y < -TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, -TARGET_SCARF_SPEED, SCARF_DECELERATION)
+	if velocity.x > TARGET_SCARF_SPEED: velocity.x = move_toward(velocity.x, TARGET_SCARF_SPEED, SCARF_DECELERATION)
+	if velocity.x < -TARGET_SCARF_SPEED: velocity.x = move_toward(velocity.x, -TARGET_SCARF_SPEED, SCARF_DECELERATION)
 
 func scarf_increment(): # call scarf to increment lifespan
 	scarf.increment_node_lifespan()
@@ -375,7 +374,6 @@ func _physics_process(delta: float) -> void:
 	 
 	if is_wall_slide and velocity.y > 0: # if wall sliding downward 
 		velocity.y = move_toward(velocity.y, WALL_SLIDE_Y_VELOCITY, 50)  # move toward wall sliding speed 
-	
 
 	# BLINKING
 	if Input.is_action_just_pressed("ability") and not blink_on_cooldown and current_blink_count > 0: # when blink input pressed and cooldown not active and atleast one blink charge
