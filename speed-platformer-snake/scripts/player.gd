@@ -159,6 +159,7 @@ func use_sugar():
 func use_reeler():
 	scarf.reel() # tell scarf to reel back
 
+# Check if it works
 func use_packed_fuel():
 	recieve_fuel()
 
