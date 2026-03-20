@@ -20,7 +20,7 @@ func show_pickup(type : Globals.PICKUP_TYPES):
 	pickup_indicator.show_pickup(type) 
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	show_pickup(player.pickup_type) # keep pickup counter updated
 	

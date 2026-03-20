@@ -21,7 +21,7 @@ enum PICKUP_TYPES {
 
 signal collected # emitted when pickup is collected
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# check for player in range
 	for body in area.get_overlapping_bodies():
 		if not body.is_in_group("player"): # if object is not player

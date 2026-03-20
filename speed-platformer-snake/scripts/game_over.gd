@@ -13,8 +13,8 @@ func _ready() -> void:
 
 ## Restarts game
 func _on_restart_pressed() -> void:
-	scene_manager.switch_scene(scene_manager.SCENES.get("game"))
+	scene_manager.start_game()
 
 ## Quits to Main Menu
 func _on_quit_pressed() -> void:
-	scene_manager.switch_scene(scene_manager.SCENES.get("main_menu"))
+	scene_manager.main_menu()

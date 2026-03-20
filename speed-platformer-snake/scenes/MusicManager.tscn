@@ -6,17 +6,21 @@
 [ext_resource type="AudioStream" uid="uid://dvh1s2bgnn0ny" path="res://assets/music/freeze timing - backing.mp3" id="4_wh65u"]
 
 [node name="MusicManager" type="Node" unique_id=15124038]
+process_mode = 3
 script = ExtResource("1_k17rw")
 
 [node name="drums_bass" type="AudioStreamPlayer" parent="." unique_id=709933937]
 stream = ExtResource("2_mvbrv")
 autoplay = true
+bus = &"Music"
 parameters/looping = true
 
 [node name="piano" type="AudioStreamPlayer" parent="." unique_id=12973461]
 stream = ExtResource("3_i3r22")
+bus = &"Music"
 parameters/looping = true
 
 [node name="backing" type="AudioStreamPlayer" parent="." unique_id=996553648]
 stream = ExtResource("4_wh65u")
+bus = &"Music"
 parameters/looping = true
