@@ -7,8 +7,8 @@ var node_scene := preload("res://scenes/scarf_node.tscn")
 
 # node properties
 var NODE_ACTIVATION_TIME := 1 # time to activate in seconds
-var NODE_LIFESPAN := 2.0 # total lifespan of a node, determines length of scarf
-var NODE_LIFESPAN_INCREMENT := .1 # amount of time to increment node lifespan by
+var NODE_LIFESPAN := 1.5 # total lifespan of a node, determines length of scarf
+var NODE_LIFESPAN_INCREMENT := .2 # amount of time to increment node lifespan by
 const NODE_POS_OFFSET = Vector2(0, -16)
 
 # manager properties
