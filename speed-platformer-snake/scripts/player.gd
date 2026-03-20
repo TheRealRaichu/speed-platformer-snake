@@ -173,6 +173,7 @@ func use_reeler():
 	AudioManager.play("usescarfreeler", 3) # play blink restore use noise
 	scarf.reel() # tell scarf to reel back
 
+# Check if it works
 func use_packed_fuel():
 	recieve_fuel() # give player fuel
 
