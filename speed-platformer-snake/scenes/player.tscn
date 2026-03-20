@@ -764,6 +764,6 @@ z_index = 1
 texture_filter = 1
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_4ni07")
-animation = &"wall_slide_no_fuel"
+animation = &"idle_no_fuel"
 
 [connection signal="timeout" from="blink refresh timer" to="." method="_on_blink_refresh_timer_timeout"]

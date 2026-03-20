@@ -18,6 +18,9 @@ const PAUSE_MENU = preload("res://scenes/pausemenu.tscn")
 # GAME DATA
 
 func _ready() -> void:
+	# reset score
+	Globals.day_count = 1
+	Globals.score = 1
 	# connect signals
 	level.base_received_fuel.connect(base_received_fuel)
 	level.base_died_out.connect(game_over)
@@ -39,6 +42,7 @@ func game_over(): # called when campfire dies and by signal
 	scene_manager.game_over()
 
 func base_received_fuel():
+	background.transition() # tell background to do transition
 	increment_day_counter() # inc day counter after signal
 
 func increment_day_counter():

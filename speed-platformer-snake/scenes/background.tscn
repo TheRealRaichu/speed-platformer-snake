@@ -1,14 +1,67 @@
 [gd_scene format=3 uid="uid://cfflsu6078laj"]
 
 [ext_resource type="Script" uid="uid://v6ans72kx0ni" path="res://scripts/background.gd" id="1_bkp1e"]
-[ext_resource type="Texture2D" uid="uid://c7bktes7fvi6r" path="res://assets/placeholder/bg.png" id="2_y0upk"]
+[ext_resource type="Texture2D" uid="uid://nmgosqc08c5f" path="res://assets/sky/day_transition/000.png" id="2_da6cc"]
+[ext_resource type="Texture2D" uid="uid://b0ne882qefhi7" path="res://assets/sky/day_transition/001.png" id="3_b6e46"]
+[ext_resource type="Texture2D" uid="uid://d30i7nqty5378" path="res://assets/sky/day_transition/002.png" id="4_td6w2"]
+[ext_resource type="Texture2D" uid="uid://cpy2gcmmoqiwv" path="res://assets/sky/day_transition/003.png" id="5_r2thq"]
+[ext_resource type="Texture2D" uid="uid://b37iu8h0q8stt" path="res://assets/sky/day_transition/004.png" id="6_0470j"]
+[ext_resource type="Texture2D" uid="uid://rbhgb6oifdhh" path="res://assets/sky/night_transition/000.png" id="7_ivgg2"]
+[ext_resource type="Texture2D" uid="uid://cdgmnuus764ir" path="res://assets/sky/night_transition/001.png" id="8_r4ipc"]
+[ext_resource type="Texture2D" uid="uid://daudpt263twrg" path="res://assets/sky/night_transition/002.png" id="9_5xduy"]
+[ext_resource type="Texture2D" uid="uid://c5hbnn4d604be" path="res://assets/sky/night_transition/003.png" id="10_fligg"]
+[ext_resource type="Texture2D" uid="uid://bkmhqau5x6ib2" path="res://assets/sky/night_transition/004.png" id="11_mhjnw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0y13x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_da6cc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_b6e46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_td6w2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_r2thq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0470j")
+}],
+"loop": false,
+"name": &"transition_to_day",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_ivgg2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_r4ipc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5xduy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_fligg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_mhjnw")
+}],
+"loop": false,
+"name": &"transition_to_night",
+"speed": 12.0
+}]
 
 [node name="background" type="Node2D" unique_id=221064305]
 script = ExtResource("1_bkp1e")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=617499027]
-offset_right = 640.0
-offset_bottom = 360.0
-texture = ExtResource("2_y0upk")
-expand_mode = 1
-stretch_mode = 4
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1522985847]
+position = Vector2(320, 180)
+scale = Vector2(1, 0.99999994)
+sprite_frames = SubResource("SpriteFrames_0y13x")
+animation = &"transition_to_day"
+frame = 4
+frame_progress = 1.0

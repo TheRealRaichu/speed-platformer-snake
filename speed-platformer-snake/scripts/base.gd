@@ -40,7 +40,8 @@ func check_success():
 	if (not is_blue_fire and current_fuel_count == REG_FUEL_REQ) or (is_blue_fire and current_fuel_count == BOSS_FUEL_REQ):
 		# check if success was quick
 		recent_quick_success = life_timer.time_left > life_timer.wait_time - QUICKNESS_MARGIN # if stage was completed in less that 5 seconds
-		Globals.day_count += REG_SCORE if not recent_quick_success else QUICK_SCORE # inc day count by 1 regularly and 2 for quick
+		Globals.day_count += 1 # inc day count by 1
+		Globals.score += REG_SCORE if not recent_quick_success else QUICK_SCORE # inc score by 1 regularly and 2 for quick
 		fuel_received.emit() # exclaim fuel collection
 		
 		blue_fire_check() # check if this stage is a blue fire stage
