@@ -40,6 +40,7 @@ func play(sound : String, volume_db: float = 0.0):
 	player.stream = load(SOUNDS.get(sound))
 	player.volume_db = volume_db
 	player.play()
+	player.play()
 
 # continuous and looping sounds need their own treatment <3
 func play_wall_slide(playing : bool):
