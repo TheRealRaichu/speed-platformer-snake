@@ -1,18 +1,42 @@
 [gd_scene format=3 uid="uid://8am0lidcj4h6"]
 
 [ext_resource type="Script" uid="uid://dpbf48iijvff5" path="res://scripts/mainMenu.gd" id="1_l6cm7"]
+[ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_ekxnf"]
 
 [node name="mainMenu" type="Control" unique_id=1836141774]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_l6cm7")
 
+[node name="Game Title" type="Label" parent="." unique_id=1262799951]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 18.0
+offset_right = 322.0
+offset_bottom = 210.0
+scale = Vector2(2, 2)
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderLarge"
+text = "Game Title"
+horizontal_alignment = 1
+
 [node name="start game" type="Button" parent="." unique_id=703194764]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 184.0
+offset_top = 146.0
 offset_right = 120.0
-offset_bottom = 272.0
-text = "start game"
+offset_bottom = 234.0
+theme = ExtResource("2_ekxnf")
+text = "START"
+
+[node name="quit game" type="Button" parent="." unique_id=203337305]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 247.0
+offset_right = 121.0
+offset_bottom = 335.0
+theme = ExtResource("2_ekxnf")
+text = "QUIT"
 
 [connection signal="pressed" from="start game" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="quit game" to="." method="_on_quit_game_pressed"]
