@@ -18,15 +18,15 @@ func _ready() -> void:
 	main_menu()
 
 func start_game(): # called from main menu
-	MusicManager.set_state(MusicManager.STATE.GAMEPLAY)
+	#MusicManager.set_state(MusicManager.STATE.GAMEPLAY)
 	switch_scene(SCENES.get("gameplay"))
 
 func main_menu():
-	MusicManager.set_state(MusicManager.STATE.MAIN_MENU)
+	#MusicManager.set_state(MusicManager.STATE.MAIN_MENU)
 	switch_scene(SCENES.get("main_menu"))
 
 func game_over():
-	MusicManager.set_state(MusicManager.STATE.GAME_OVER)
+	#MusicManager.set_state(MusicManager.STATE.GAME_OVER)
 	switch_scene(SCENES.get("game_over"))
 
 func switch_scene(scene : Variant):

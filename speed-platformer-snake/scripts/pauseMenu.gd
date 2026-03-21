@@ -13,13 +13,13 @@ func _ready() -> void:
 	pause() # pause game
 
 func resume():
-	MusicManager.set_paused(false) # tell music manager game is resumed
+	#MusicManager.set_paused(false) # tell music manager game is resumed
 	scene_manager.is_paused = false # tell scene manager game is resumed
 	get_tree().paused = false # unpause game
 
 # Get Reference to scarf and pause the scarg movement temporarily
 func pause():
-	MusicManager.set_paused(true) # tell music manager game is paused
+	#MusicManager.set_paused(true) # keep music playing normally while paused
 	scene_manager.is_paused = true # tell scene manager game is paused
 	get_tree().paused = true # pause the tree
 
