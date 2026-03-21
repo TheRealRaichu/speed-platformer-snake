@@ -2,66 +2,98 @@
 
 [ext_resource type="Script" uid="uid://di52sumstvfi3" path="res://scripts/pauseMenu.gd" id="1_k5gjg"]
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_r33we"]
+[ext_resource type="Texture2D" uid="uid://jtriyh3wgchk" path="res://assets/UI/Buttons/continue.png" id="3_v4mab"]
+[ext_resource type="Script" uid="uid://bldstivarsngb" path="res://scripts/menu_button.gd" id="3_vpyy4"]
+[ext_resource type="Script" uid="uid://b8ubdyemrg6uu" path="res://scripts/ui_text.gd" id="4_lkswt"]
 [ext_resource type="PackedScene" uid="uid://c2fqqr5mv6gl3" path="res://scenes/cursor.tscn" id="4_vpyy4"]
+[ext_resource type="Texture2D" uid="uid://cotgdiw55wb4o" path="res://assets/UI/Buttons/continue_alt.png" id="5_kv823"]
+[ext_resource type="Texture2D" uid="uid://cpx54088tnwnf" path="res://assets/UI/Buttons/restart.png" id="6_elpj7"]
+[ext_resource type="Texture2D" uid="uid://bvwgstkfb4urj" path="res://assets/UI/Buttons/restart_alt.png" id="7_sqm04"]
+[ext_resource type="Texture2D" uid="uid://diri7yqpu0mc5" path="res://assets/UI/Buttons/quit.png" id="8_pyfwo"]
+[ext_resource type="Texture2D" uid="uid://dpm31yynu8u2d" path="res://assets/UI/Buttons/quit_alt.png" id="9_hd25v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r33we"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+bg_color = Color(0.11489678, 0.11489683, 0.11489671, 1)
 
 [node name="PauseMenu" type="Control" unique_id=1585469177]
 process_mode = 3
-z_index = 1
+z_index = 2
+z_as_relative = false
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_k5gjg")
 
-[node name="ContinueText" type="Label" parent="." unique_id=1899497724]
+[node name="ContinueText" type="TextureRect" parent="." unique_id=1760670781]
 layout_mode = 0
-offset_left = 294.0
-offset_top = 140.0
-offset_right = 390.0
-offset_bottom = 163.0
+offset_left = 272.0
+offset_top = 149.0
+offset_right = 464.0
+offset_bottom = 149.0
+scale = Vector2(0.5, 0.5)
 theme = ExtResource("2_r33we")
-text = "Continue"
+texture = ExtResource("3_v4mab")
+expand_mode = 3
+stretch_mode = 3
+script = ExtResource("4_lkswt")
+focused_image = ExtResource("5_kv823")
+unfocused_image = ExtResource("3_v4mab")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="RestartText" type="Label" parent="." unique_id=877836513]
+[node name="RestartText" type="TextureRect" parent="." unique_id=202294988]
 layout_mode = 0
-offset_left = 297.0
-offset_top = 184.0
-offset_right = 393.0
-offset_bottom = 233.0
+offset_left = 272.0
+offset_top = 181.0
+offset_right = 464.0
+offset_bottom = 209.0
+scale = Vector2(0.5, 0.5)
 theme = ExtResource("2_r33we")
-text = "Restart
-"
+texture = ExtResource("6_elpj7")
+stretch_mode = 3
+script = ExtResource("4_lkswt")
+focused_image = ExtResource("7_sqm04")
+unfocused_image = ExtResource("6_elpj7")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="QuitText" type="Label" parent="." unique_id=888839650]
+[node name="QuitText" type="TextureRect" parent="." unique_id=402799957]
 layout_mode = 0
-offset_left = 307.0
-offset_top = 228.0
-offset_right = 403.0
-offset_bottom = 251.0
+offset_left = 272.0
+offset_top = 219.0
+offset_right = 464.0
+offset_bottom = 255.0
+scale = Vector2(0.5, 0.5)
 theme = ExtResource("2_r33we")
-text = "Quit"
+texture = ExtResource("8_pyfwo")
+stretch_mode = 3
+script = ExtResource("4_lkswt")
+focused_image = ExtResource("9_hd25v")
+unfocused_image = ExtResource("8_pyfwo")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1179945272]
+layout_mode = 0
+offset_left = 272.0
+offset_top = 138.0
+offset_right = 464.0
+offset_bottom = 374.0
+scale = Vector2(0.5, 0.5)
+theme_override_constants/separation = 64
+alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=864970074]
+z_index = -1
 layout_mode = 0
 offset_left = 272.0
 offset_top = 128.0
 offset_right = 368.0
-offset_bottom = 256.0
+offset_bottom = 248.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_r33we")
-
-[node name="ColorRect" type="ColorRect" parent="PanelContainer" unique_id=1143557169]
-self_modulate = Color(0.20784314, 0.20784314, 0.20784314, 0.12941177)
-z_index = -1
-layout_mode = 2
-color = Color(0.66267854, 0.66267854, 0.66267854, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=89715535]
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Continue" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1349178131]
+[node name="Continue" type="Button" parent="PanelContainer/VBoxContainer" unique_id=56651912]
 self_modulate = Color(0.20784314, 0.20784314, 0.20784314, 0.039215688)
 layout_mode = 2
 size_flags_vertical = 3
@@ -72,10 +104,10 @@ mouse_filter = 2
 theme = ExtResource("2_r33we")
 button_mask = 0
 text = "Continue"
-script = ExtResource("3_8ljkb")
+script = ExtResource("3_vpyy4")
 metadata/_custom_type_script = "uid://bldstivarsngb"
 
-[node name="Restart" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1566292456]
+[node name="Restart" type="Button" parent="PanelContainer/VBoxContainer" unique_id=391842428]
 self_modulate = Color(0.20784314, 0.20784314, 0.20784314, 0.039215688)
 layout_mode = 2
 size_flags_vertical = 3
@@ -86,10 +118,10 @@ focus_previous = NodePath("../Continue")
 mouse_filter = 2
 theme = ExtResource("2_r33we")
 text = "Restart"
-script = ExtResource("3_8ljkb")
+script = ExtResource("3_vpyy4")
 metadata/_custom_type_script = "uid://bldstivarsngb"
 
-[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer" unique_id=489824200]
+[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer" unique_id=940729623]
 self_modulate = Color(0.20784314, 0.20784314, 0.20784314, 0.039215688)
 layout_mode = 2
 size_flags_vertical = 3
@@ -99,17 +131,29 @@ focus_previous = NodePath("../Restart")
 mouse_filter = 2
 theme = ExtResource("2_r33we")
 text = "Quit"
-script = ExtResource("3_8ljkb")
+script = ExtResource("3_vpyy4")
 metadata/_custom_type_script = "uid://bldstivarsngb"
 
 [node name="Cursor_1" parent="." unique_id=529316777 instance=ExtResource("4_vpyy4")]
-position = Vector2(279, 143)
+layout_mode = 0
+offset_left = 280.0
+offset_top = 151.0
+offset_right = 280.0
+offset_bottom = 151.0
 
 [node name="Cursor_2" parent="." unique_id=1563674841 instance=ExtResource("4_vpyy4")]
-position = Vector2(281, 187)
+layout_mode = 0
+offset_left = 284.0
+offset_top = 190.0
+offset_right = 284.0
+offset_bottom = 190.0
 
 [node name="Cursor_3" parent="." unique_id=1493859624 instance=ExtResource("4_vpyy4")]
-position = Vector2(293, 231)
+layout_mode = 0
+offset_left = 295.0
+offset_top = 229.0
+offset_right = 295.0
+offset_bottom = 229.0
 
 [connection signal="focus_entered" from="PanelContainer/VBoxContainer/Continue" to="." method="_on_continue_focus_entered"]
 [connection signal="focus_exited" from="PanelContainer/VBoxContainer/Continue" to="." method="_on_continue_focus_exited"]

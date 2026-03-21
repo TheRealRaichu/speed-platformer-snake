@@ -36,16 +36,16 @@ offset_bottom = 320.0
 [node name="charge indicator" parent="." unique_id=658306353 instance=ExtResource("4_u2dgd")]
 layout_mode = 1
 offset_left = 256.0
-offset_top = 316.0
+offset_top = 315.0
 offset_right = 256.0
-offset_bottom = 316.0
+offset_bottom = 315.0
 
 [node name="life bar" type="ProgressBar" parent="." unique_id=876191967]
 layout_mode = 0
 offset_left = 272.0
-offset_top = 324.0
+offset_top = 322.0
 offset_right = 368.0
-offset_bottom = 328.0
+offset_bottom = 326.0
 theme_override_styles/background = SubResource("StyleBoxFlat_u2dgd")
 theme_override_styles/fill = SubResource("StyleBoxFlat_bt76a")
 max_value = 1.0

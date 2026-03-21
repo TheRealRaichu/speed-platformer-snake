@@ -1,34 +1,19 @@
 [gd_scene format=3 uid="uid://bjvlppq5mr4ye"]
 
 [ext_resource type="Script" uid="uid://cv07rr3ack5hb" path="res://scripts/pickup_indicator.gd" id="1_fu8ty"]
+[ext_resource type="Texture2D" uid="uid://w21l6sismfc4" path="res://assets/UI/game_scene/item_slot.png" id="2_8waiv"]
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_d5ek3"]
-[ext_resource type="Texture2D" uid="uid://csoqm00eyov46" path="res://assets/items/item_sprite_sheet.png" id="4_cdggi"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gyxxy"]
-atlas = ExtResource("4_cdggi")
-region = Rect2(48, 8, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4m06l"]
-atlas = ExtResource("4_cdggi")
-region = Rect2(0, 8, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hqyie"]
-atlas = ExtResource("4_cdggi")
-region = Rect2(0, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t0qhb"]
-atlas = ExtResource("4_cdggi")
-region = Rect2(24, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mj4kx"]
-atlas = ExtResource("4_cdggi")
-region = Rect2(24, 8, 16, 16)
+[ext_resource type="Texture2D" uid="uid://dagyy3f3ot1r5" path="res://assets/items/blink_restore.png" id="3_1y70i"]
+[ext_resource type="Texture2D" uid="uid://b432cuo85fwvn" path="res://assets/items/fuel.png" id="4_8waiv"]
+[ext_resource type="Texture2D" uid="uid://bfnb7if364phq" path="res://assets/items/packaged_fuel.png" id="5_2km7e"]
+[ext_resource type="Texture2D" uid="uid://b7dqatbqh4tvi" path="res://assets/items/scarf_reeler.png" id="6_yqt15"]
+[ext_resource type="Texture2D" uid="uid://da3kl6cvwb7qt" path="res://assets/items/candy.png" id="7_cx5qn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o16vq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gyxxy")
+"texture": ExtResource("3_1y70i")
 }],
 "loop": false,
 "name": &"blink_restore",
@@ -44,7 +29,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4m06l")
+"texture": ExtResource("4_8waiv")
 }],
 "loop": true,
 "name": &"fuel",
@@ -52,7 +37,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hqyie")
+"texture": ExtResource("5_2km7e")
 }],
 "loop": true,
 "name": &"packaged_fuel",
@@ -60,7 +45,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_t0qhb")
+"texture": ExtResource("6_yqt15")
 }],
 "loop": false,
 "name": &"reeler",
@@ -68,7 +53,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mj4kx")
+"texture": ExtResource("7_cx5qn")
 }],
 "loop": true,
 "name": &"sugar",
@@ -80,11 +65,12 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_fu8ty")
 
-[node name="pickup indicator" type="ColorRect" parent="." unique_id=1902535988]
+[node name="pickup indicator" type="TextureRect" parent="." unique_id=961082490]
 layout_mode = 1
 offset_right = 40.0
 offset_bottom = 40.0
-color = Color(0.7223536, 0.8022924, 1, 1)
+texture = ExtResource("2_8waiv")
+expand_mode = 1
 
 [node name="item name" type="Label" parent="." unique_id=1476812712]
 layout_mode = 0
@@ -101,4 +87,4 @@ vertical_alignment = 1
 [node name="pickup icon" type="AnimatedSprite2D" parent="." unique_id=431174807]
 position = Vector2(20, 20)
 sprite_frames = SubResource("SpriteFrames_o16vq")
-animation = &"empty"
+animation = &"fuel"

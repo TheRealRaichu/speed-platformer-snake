@@ -1,36 +1,20 @@
 [gd_scene format=3 uid="uid://bhabbrhnkbcwb"]
 
 [ext_resource type="Script" uid="uid://0ifdy4mycke2" path="res://scripts/pickup.gd" id="1_pg2rt"]
-[ext_resource type="Texture2D" uid="uid://csoqm00eyov46" path="res://assets/items/item_sprite_sheet.png" id="2_7cqbe"]
+[ext_resource type="Texture2D" uid="uid://dagyy3f3ot1r5" path="res://assets/items/blink_restore.png" id="2_t0qhb"]
+[ext_resource type="Texture2D" uid="uid://b432cuo85fwvn" path="res://assets/items/fuel.png" id="3_mj4kx"]
+[ext_resource type="Texture2D" uid="uid://bfnb7if364phq" path="res://assets/items/packaged_fuel.png" id="4_ror3w"]
+[ext_resource type="Texture2D" uid="uid://b7dqatbqh4tvi" path="res://assets/items/scarf_reeler.png" id="5_hlv8s"]
+[ext_resource type="Texture2D" uid="uid://da3kl6cvwb7qt" path="res://assets/items/candy.png" id="6_j61ql"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p1s84"]
 radius = 16.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gyxxy"]
-atlas = ExtResource("2_7cqbe")
-region = Rect2(48, 8, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4m06l"]
-atlas = ExtResource("2_7cqbe")
-region = Rect2(0, 8, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hqyie"]
-atlas = ExtResource("2_7cqbe")
-region = Rect2(0, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t0qhb"]
-atlas = ExtResource("2_7cqbe")
-region = Rect2(24, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mj4kx"]
-atlas = ExtResource("2_7cqbe")
-region = Rect2(24, 8, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ror3w"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gyxxy")
+"texture": ExtResource("2_t0qhb")
 }],
 "loop": false,
 "name": &"blink_restore",
@@ -38,7 +22,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4m06l")
+"texture": ExtResource("3_mj4kx")
 }],
 "loop": true,
 "name": &"fuel",
@@ -46,7 +30,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hqyie")
+"texture": ExtResource("4_ror3w")
 }],
 "loop": true,
 "name": &"packaged_fuel",
@@ -54,7 +38,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_t0qhb")
+"texture": ExtResource("5_hlv8s")
 }],
 "loop": false,
 "name": &"reeler",
@@ -62,7 +46,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mj4kx")
+"texture": ExtResource("6_j61ql")
 }],
 "loop": true,
 "name": &"sugar",
@@ -79,4 +63,4 @@ shape = SubResource("CircleShape2D_p1s84")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1674758740]
 sprite_frames = SubResource("SpriteFrames_ror3w")
-animation = &"fuel"
+animation = &"blink_restore"

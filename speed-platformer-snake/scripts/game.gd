@@ -12,9 +12,9 @@ var scene_manager
 @onready var UI = $"Game UI"
 @onready var background = $background
 
-# references to scenes
-const PAUSE_MENU = preload("res://scenes/pausemenu.tscn")
-
+# pause menu
+var PAUSE_MENU = preload("res://scenes/pausemenu.tscn")
+var current_pause_menu
 # GAME DATA
 
 func _ready() -> void:
@@ -28,12 +28,12 @@ func _ready() -> void:
 	UI.player = player
 	UI.base = level.base
 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_cancel") and not scene_manager.is_paused: # esc pressed, pause
-		var pause_inst = PAUSE_MENU.instantiate()
-		pause_inst.scene_manager = scene_manager
-		pause_inst.player = player
-		add_child(pause_inst)
+func _unhandled_input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("ui_cancel") and not scene_manager.is_paused: # esc pressed
+			var current_pause_menu = PAUSE_MENU.instantiate()
+			current_pause_menu.scene_manager = scene_manager
+			current_pause_menu.player = player
+			add_child(current_pause_menu)
 
 # Have Option to restart the game
 func game_over(): # called when campfire dies and by signal
