@@ -72,6 +72,8 @@ mouse_filter = 2
 theme = ExtResource("2_r33we")
 button_mask = 0
 text = "Continue"
+script = ExtResource("3_8ljkb")
+metadata/_custom_type_script = "uid://bldstivarsngb"
 
 [node name="Restart" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1566292456]
 self_modulate = Color(0.20784314, 0.20784314, 0.20784314, 0.039215688)
@@ -84,6 +86,8 @@ focus_previous = NodePath("../Continue")
 mouse_filter = 2
 theme = ExtResource("2_r33we")
 text = "Restart"
+script = ExtResource("3_8ljkb")
+metadata/_custom_type_script = "uid://bldstivarsngb"
 
 [node name="Quit" type="Button" parent="PanelContainer/VBoxContainer" unique_id=489824200]
 self_modulate = Color(0.20784314, 0.20784314, 0.20784314, 0.039215688)
@@ -95,6 +99,8 @@ focus_previous = NodePath("../Restart")
 mouse_filter = 2
 theme = ExtResource("2_r33we")
 text = "Quit"
+script = ExtResource("3_8ljkb")
+metadata/_custom_type_script = "uid://bldstivarsngb"
 
 [node name="Cursor_1" parent="." unique_id=529316777 instance=ExtResource("4_vpyy4")]
 position = Vector2(279, 143)

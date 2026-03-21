@@ -87,6 +87,8 @@ focus_previous = NodePath("../Restart")
 mouse_filter = 2
 theme = ExtResource("2_wqhvx")
 text = "Quit"
+script = ExtResource("3_tbwuq")
+metadata/_custom_type_script = "uid://bldstivarsngb"
 
 [connection signal="focus_entered" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_focus_entered"]
 [connection signal="focus_exited" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_focus_exited"]

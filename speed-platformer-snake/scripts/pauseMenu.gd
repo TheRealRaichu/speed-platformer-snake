@@ -4,9 +4,9 @@ var player
 
 ## PAUSE MENU
 # child reference
-@onready var continue_button := $PanelContainer/VBoxContainer/Continue
-@onready var restart_button := $PanelContainer/VBoxContainer/Restart
-@onready var quit_button := $PanelContainer/VBoxContainer/Quit
+@onready var continue_button := $Continue
+@onready var restart_button := $Restart
+@onready var quit_button := $Quit
 
 # child references to the cursor sprites
 @onready var cursor_continue := $Cursor_1
@@ -29,11 +29,9 @@ func resume():
 
 # Get Reference to scarf and pause the scarg movement temporarily
 func pause():
-	MusicManager.set_paused(true) # keep music playing normally while paused
+	MusicManager.set_paused(true) # tell music manager game is paused
 	scene_manager.is_paused = true # tell scene manager game is paused
 	get_tree().paused = true # pause the tree
-
-## Placed each cursor next to the buttons and turn them on when focused
 
 ## CONTINUE
 func _on_continue_pressed() -> void:
@@ -50,7 +48,7 @@ func _on_continue_focus_exited() -> void:
 ## RESTART
 func _on_restart_pressed() -> void:
 	resume()
-	scene_manager.switch_scene(scene_manager.SCENES.get("game"))
+	scene_manager.start_game()
 
 func _on_restart_focus_entered() -> void:
 	cursor_restart.visible = true
@@ -62,7 +60,7 @@ func _on_restart_focus_exited() -> void:
 ## QUITS
 func _on_quit_pressed() -> void: 
 	resume()
-	scene_manager.switch_scene(scene_manager.SCENES.get("main_menu"))
+	scene_manager.main_menu()
 
 func _on_quit_focus_entered() -> void:
 	cursor_quit.visible = true

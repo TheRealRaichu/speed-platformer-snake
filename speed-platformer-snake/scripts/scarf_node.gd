@@ -9,7 +9,7 @@ var lifespan : float # total time alive
 var elapsed_time : float # time passed since the scarf node spawned
 
 # status
-var activate := func(): is_active = true; self.default_color = Color.PURPLE
+var activate := func(): is_active = true; set_visual()
 var is_active := false
 
 signal lifespan_over # when should die, ask manager to kill it
@@ -20,6 +20,7 @@ func _ready() -> void:
 	get_tree().create_timer(lifespan, false).timeout.connect(lifespan_over.emit)
 	# Moved and edited the initialzied timers into _process to be able to pause the scarf once used.
 	init_hitbox()
+	set_visual()
 
 # Pauses the lifepsan and activation timers of the scarf when player pauses the game
 func _process(delta: float) -> void:
@@ -42,6 +43,14 @@ func init_hitbox():
 	segment.b = points[1]
 	collision.shape = segment
 	collision_box.add_child(collision)
+
+func set_visual(): # adjust visual depending on activated status
+	if is_active:
+		width = 10
+		texture = load("res://assets/scarf/scarf_sub.png") # swapped for now...
+	else:
+		width = 6
+		texture = load("res://assets/scarf/scarf_main.png")
 
 func die(): # death
 	self.queue_free()

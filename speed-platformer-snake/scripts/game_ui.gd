@@ -5,7 +5,7 @@ extends Control
 # references to children
 @onready var day_counter := $"day counter"
 @onready var pickup_indicator := $"pickup indicator"
-@onready var charge_indicator := $"charge indicator"
+@onready var charge_indicator := $"charge indicator" 
 @onready var life_bar := $"life bar"
 
 var player : Player # set from Game
@@ -13,7 +13,7 @@ var base # set from Game
 
 # day count relay from game to day counter
 func update_day_count():
-	day_counter.set_day_count(Globals.day_count, base.recent_quick_success)
+	day_counter.set_day_count(Globals.score, base.recent_quick_success) # display score and text based on speed
 
 # show pickup relay from game to pickup indicator
 func show_pickup(type : Globals.PICKUP_TYPES):

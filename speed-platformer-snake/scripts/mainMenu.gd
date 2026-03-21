@@ -1,6 +1,11 @@
 extends Control
 
 ## MAIN MENU
+# child ref
+@onready var start_button := $"start game"
+@onready var how_to_play_button := $"how to play"
+@onready var quit_game_button := $"quit game"
+
 # reference to scenemanger, set when initialized
 var scene_manager
 # reference to the 2 nodes.

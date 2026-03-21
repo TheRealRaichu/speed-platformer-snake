@@ -115,16 +115,16 @@ func fade_room_out():
 func fade_room_in():
 	# overlay
 	var darkness_tween = create_tween()
-	darkness_tween.tween_property(darkness_mask, "modulate:a", 0.0, ROOM_FADE_OUT_TIME).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT) # fade to black
+	darkness_tween.tween_property(darkness_mask, "modulate:a", 0.0, ROOM_FADE_IN_TIME).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT) # fade to black
 	
 	# modulate level
 	var level_modulate_tween = create_tween()
-	level_modulate_tween.tween_property(border, "modulate:g", 1.0, ROOM_FADE_OUT_TIME).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT) # fade to black
+	level_modulate_tween.tween_property(border, "modulate:g", 1.0, ROOM_FADE_IN_TIME).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT) # fade to black
 	
 	# modulate room
 	current_room.modulate.g = 0.5 # set new room's modulate g to prev value
 	var room_modulate_tween = create_tween()
-	room_modulate_tween.tween_property(current_room, "modulate:g", 1.0, ROOM_FADE_OUT_TIME).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT) # fade to black
+	room_modulate_tween.tween_property(current_room, "modulate:g", 1.0, ROOM_FADE_IN_TIME).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT) # fade to black
 	
 	# TODO ALSO DO SKY BACKGROUND TRANSITION
 	

@@ -65,3 +65,41 @@ func _process(_delta: float) -> void:
 		scarf_collision_player.play() # play
 	elif not scarf_collision_playing and scarf_collision_player.playing: # shouldn't be playing and is, stop
 		scarf_collision_player.stop() # stop
+
+# VOLUME CONTROL
+# courtesy of claude ai
+
+const MASTER_BUS := "Master"
+const VOLUME_STEP := 5.0 # db per increase/decrease
+const MIN_VOLUME := -80.0
+const MAX_VOLUME := 0.0
+var muted := false
+var volume_before_mute := 0.0
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("increase_volume"):
+		increase_volume()
+	if event.is_action_pressed("decrease_volume"):
+		decrease_volume()
+	if event.is_action_pressed("mute"):
+		toggle_mute()
+
+func increase_volume() -> void:
+	var bus := AudioServer.get_bus_index(MASTER_BUS)
+	var current := AudioServer.get_bus_volume_db(bus)
+	AudioServer.set_bus_volume_db(bus, clamp(current + VOLUME_STEP, MIN_VOLUME, MAX_VOLUME))
+
+func decrease_volume() -> void:
+	var bus := AudioServer.get_bus_index(MASTER_BUS)
+	var current := AudioServer.get_bus_volume_db(bus)
+	AudioServer.set_bus_volume_db(bus, clamp(current - VOLUME_STEP, MIN_VOLUME, MAX_VOLUME))
+
+func toggle_mute() -> void:
+	var bus := AudioServer.get_bus_index(MASTER_BUS)
+	if muted:
+		AudioServer.set_bus_volume_db(bus, volume_before_mute)
+		muted = false
+	else:
+		volume_before_mute = AudioServer.get_bus_volume_db(bus)
+		AudioServer.set_bus_volume_db(bus, MIN_VOLUME)
+		muted = true
