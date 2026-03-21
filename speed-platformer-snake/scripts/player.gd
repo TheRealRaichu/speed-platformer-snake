@@ -125,6 +125,7 @@ func attempt_recieve_pickup(type) -> bool:
 	if pickup_on_hand: # if already has pickup
 		return false # don't accept it
 	
+	AudioManager.play("pickup") # play pickup sound
 	pickup_on_hand = true # otherwise accept pickup
 	pickup_type = type # record type
 	return true # and return true
