@@ -19,23 +19,46 @@ func _ready() -> void:
 
 var current_room # current room loaded by level
 
-# loads rooms from directory specified
-func load_rooms_from_dir(path: String) -> Array:
-	var result := []
-	var dir := DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file := dir.get_next()
-		while file != "":
-			if file.ends_with(".tscn"):
-				result.append(load(path + "/" + file))
-			file = dir.get_next()
-	return result
+# big ugly arrays but needed for web export
 
-# list of room preloads, are randomly selected from
-var rooms := load_rooms_from_dir("res://scenes/rooms/regular")
-var boss_rooms := load_rooms_from_dir("res://scenes/rooms/blue_fire")
-var pickup_rooms := load_rooms_from_dir("res://scenes/rooms/pickup")
+var rooms := [
+	preload("res://scenes/rooms/regular/room_1.tscn"),
+	preload("res://scenes/rooms/regular/room_2.tscn"),
+	preload("res://scenes/rooms/regular/room_3.tscn"),
+	preload("res://scenes/rooms/regular/room_4.tscn"),
+	preload("res://scenes/rooms/regular/room_5.tscn"),
+	preload("res://scenes/rooms/regular/room_6.tscn"),
+	preload("res://scenes/rooms/regular/room_7.tscn"),
+	preload("res://scenes/rooms/regular/room_8.tscn"),
+	preload("res://scenes/rooms/regular/room_9.tscn"),
+	preload("res://scenes/rooms/regular/room_10.tscn"),
+	preload("res://scenes/rooms/regular/door_1.tscn"),
+	preload("res://scenes/rooms/regular/door_2.tscn"),
+	preload("res://scenes/rooms/regular/door_3.tscn"),
+	preload("res://scenes/rooms/regular/door_4.tscn"),
+	preload("res://scenes/rooms/regular/door_5.tscn"),
+]
+var boss_rooms := [
+	preload("res://scenes/rooms/blue_fire/blue_fire_1.tscn"),
+	preload("res://scenes/rooms/blue_fire/blue_fire_2.tscn"),
+	preload("res://scenes/rooms/blue_fire/blue_fire_3.tscn"),
+	preload("res://scenes/rooms/blue_fire/blue_fire_4.tscn"),
+	preload("res://scenes/rooms/blue_fire/blue_fire_5.tscn"),
+]
+var pickup_rooms := [
+	preload("res://scenes/rooms/pickup/blinkrestore_1.tscn"),
+	preload("res://scenes/rooms/pickup/blinkrestore_2.tscn"),
+	preload("res://scenes/rooms/pickup/packagedfuel_1.tscn"),
+	preload("res://scenes/rooms/pickup/packagedfuel_2.tscn"),
+	preload("res://scenes/rooms/pickup/random_1.tscn"),
+	preload("res://scenes/rooms/pickup/random_2.tscn"),
+	preload("res://scenes/rooms/pickup/random_3.tscn"),
+	preload("res://scenes/rooms/pickup/random_4.tscn"),
+	preload("res://scenes/rooms/pickup/reeler_1.tscn"),
+	preload("res://scenes/rooms/pickup/reeler_2.tscn"),
+	preload("res://scenes/rooms/pickup/sugar_1.tscn"),
+	preload("res://scenes/rooms/pickup/sugar_2.tscn"),
+]
 
 # which room list is currently being used
 var active_room_list

@@ -24,6 +24,8 @@ const LOWPASS_EFFECT_IDX := 0 # index of the lowpass effect on the bus
 
 func _ready() -> void:
 	# start all stems in sync, muted until set_state is called
+	await get_tree().process_frame
+	await get_tree().process_frame # give browser time
 	piano.play()
 	drums_bass.play()
 	elements.play()

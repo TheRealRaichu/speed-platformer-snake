@@ -22,6 +22,8 @@ var scene_manager
 @onready var htp_text := $"MainMenuTitle/VBoxContainer/HowToPlayText"
 @onready var quit_text := $"MainMenuTitle/VBoxContainer/QuitText"
 
+@onready var loading_text := $MainMenuTitle/LOADING
+
 ## Initialize the main menu as true and How To Play section as false when first time running, and initilizaed cursor as false.
 func _ready() -> void:
 	start_button.grab_focus() # start button takes focus for key navigation as the first
@@ -34,6 +36,7 @@ func _ready() -> void:
 
 ## Starts the game when pressed
 func _on_start_game_pressed() -> void:
+	loading_text.visible = true
 	scene_manager.start_game()
 
 func _on_start_game_focus_entered() -> void:

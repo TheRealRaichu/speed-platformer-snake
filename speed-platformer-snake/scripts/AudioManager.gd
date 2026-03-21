@@ -9,13 +9,31 @@ var scarf_collision_player := AudioStreamPlayer.new()
 var scarf_collision_playing := false
 
 
-var SOUNDS := {} # sounds dict for grabbing
+var SOUNDS := {  # sounds dict for grabbing
+	# game
+	"campfire" : "res://assets/sfx/game/campfire.mp3",
+	"button" : "res://assets/sfx/game/button.wav",
+	"fueldeposit" : "res://assets/sfx/game/fueldeposit.wav",
+	"fuelpickup" : "res://assets/sfx/game/fuelpickup.mp3",
+	"pickup" : "res://assets/sfx/game/pickup.mp3",
+	"useblinkrestore" : "res://assets/sfx/game/useblinkrestore.wav",
+	"usescarfreeler" : "res://assets/sfx/game/usescarfreeler.mp3",
+	"usesugar" : "res://assets/sfx/game/usesugar.mp3",
+	# menu
+	"back" : "res://assets/sfx/menu/back.wav",
+	"navigation" : "res://assets/sfx/menu/navigation.wav",
+	"select" : "res://assets/sfx/menu/select.wav",
+	# player
+	"blink" : "res://assets/sfx/player/blink.mp3",
+	"deathfreeze" : "res://assets/sfx/player/deathfreeze.mp3",
+	"jump" : "res://assets/sfx/player/jump.wav",
+	"scarfcollision" : "res://assets/sfx/player/scarfcollision.mp3",
+	"step" : "res://assets/sfx/player/step.mp3",
+	"walljump" : "res://assets/sfx/player/walljump.mp3",
+	"wallslide" : "res://assets/sfx/player/wallslide.mp3",
+}
 
 func _ready() -> void:
-	# load sounds from directories
-	load_sounds_from_dir("res://assets/sfx/player")
-	load_sounds_from_dir("res://assets/sfx/game")
-	load_sounds_from_dir("res://assets/sfx/menu")
 	# load sounds for special streams
 	wall_slide_player.stream = load(SOUNDS.get("wallslide"))
 	wall_slide_player.volume_db = 2
@@ -23,18 +41,6 @@ func _ready() -> void:
 	scarf_collision_player.stream = load(SOUNDS.get("scarfcollision"))
 	scarf_collision_player.volume_db = 4
 	add_child(scarf_collision_player)
-
-# loads all sound effects and creates dictionary on startup, courtesy of claude ai 
-func load_sounds_from_dir(path: String) -> void:
-	var dir := DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file := dir.get_next()
-		while file != "":
-			if file.ends_with(".mp3") or file.ends_with(".wav") or file.ends_with(".ogg"):
-				var key := file.get_basename() # filename without extension = key
-				SOUNDS[key] = path + "/" + file
-			file = dir.get_next()
 
 # create and configure audio stream for this sound effect
 func play(sound : String, volume_db: float = 0.0):

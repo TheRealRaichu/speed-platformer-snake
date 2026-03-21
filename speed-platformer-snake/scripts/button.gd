@@ -29,6 +29,7 @@ func _on_detector_body_entered(body: Node2D) -> void:
 		activate()
 
 func activate():
+	AudioManager.play("button", 2)
 	sprite.play("active" + color_to_suffix.get(color))
 	activated.emit() # exclaim
 
