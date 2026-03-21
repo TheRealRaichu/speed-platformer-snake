@@ -1,32 +1,47 @@
 [gd_scene format=3 uid="uid://sch5k12631xx"]
 
 [ext_resource type="Script" uid="uid://cjpkodimv5irw" path="res://scripts/charge indicator.gd" id="1_0s8vh"]
+[ext_resource type="Script" uid="uid://b8ubdyemrg6uu" path="res://scripts/ui_text.gd" id="2_j1bm5"]
+[ext_resource type="Texture2D" uid="uid://bv63qxt7ktwgl" path="res://assets/UI/game_scene/blink_charge.png" id="3_6mxef"]
+[ext_resource type="Texture2D" uid="uid://ctuvgblyjh2qb" path="res://assets/UI/game_scene/blink_charge_empty.png" id="4_f8shk"]
 
 [node name="charge indicator" type="Control" unique_id=658306353]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_0s8vh")
 
-[node name="charge 1" type="ColorRect" parent="." unique_id=729172965]
+[node name="charge 1" type="TextureRect" parent="." unique_id=1416823]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 16.00003
-offset_right = 41.390198
-offset_bottom = 55.99991
-scale = Vector2(0.95836574, 0.6000024)
+offset_top = 12.0
+offset_right = 40.0
+offset_bottom = 44.0
+texture = ExtResource("3_6mxef")
+script = ExtResource("2_j1bm5")
+focused_image = ExtResource("3_6mxef")
+unfocused_image = ExtResource("4_f8shk")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="charge 2" type="ColorRect" parent="." unique_id=1902005440]
+[node name="charge 2" type="TextureRect" parent="." unique_id=1582559604]
 layout_mode = 0
-offset_left = 48.00003
-offset_top = 16.00003
-offset_right = 81.3902
-offset_bottom = 55.99997
-scale = Vector2(0.95836574, 0.6000024)
+offset_left = 48.0
+offset_top = 12.0
+offset_right = 80.0
+offset_bottom = 44.0
+texture = ExtResource("3_6mxef")
+script = ExtResource("2_j1bm5")
+focused_image = ExtResource("3_6mxef")
+unfocused_image = ExtResource("4_f8shk")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="charge 3" type="ColorRect" parent="." unique_id=1243912464]
+[node name="charge 3" type="TextureRect" parent="." unique_id=465712835]
 layout_mode = 0
 offset_left = 88.0
-offset_top = 16.0
-offset_right = 121.3902
-offset_bottom = 55.99994
-scale = Vector2(0.95836574, 0.6000024)
+offset_top = 12.0
+offset_right = 120.0
+offset_bottom = 44.0
+texture = ExtResource("3_6mxef")
+script = ExtResource("2_j1bm5")
+focused_image = ExtResource("3_6mxef")
+unfocused_image = ExtResource("4_f8shk")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"

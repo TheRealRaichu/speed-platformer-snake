@@ -21,8 +21,17 @@ func create_node():
 	node_instance.activation_time = NODE_ACTIVATION_TIME # set lifespan activation time
 	node_instance.connect("lifespan_over", kill_node) # connect signal
 	
-	node_instance.add_point(nodes[-1].get_point_position(1) if nodes else self.global_position + NODE_POS_OFFSET)
-	node_instance.add_point(self.global_position + NODE_POS_OFFSET)
+	var current_pos := self.global_position + NODE_POS_OFFSET
+	var start_pos : Vector2
+	if nodes:
+		var prev_point := nodes[-1].get_point_position(1)
+		var dir := (current_pos - prev_point).normalized()
+		start_pos = prev_point - dir * 4 # extend back by 4 pixels
+	else:
+		start_pos = current_pos
+	
+	node_instance.add_point(start_pos)
+	node_instance.add_point(current_pos)
 	
 	nodes.push_back(node_instance) # log node in list
 	add_child(node_instance) # add child

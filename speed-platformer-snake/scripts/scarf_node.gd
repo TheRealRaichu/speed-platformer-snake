@@ -47,10 +47,10 @@ func init_hitbox():
 func set_visual(): # adjust visual depending on activated status
 	if is_active:
 		width = 10
-		texture = load("res://assets/scarf/scarf_sub.png") # swapped for now...
+		texture = load("res://assets/scarf/scarf_main.png") # swapped for now...
 	else:
 		width = 6
-		texture = load("res://assets/scarf/scarf_main.png")
+		texture = load("res://assets/scarf/scarf_sub.png")
 
 func die(): # death
 	self.queue_free()

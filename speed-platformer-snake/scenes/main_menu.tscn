@@ -1,69 +1,115 @@
 [gd_scene format=3 uid="uid://8am0lidcj4h6"]
 
 [ext_resource type="Script" uid="uid://dpbf48iijvff5" path="res://scripts/mainMenu.gd" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://c738wov4jpaii" path="res://assets/UI/Title_Screen/Title_ScreenV2.png" id="2_8ln24"]
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_ekxnf"]
 [ext_resource type="PackedScene" uid="uid://c2fqqr5mv6gl3" path="res://scenes/cursor.tscn" id="3_bqqt6"]
+[ext_resource type="Script" uid="uid://bldstivarsngb" path="res://scripts/menu_button.gd" id="3_wu84c"]
+[ext_resource type="Texture2D" uid="uid://cocna63li02fo" path="res://assets/UI/Title_Screen/Title_Logo.png" id="4_jk1qb"]
+[ext_resource type="Texture2D" uid="uid://b32egywpbrhcx" path="res://assets/UI/Buttons/start.png" id="4_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://qi3c4f66soqo" path="res://assets/UI/Buttons/htp.png" id="5_jk1qb"]
+[ext_resource type="Script" uid="uid://b8ubdyemrg6uu" path="res://scripts/ui_text.gd" id="6_1ajci"]
+[ext_resource type="Texture2D" uid="uid://diri7yqpu0mc5" path="res://assets/UI/Buttons/quit.png" id="6_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://cyee32edfxhou" path="res://assets/UI/Buttons/start_alt.png" id="7_7b55j"]
+[ext_resource type="Texture2D" uid="uid://cm7l6vd7lkio" path="res://assets/UI/Buttons/htp_alt.png" id="9_5pajh"]
+[ext_resource type="Texture2D" uid="uid://cowwmvythqm41" path="res://assets/UI/Buttons/back.png" id="10_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://dpm31yynu8u2d" path="res://assets/UI/Buttons/quit_alt.png" id="11_j7ex8"]
+[ext_resource type="Texture2D" uid="uid://b5cqmxj3jpev8" path="res://assets/UI/Subscreens/HTP/HTP_Screen.png" id="14_5pajh"]
+[ext_resource type="Texture2D" uid="uid://dw1pwh01uutvn" path="res://assets/UI/Subscreens/HTP/HTP_Screen2.png" id="15_j7ex8"]
+[ext_resource type="Texture2D" uid="uid://byr80kw5ep35c" path="res://assets/UI/Buttons/htp_arrow.png" id="17_j7ex8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a8gd2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_5pajh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_j7ex8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
 
 [node name="mainMenu" type="Control" unique_id=1836141774]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_l6cm7")
 
-[node name="MainMenuTitle" type="Node2D" parent="." unique_id=35243169]
-visible = false
+[node name="Main Screen" type="TextureRect" parent="." unique_id=146942708]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("2_8ln24")
 
-[node name="Game Title" type="Label" parent="MainMenuTitle" unique_id=1262799951]
-offset_left = 405.0
+[node name="MainMenuTitle" type="Node2D" parent="." unique_id=35243169]
+position = Vector2(-64, 16)
+
+[node name="Game Title" type="TextureRect" parent="MainMenuTitle" unique_id=1430529614]
+texture_filter = 1
+offset_left = 416.0
 offset_top = 72.0
-offset_right = 556.0
-offset_bottom = 101.0
-scale = Vector2(1.5, 1.5)
+offset_right = 696.0
+offset_bottom = 108.0
 theme = ExtResource("2_ekxnf")
 theme_type_variation = &"HeaderLarge"
-text = "Threadrunner"
-horizontal_alignment = 1
+texture = ExtResource("4_jk1qb")
 
-[node name="StartText" type="Label" parent="MainMenuTitle" unique_id=313168012]
-offset_left = 497.00003
-offset_top = 153.00002
-offset_right = 545.0
-offset_bottom = 176.00002
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuTitle" unique_id=1979905102]
+offset_left = 424.00003
+offset_top = 152.0
+offset_right = 754.0
+offset_bottom = 292.0
+scale = Vector2(0.8, 0.8)
+theme_override_constants/separation = 20
+
+[node name="StartText" type="TextureRect" parent="MainMenuTitle/VBoxContainer" unique_id=547315264]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+texture = ExtResource("4_tbmy8")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+focused_image = ExtResource("7_7b55j")
+unfocused_image = ExtResource("4_tbmy8")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="HowToPlayText" type="TextureRect" parent="MainMenuTitle/VBoxContainer" unique_id=436346324]
+layout_mode = 2
+theme = ExtResource("2_ekxnf")
+texture = ExtResource("5_jk1qb")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+focused_image = ExtResource("9_5pajh")
+unfocused_image = ExtResource("5_jk1qb")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="QuitText" type="TextureRect" parent="MainMenuTitle/VBoxContainer" unique_id=2028578962]
+layout_mode = 2
+theme = ExtResource("2_ekxnf")
+texture = ExtResource("6_5dd4i")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+focused_image = ExtResource("11_j7ex8")
+unfocused_image = ExtResource("6_5dd4i")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="start game" type="Button" parent="MainMenuTitle" unique_id=83286208]
+modulate = Color(1, 1, 1, 0)
+offset_left = 472.00003
+offset_top = 152.00002
+offset_right = 533.00006
+offset_bottom = 177.00002
 scale = Vector2(1.3, 1.3)
 theme = ExtResource("2_ekxnf")
-button_mask = 0
+theme_override_font_sizes/font_size = 16
 text = "START"
-script = ExtResource("3_bqqt6")
+script = ExtResource("3_wu84c")
 metadata/_custom_type_script = "uid://bldstivarsngb"
 
-[node name="HowToPlayText" type="Label" parent="MainMenuTitle" unique_id=1704965693]
-offset_left = 468.0
-offset_top = 198.0
-offset_right = 555.0
-offset_bottom = 221.0
-scale = Vector2(1.3, 1.3)
-theme = ExtResource("2_ekxnf")
-text = "HOW TO PLAY"
-
-[node name="QuitText" type="Label" parent="MainMenuTitle" unique_id=106294291]
-offset_left = 506.0
-offset_top = 245.00002
-offset_right = 592.99994
-offset_bottom = 268.0
-scale = Vector2(1.3, 1.3)
-theme = ExtResource("2_ekxnf")
-text = "QUIT"
-
-[node name="start game" type="Button" parent="MainMenuTitle" unique_id=703194764]
-modulate = Color(1, 1, 1, 0)
-offset_left = 484.99997
-offset_top = 147.0
-offset_right = 546.0
-offset_bottom = 172.0
-scale = Vector2(1.3, 1.3)
-theme = ExtResource("2_ekxnf")
-text = "START"
-
-[node name="howtoplay game" type="Button" parent="MainMenuTitle" unique_id=1749344149]
+[node name="howtoplay game" type="Button" parent="MainMenuTitle" unique_id=881764021]
 modulate = Color(1, 1, 1, 0)
 offset_left = 463.0
 offset_top = 192.0
@@ -72,35 +118,45 @@ offset_bottom = 217.0
 scale = Vector2(1.3, 1.3)
 theme = ExtResource("2_ekxnf")
 text = "HOW TO PLAY"
+script = ExtResource("3_wu84c")
+metadata/_custom_type_script = "uid://bldstivarsngb"
 
-[node name="quit game" type="Button" parent="MainMenuTitle" unique_id=203337305]
+[node name="quit game" type="Button" parent="MainMenuTitle" unique_id=2016756342]
 modulate = Color(1, 1, 1, 0)
-offset_left = 495.0
-offset_top = 239.00002
-offset_right = 542.0
-offset_bottom = 264.0
+offset_left = 472.00006
+offset_top = 256.0
+offset_right = 519.0
+offset_bottom = 281.0
 scale = Vector2(1.3, 1.3)
 theme = ExtResource("2_ekxnf")
 text = "QUIT"
-script = ExtResource("3_bqqt6")
 metadata/_custom_type_script = "uid://bldstivarsngb"
 
 [node name="Cursor_1" parent="MainMenuTitle" unique_id=529316777 instance=ExtResource("3_bqqt6")]
-position = Vector2(481, 157)
+offset_left = 516.0
+offset_top = 166.0
+offset_right = 516.0
+offset_bottom = 166.0
 
 [node name="Cursor_2" parent="MainMenuTitle" unique_id=1890186492 instance=ExtResource("3_bqqt6")]
-position = Vector2(452, 202)
+offset_left = 475.0
+offset_top = 204.0
+offset_right = 475.0
+offset_bottom = 204.0
 
 [node name="Cursor_3" parent="MainMenuTitle" unique_id=195575091 instance=ExtResource("3_bqqt6")]
-position = Vector2(489, 250)
+offset_left = 519.0
+offset_top = 252.0
+offset_right = 519.0
+offset_bottom = 252.0
 
 [node name="HowToPlay" type="Node2D" parent="." unique_id=1158100470]
 
-[node name="ReferenceImage" type="ColorRect" parent="HowToPlay" unique_id=1059120116]
-offset_left = 1.0
-offset_right = 641.0
-offset_bottom = 360.0
-color = Color(0.012617188, 0.012617188, 0.012617188, 1)
+[node name="HTP bg" type="AnimatedSprite2D" parent="HowToPlay" unique_id=1655926663]
+position = Vector2(320, 180)
+sprite_frames = SubResource("SpriteFrames_a8gd2")
+animation = &"idle"
+autoplay = "idle"
 
 [node name="back" type="Button" parent="HowToPlay" unique_id=1079116797]
 self_modulate = Color(1, 1, 1, 0)
@@ -113,17 +169,49 @@ theme = ExtResource("2_ekxnf")
 text = "BACK
 "
 
-[node name="Cursor_4" parent="HowToPlay" unique_id=682042971 instance=ExtResource("3_bqqt6")]
-position = Vector2(3, 330)
-
-[node name="BackText" type="Label" parent="HowToPlay" unique_id=799469651]
-offset_left = 16.0
-offset_top = 326.00003
-offset_right = 50.615387
-offset_bottom = 342.00003
-scale = Vector2(1.3, 1.3)
+[node name="BackText" type="TextureRect" parent="HowToPlay" unique_id=801229319]
+offset_left = 31.999998
+offset_top = 304.0
+offset_right = 96.0
+offset_bottom = 328.0
+scale = Vector2(0.8, 0.8)
 theme = ExtResource("2_ekxnf")
-text = "BACK"
+texture = ExtResource("10_5dd4i")
+
+[node name="TextureRect" type="TextureRect" parent="HowToPlay" unique_id=594981]
+offset_left = 88.0
+offset_top = 307.0
+offset_right = 128.0
+offset_bottom = 347.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("17_j7ex8")
+
+[node name="THE BASICS header" type="Label" parent="HowToPlay" unique_id=1732665632]
+offset_left = 40.0
+offset_top = 80.0
+offset_right = 264.0
+offset_bottom = 123.0
+theme = ExtResource("2_ekxnf")
+theme_override_colors/font_color = Color(0.2627451, 0.32156864, 0.43137255, 1)
+theme_override_font_sizes/font_size = 32
+text = "THE BASICS"
+
+[node name="THE BASICS body" type="Label" parent="HowToPlay" unique_id=971389269]
+offset_left = 40.0
+offset_top = 112.0
+offset_right = 312.0
+offset_bottom = 296.0
+theme = ExtResource("2_ekxnf")
+theme_override_colors/font_color = Color(0.2627451, 0.32156864, 0.43137255, 1)
+theme_override_font_sizes/font_size = 12
+text = "Your objective is to fetch firewood and feed it to the campfire to survive the day.
+
+Your scarf is trailing you and growing longer each day, and coming into contact with it will slow you down severely.
+
+Your blink ability allows you to travel through the scarf, or escape it when stuck.
+
+There are various pickups that can appear. Try them out!"
+autowrap_mode = 2
 
 [connection signal="focus_entered" from="MainMenuTitle/start game" to="." method="_on_start_game_focus_entered"]
 [connection signal="focus_exited" from="MainMenuTitle/start game" to="." method="_on_start_game_focus_exited"]
