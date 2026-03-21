@@ -46,9 +46,11 @@ func kill_node(): # remove node from front and kill it
 # reel scarf back, called from player
 func reel():
 	# quickly kill all victims
-	while get_children(): # while children exist
+	var has_nodes := true
+	while has_nodes: # while children exist
 		kill_node() # kill them all
 		await get_tree().create_timer(0.0001, false).timeout # wait a small bit
+		has_nodes = true if get_children() else false
 
 func _physics_process(_delta: float) -> void:
 	# Freezes the scarf
