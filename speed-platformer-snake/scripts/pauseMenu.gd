@@ -8,8 +8,18 @@ var player
 @onready var restart_button := $Restart
 @onready var quit_button := $Quit
 
+# child references to the cursor sprites
+@onready var cursor_continue := $Cursor_1
+@onready var cursor_restart := $Cursor_2
+@onready var cursor_quit := $Cursor_3
+
 func _ready() -> void:
 	continue_button.grab_focus() # continue button takes focus for key navigation
+
+	# Sets the cursors to false at the start
+	cursor_continue.visible = true
+	cursor_restart.visible = false
+	cursor_quit.visible = false
 	pause() # pause game
 
 func resume():
@@ -23,21 +33,40 @@ func pause():
 	scene_manager.is_paused = true # tell scene manager game is paused
 	get_tree().paused = true # pause the tree
 
-## Continue the game
+## CONTINUE
 func _on_continue_pressed() -> void:
 	resume() # resume actions
 	get_tree().paused = false # unpause
 	queue_free() # die
 
-## Restart game
+func _on_continue_focus_entered() -> void:
+	cursor_continue.visible = true
+
+func _on_continue_focus_exited() -> void:
+	cursor_continue.visible = false
+
+## RESTART
 func _on_restart_pressed() -> void:
 	resume()
 	scene_manager.start_game()
 
-## Quits to menu
+func _on_restart_focus_entered() -> void:
+	cursor_restart.visible = true
+
+func _on_restart_focus_exited() -> void:
+	cursor_restart.visible = false
+
+
+## QUITS
 func _on_quit_pressed() -> void: 
 	resume()
 	scene_manager.main_menu()
+
+func _on_quit_focus_entered() -> void:
+	cursor_quit.visible = true
+
+func _on_quit_focus_exited() -> void:
+	cursor_quit.visible = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):

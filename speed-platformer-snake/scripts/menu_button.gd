@@ -11,8 +11,3 @@ func _on_pressed() -> void:
 
 func _on_focus_entered() -> void:
 	AudioManager.play("navigation") # play menu nav noise
-	# switch to focused texture
-
-func _on_focus_exited() -> void:
-	# switch to unfocused texture
-	pass
