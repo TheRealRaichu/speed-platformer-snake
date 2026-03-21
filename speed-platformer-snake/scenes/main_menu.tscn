@@ -204,7 +204,7 @@ offset_bottom = 296.0
 theme = ExtResource("2_ekxnf")
 theme_override_colors/font_color = Color(0.2627451, 0.32156864, 0.43137255, 1)
 theme_override_font_sizes/font_size = 12
-text = "Your objective is to retrieve fuel and feed it to the campfire to survive the day.
+text = "Your objective is to fetch firewood and feed it to the campfire to survive the day.
 
 Your scarf is trailing you and growing longer each day, and coming into contact with it will slow you down severely.
 
