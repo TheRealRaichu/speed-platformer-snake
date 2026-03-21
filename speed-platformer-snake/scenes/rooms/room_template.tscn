@@ -13,11 +13,11 @@ tile_set = ExtResource("1_bx05y")
 
 [node name="fuel" parent="." unique_id=768821429 instance=ExtResource("2_1tjkb")]
 position = Vector2(432, 288)
-type = 1
+type = 3
 
 [node name="sugar" parent="." unique_id=26483383 instance=ExtResource("2_1tjkb")]
 position = Vector2(168, 288)
-type = 2
+type = 3
 
 [node name="for scale" type="Node2D" parent="." unique_id=1168312246]
 

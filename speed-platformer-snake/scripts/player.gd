@@ -18,21 +18,22 @@ func _ready() -> void:
 var no_interrupt := false
 
 func play_anim(animation_name : String): # get animation from process
-	# suffix fuel status for player
-	if has_fuel(): animation_name += "_has_fuel"
-	else: animation_name += "_no_fuel"
-	anim_sprite.play(animation_name)
+	if not dying or animation_name == "fainted":
+		# suffix fuel status for player
+		if has_fuel(): animation_name += "_has_fuel"
+		else: animation_name += "_no_fuel"
+		anim_sprite.play(animation_name)
 
 # GAME OVER ===========
 
 var dying := false # is currently in dying animation, diables physics
 
 func die():
-	dying = true # set flag
 	# play appropriate freeze animation
 	if is_on_floor(): play_anim("freeze_ground")
 	else: play_anim("freeze_fall")
 	AudioManager.play("deathfreeze") # play death sound
+	dying = true # set flag
 
 # SOUND ===============
 
@@ -399,6 +400,7 @@ func _physics_process(delta: float) -> void:
 		is_blinking = true # mark player as blinking
 		
 		no_interrupt = true # mark as unanimatable
+		
 		play_anim("blink_in") # play in animation
 		
 		await get_tree().create_timer(BLINK_DURATION).timeout
