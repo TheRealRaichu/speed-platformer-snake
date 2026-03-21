@@ -13,11 +13,14 @@ script = ExtResource("1_k17rw")
 stream = ExtResource("2_i3r22")
 autoplay = true
 bus = &"Music"
+parameters/looping = true
 
 [node name="piano" type="AudioStreamPlayer" parent="." unique_id=12973461]
 stream = ExtResource("3_wh65u")
 bus = &"Music"
+parameters/looping = true
 
 [node name="backing" type="AudioStreamPlayer" parent="." unique_id=996553648]
 stream = ExtResource("4_d6wjf")
 bus = &"Music"
+parameters/looping = true

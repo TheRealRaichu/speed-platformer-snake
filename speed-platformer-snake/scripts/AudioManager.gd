@@ -2,6 +2,8 @@ extends Node
 
 ## AUDIO MANAGER
 
+var scenemanager : SceneManager
+
 # exceptions
 var wall_slide_player := AudioStreamPlayer.new()
 var wall_slide_playing := false
@@ -54,17 +56,18 @@ func play_scarf_reeler(playing : bool):
 	scarf_collision_playing = playing # set flag
 
 func _process(_delta: float) -> void:
-	# wall slide player
-	if wall_slide_playing and not wall_slide_player.playing: # if should be playing and isn't
-		wall_slide_player.play() # play
-	elif not wall_slide_playing and wall_slide_player.playing: # shouldn't be playing and is, stop
-		wall_slide_player.stop() # stop
-	
-	# scarf collision player
-	if scarf_collision_playing and not scarf_collision_player.playing: # if should be playing and isn't
-		scarf_collision_player.play() # play
-	elif not scarf_collision_playing and scarf_collision_player.playing: # shouldn't be playing and is, stop
-		scarf_collision_player.stop() # stop
+	if scenemanager.current_scene == scenemanager.SCENES_ENUM.gameplay:
+		# wall slide player
+		if wall_slide_playing and not wall_slide_player.playing: # if should be playing and isn't
+			wall_slide_player.play() # play
+		elif not wall_slide_playing and wall_slide_player.playing: # shouldn't be playing and is, stop
+			wall_slide_player.stop() # stop
+		
+		# scarf collision player
+		if scarf_collision_playing and not scarf_collision_player.playing: # if should be playing and isn't
+			scarf_collision_player.play() # play
+		elif not scarf_collision_playing and scarf_collision_player.playing: # shouldn't be playing and is, stop
+			scarf_collision_player.stop() # stop
 
 # VOLUME CONTROL
 # courtesy of claude ai
