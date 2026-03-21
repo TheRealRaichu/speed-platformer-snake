@@ -2,7 +2,6 @@
 
 [ext_resource type="TileSet" uid="uid://cc5fna00x7ehi" path="res://assets/tileset/snow_tiles.tres" id="1_117xv"]
 [ext_resource type="PackedScene" uid="uid://bhabbrhnkbcwb" path="res://scenes/pickup.tscn" id="2_8tih2"]
-[ext_resource type="PackedScene" uid="uid://g5s3jnkbsdnp" path="res://scenes/player.tscn" id="3_8tih2"]
 
 [node name="sugar_2" type="Node2D" unique_id=846762763]
 
@@ -17,6 +16,3 @@ type = 1
 [node name="sugar" parent="." unique_id=26483383 instance=ExtResource("2_8tih2")]
 position = Vector2(608, 144)
 type = 2
-
-[node name="player" parent="." unique_id=1759500252 instance=ExtResource("3_8tih2")]
-position = Vector2(360, 312)
