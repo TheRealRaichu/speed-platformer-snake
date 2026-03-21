@@ -69,6 +69,7 @@ func life_timer_remaining_ratio() -> float:
 	return life_timer.time_left/life_timer.wait_time 
 
 func _on_life_timer_timeout() -> void: # GAME OVER
+	is_dead = true
 	anim_sprite.play("dead")
 	died_out.emit() # tell everyone campfire died
 
@@ -82,6 +83,8 @@ func weak_animation():
 	else: anim_sprite.play("blue_weak")
 
 func _process(_delta: float) -> void:
+	if is_dead: # skip anim tweaks if dead
+		return
 	if life_timer_remaining_ratio() > WEAKNESS_THRESHOLD and not is_dead: # if not dead and strong
 		strong_animation() # play strong
 	else: weak_animation() # play weak
