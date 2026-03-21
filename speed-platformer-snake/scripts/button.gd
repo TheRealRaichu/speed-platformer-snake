@@ -25,5 +25,5 @@ func _on_detector_body_entered(body: Node2D) -> void:
 func activate():
 	# change sprite
 	button.visible = false
-	indicator.color = Color.GREEN
+	indicator.color = Color.WHITE
 	activated.emit() # exclaim
