@@ -9,8 +9,8 @@ extends Control
 const SCORE_REACTION_DURATION := 2 # time in seconds score reaction displays
 
 # set day count to given integer
-func set_day_count(day_count : int, quick := false):
-	update_label(day_count, quick)
+func set_day_count(day_count_num : int, quick := false):
+	update_label(day_count_num, quick)
 
 func update_label(day_count_num : int, quick := false):
 	check_label_sizing()

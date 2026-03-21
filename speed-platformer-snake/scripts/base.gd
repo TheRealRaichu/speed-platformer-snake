@@ -30,7 +30,7 @@ func _ready() -> void:
 
 # called from process, when player is in range and has fuel
 func recieve_fuel():
-	AudioManager.play("campfire")
+	AudioManager.play("campfire", 3)
 	current_fuel_count += 1
 	check_success()
 
@@ -72,7 +72,7 @@ func _on_life_timer_timeout() -> void: # GAME OVER
 	died_out.emit() # tell everyone campfire died
 	
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	# check if player is in area
 	for body in area.get_overlapping_bodies(): # check all overlapping bodies

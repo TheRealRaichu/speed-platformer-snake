@@ -7,7 +7,7 @@ var is_paused := false # pause menu open?
 # SCENE REFERENCES
 const SCENES := {
 	"main_menu" : preload("res://scenes/main_menu.tscn"),
-	"game" : preload("res://scenes/game.tscn"),
+	"gameplay" : preload("res://scenes/game.tscn"),
 	"game_over" : preload("res://scenes/game_over.tscn"),
 }
 
@@ -15,12 +15,18 @@ const SCENES := {
 func _ready() -> void:
 	clear_child_scenes() # ensure no children
 	# load into main menu
-	switch_scene(SCENES.get("main_menu"))
+	main_menu()
 
 func start_game(): # called from main menu
-	switch_scene(SCENES.get("game"))
+	MusicManager.set_state(MusicManager.STATE.GAMEPLAY)
+	switch_scene(SCENES.get("gameplay"))
+
+func main_menu():
+	MusicManager.set_state(MusicManager.STATE.MAIN_MENU)
+	switch_scene(SCENES.get("main_menu"))
 
 func game_over():
+	MusicManager.set_state(MusicManager.STATE.GAME_OVER)
 	switch_scene(SCENES.get("game_over"))
 
 func switch_scene(scene : Variant):
