@@ -13,7 +13,7 @@ const NODE_POS_OFFSET = Vector2(0, -16)
 
 # manager properties
 var nodes : Array[ScarfNode] = [] # list of all nodes
-var reeling_kill_interval # how quickly to kill nodes when reeling
+const REEL_NODES_PER_FRAME := 3 # how many nodes dead per frame of reeling, affects reel speed
 
 func create_node():
 	var node_instance := node_scene.instantiate() # create instance
@@ -40,21 +40,20 @@ func increment_node_lifespan(): # increment lifespan
 	NODE_LIFESPAN += NODE_LIFESPAN_INCREMENT
 
 func kill_node(): # remove node from front and kill it
+	if nodes.is_empty(): # guard against empty array desync
+		return
 	var node = nodes.pop_front()
 	node.die()
 
 # reel scarf back, called from player
 func reel():
-	# quickly kill all victims
-	var has_nodes := true
-	while has_nodes: # while children exist
-		kill_node() # kill them all
-		await get_tree().create_timer(0.0001, false).timeout # wait a small bit
-		has_nodes = true if get_children() else false
+	var has_children := not nodes.is_empty()
+	while has_children:
+		for i in REEL_NODES_PER_FRAME: # kill several at once
+			if nodes.is_empty():
+				has_children = false
+			kill_node()
+		await get_tree().physics_frame # base it on physics frames so arrays don't desync
 
 func _physics_process(_delta: float) -> void:
-	# Freezes the scarf
-	if get_tree().paused:
-		return
-	
 	create_node() # create every tick
