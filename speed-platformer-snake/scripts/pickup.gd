@@ -5,6 +5,7 @@ extends Node2D
 
 # child references
 @onready var area = $Area2D # reference to area for player detection
+@onready var anim_sprite := $AnimatedSprite2D
 
 # it sucks but i gotta have a local one because the export is broken
 enum PICKUP_TYPES {
@@ -14,12 +15,28 @@ enum PICKUP_TYPES {
 	SCARF_REELER,
 	PACKAGED_FUEL,
 	BLINK_RESTORE,
+	random,
 	# etc..
 }
 
 @export var type : PICKUP_TYPES # globals contains all pickup types
 
 signal collected # emitted when pickup is collected
+
+func _ready() -> void:
+	if type == PICKUP_TYPES.random:
+		type = randi_range(PICKUP_TYPES.SUGAR, PICKUP_TYPES.BLINK_RESTORE) # pick a random type
+	
+	anim_sprite.play("fuel")
+	match type:
+		PICKUP_TYPES.SCARF_REELER:
+			anim_sprite.play("reeler")
+		PICKUP_TYPES.PACKAGED_FUEL:
+			anim_sprite.play("packaged_fuel")
+		PICKUP_TYPES.BLINK_RESTORE:
+			anim_sprite.play("blink_restore")
+		PICKUP_TYPES.SUGAR:
+			anim_sprite.play("sugar")
 
 func _process(_delta: float) -> void:
 	# check for player in range

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dj0r0it8tc022" path="res://scripts/game_over.gd" id="1_xeevv"]
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_wqhvx"]
+[ext_resource type="PackedScene" uid="uid://c2fqqr5mv6gl3" path="res://scenes/cursor.tscn" id="3_tbwuq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqhvx"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -15,24 +16,51 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xeevv")
 
-[node name="Label" type="Label" parent="." unique_id=1718583250]
+[node name="TryAgainText" type="Label" parent="." unique_id=1440985112]
 layout_mode = 0
-offset_left = 146.0
-offset_top = 97.0
-offset_right = 466.0
-offset_bottom = 289.0
+offset_left = 92.0
+offset_top = 129.0
+offset_right = 165.0
+offset_bottom = 152.0
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_wqhvx")
+text = "Try Again?"
+
+[node name="QuitText" type="Label" parent="." unique_id=131189762]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 179.0
+offset_right = 186.0
+offset_bottom = 202.0
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_wqhvx")
+text = "Quit"
+
+[node name="GameOverTitle" type="Label" parent="." unique_id=1718583250]
+layout_mode = 0
+offset_left = -105.00001
+offset_top = 66.0
+offset_right = 215.0
+offset_bottom = 258.0
+scale = Vector2(1.5, 1.5)
 theme = ExtResource("2_wqhvx")
 theme_type_variation = &"HeaderLarge"
-text = "GAME OVER!!!"
+text = "GAME OVER"
 horizontal_alignment = 1
+
+[node name="Cursor_1" parent="." unique_id=529316777 instance=ExtResource("3_tbwuq")]
+position = Vector2(78, 132)
+
+[node name="Cursor_2" parent="." unique_id=1094155505 instance=ExtResource("3_tbwuq")]
+position = Vector2(97, 183)
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1840598803]
 z_index = 8
 layout_mode = 0
-offset_left = 20.0
-offset_top = 243.0
-offset_right = 116.0
-offset_bottom = 334.0
+offset_left = 89.0
+offset_top = 117.0
+offset_right = 185.0
+offset_bottom = 208.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_wqhvx")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=14294141]
@@ -41,15 +69,17 @@ theme_override_constants/separation = 8
 alignment = 1
 
 [node name="Restart" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1569788562]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 focus_neighbor_bottom = NodePath("../Quit")
 focus_next = NodePath("../Quit")
 mouse_filter = 2
 theme = ExtResource("2_wqhvx")
-text = "Restart"
+text = "Try Again?"
 
 [node name="Quit" type="Button" parent="PanelContainer/VBoxContainer" unique_id=692208895]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 focus_neighbor_top = NodePath("../Restart")
@@ -57,6 +87,12 @@ focus_previous = NodePath("../Restart")
 mouse_filter = 2
 theme = ExtResource("2_wqhvx")
 text = "Quit"
+script = ExtResource("3_tbwuq")
+metadata/_custom_type_script = "uid://bldstivarsngb"
 
+[connection signal="focus_entered" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_focus_entered"]
+[connection signal="focus_exited" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_focus_exited"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="focus_entered" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_focus_entered"]
+[connection signal="focus_exited" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_focus_exited"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

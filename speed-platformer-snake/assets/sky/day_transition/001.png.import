@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyvyx1ifwvbpn"
-path="res://.godot/imported/vignette.png-832c74b0ac840441fff448b736c74a8e.ctex"
+uid="uid://b0ne882qefhi7"
+path="res://.godot/imported/001.png-1f33563eba8ebb7c20e3665fb2ece899.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/placeholder/vignette.png"
-dest_files=["res://.godot/imported/vignette.png-832c74b0ac840441fff448b736c74a8e.ctex"]
+source_file="res://assets/sky/day_transition/001.png"
+dest_files=["res://.godot/imported/001.png-1f33563eba8ebb7c20e3665fb2ece899.ctex"]
 
 [params]
 

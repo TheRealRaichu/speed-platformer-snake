@@ -1,18 +1,139 @@
 [gd_scene format=3 uid="uid://8am0lidcj4h6"]
 
 [ext_resource type="Script" uid="uid://dpbf48iijvff5" path="res://scripts/mainMenu.gd" id="1_l6cm7"]
+[ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_ekxnf"]
+[ext_resource type="PackedScene" uid="uid://c2fqqr5mv6gl3" path="res://scenes/cursor.tscn" id="3_bqqt6"]
 
 [node name="mainMenu" type="Control" unique_id=1836141774]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_l6cm7")
 
-[node name="start game" type="Button" parent="." unique_id=703194764]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 184.0
-offset_right = 120.0
-offset_bottom = 272.0
-text = "start game"
+[node name="MainMenuTitle" type="Node2D" parent="." unique_id=35243169]
+visible = false
 
-[connection signal="pressed" from="start game" to="." method="_on_start_game_pressed"]
+[node name="Game Title" type="Label" parent="MainMenuTitle" unique_id=1262799951]
+offset_left = 405.0
+offset_top = 72.0
+offset_right = 556.0
+offset_bottom = 101.0
+scale = Vector2(1.5, 1.5)
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderLarge"
+text = "Threadrunner"
+horizontal_alignment = 1
+
+[node name="StartText" type="Label" parent="MainMenuTitle" unique_id=313168012]
+offset_left = 497.00003
+offset_top = 153.00002
+offset_right = 545.0
+offset_bottom = 176.00002
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_ekxnf")
+button_mask = 0
+text = "START"
+script = ExtResource("3_bqqt6")
+metadata/_custom_type_script = "uid://bldstivarsngb"
+
+[node name="HowToPlayText" type="Label" parent="MainMenuTitle" unique_id=1704965693]
+offset_left = 468.0
+offset_top = 198.0
+offset_right = 555.0
+offset_bottom = 221.0
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_ekxnf")
+text = "HOW TO PLAY"
+
+[node name="QuitText" type="Label" parent="MainMenuTitle" unique_id=106294291]
+offset_left = 506.0
+offset_top = 245.00002
+offset_right = 592.99994
+offset_bottom = 268.0
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_ekxnf")
+text = "QUIT"
+
+[node name="start game" type="Button" parent="MainMenuTitle" unique_id=703194764]
+modulate = Color(1, 1, 1, 0)
+offset_left = 484.99997
+offset_top = 147.0
+offset_right = 546.0
+offset_bottom = 172.0
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_ekxnf")
+text = "START"
+
+[node name="howtoplay game" type="Button" parent="MainMenuTitle" unique_id=1749344149]
+modulate = Color(1, 1, 1, 0)
+offset_left = 463.0
+offset_top = 192.0
+offset_right = 558.0
+offset_bottom = 217.0
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_ekxnf")
+text = "HOW TO PLAY"
+
+[node name="quit game" type="Button" parent="MainMenuTitle" unique_id=203337305]
+modulate = Color(1, 1, 1, 0)
+offset_left = 495.0
+offset_top = 239.00002
+offset_right = 542.0
+offset_bottom = 264.0
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_ekxnf")
+text = "QUIT"
+script = ExtResource("3_bqqt6")
+metadata/_custom_type_script = "uid://bldstivarsngb"
+
+[node name="Cursor_1" parent="MainMenuTitle" unique_id=529316777 instance=ExtResource("3_bqqt6")]
+position = Vector2(481, 157)
+
+[node name="Cursor_2" parent="MainMenuTitle" unique_id=1890186492 instance=ExtResource("3_bqqt6")]
+position = Vector2(452, 202)
+
+[node name="Cursor_3" parent="MainMenuTitle" unique_id=195575091 instance=ExtResource("3_bqqt6")]
+position = Vector2(489, 250)
+
+[node name="HowToPlay" type="Node2D" parent="." unique_id=1158100470]
+
+[node name="ReferenceImage" type="ColorRect" parent="HowToPlay" unique_id=1059120116]
+offset_left = 1.0
+offset_right = 641.0
+offset_bottom = 360.0
+color = Color(0.012617188, 0.012617188, 0.012617188, 1)
+
+[node name="back" type="Button" parent="HowToPlay" unique_id=1079116797]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 9.0
+offset_top = 318.00003
+offset_right = 56.0
+offset_bottom = 343.00003
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_ekxnf")
+text = "BACK
+"
+
+[node name="Cursor_4" parent="HowToPlay" unique_id=682042971 instance=ExtResource("3_bqqt6")]
+position = Vector2(3, 330)
+
+[node name="BackText" type="Label" parent="HowToPlay" unique_id=799469651]
+offset_left = 16.0
+offset_top = 326.00003
+offset_right = 50.615387
+offset_bottom = 342.00003
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_ekxnf")
+text = "BACK"
+
+[connection signal="focus_entered" from="MainMenuTitle/start game" to="." method="_on_start_game_focus_entered"]
+[connection signal="focus_exited" from="MainMenuTitle/start game" to="." method="_on_start_game_focus_exited"]
+[connection signal="pressed" from="MainMenuTitle/start game" to="." method="_on_start_game_pressed"]
+[connection signal="focus_entered" from="MainMenuTitle/howtoplay game" to="." method="_on_howtoplay_game_focus_entered"]
+[connection signal="focus_exited" from="MainMenuTitle/howtoplay game" to="." method="_on_howtoplay_game_focus_exited"]
+[connection signal="pressed" from="MainMenuTitle/howtoplay game" to="." method="_on_howtoplay_game_pressed"]
+[connection signal="focus_entered" from="MainMenuTitle/quit game" to="." method="_on_quit_game_focus_entered"]
+[connection signal="focus_exited" from="MainMenuTitle/quit game" to="." method="_on_quit_game_focus_exited"]
+[connection signal="pressed" from="MainMenuTitle/quit game" to="." method="_on_quit_game_pressed"]
+[connection signal="focus_entered" from="HowToPlay/back" to="." method="_on_back_focus_entered"]
+[connection signal="focus_exited" from="HowToPlay/back" to="." method="_on_back_focus_exited"]
+[connection signal="pressed" from="HowToPlay/back" to="." method="_on_back_pressed"]

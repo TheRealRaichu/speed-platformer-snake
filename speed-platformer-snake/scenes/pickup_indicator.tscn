@@ -1,8 +1,79 @@
 [gd_scene format=3 uid="uid://bjvlppq5mr4ye"]
 
-[ext_resource type="FontFile" uid="uid://bd5rkgn5d5465" path="res://assets/font/yoster.ttf" id="1_b1ibj"]
 [ext_resource type="Script" uid="uid://cv07rr3ack5hb" path="res://scripts/pickup_indicator.gd" id="1_fu8ty"]
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_d5ek3"]
+[ext_resource type="Texture2D" uid="uid://csoqm00eyov46" path="res://assets/items/item_sprite_sheet.png" id="4_cdggi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gyxxy"]
+atlas = ExtResource("4_cdggi")
+region = Rect2(48, 8, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4m06l"]
+atlas = ExtResource("4_cdggi")
+region = Rect2(0, 8, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqyie"]
+atlas = ExtResource("4_cdggi")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0qhb"]
+atlas = ExtResource("4_cdggi")
+region = Rect2(24, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mj4kx"]
+atlas = ExtResource("4_cdggi")
+region = Rect2(24, 8, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o16vq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gyxxy")
+}],
+"loop": false,
+"name": &"blink_restore",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4m06l")
+}],
+"loop": true,
+"name": &"fuel",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqyie")
+}],
+"loop": true,
+"name": &"packaged_fuel",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0qhb")
+}],
+"loop": false,
+"name": &"reeler",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mj4kx")
+}],
+"loop": true,
+"name": &"sugar",
+"speed": 5.0
+}]
 
 [node name="pickup indicator" type="Control" unique_id=1768973162]
 layout_mode = 3
@@ -15,24 +86,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0.7223536, 0.8022924, 1, 1)
 
-[node name="placeholder icon" type="Label" parent="." unique_id=549359748]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme = ExtResource("2_d5ek3")
-theme_override_colors/font_color = Color(0.10747976, 0.10747973, 0.10747973, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/line_spacing = 0
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 4
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource("1_b1ibj")
-theme_override_font_sizes/font_size = 24
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 1
-
 [node name="item name" type="Label" parent="." unique_id=1476812712]
 layout_mode = 0
 offset_left = 48.0
@@ -44,3 +97,8 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 text = "item name!"
 vertical_alignment = 1
+
+[node name="pickup icon" type="AnimatedSprite2D" parent="." unique_id=431174807]
+position = Vector2(20, 20)
+sprite_frames = SubResource("SpriteFrames_o16vq")
+animation = &"empty"

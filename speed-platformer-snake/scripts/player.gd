@@ -47,8 +47,8 @@ func attempt_play_step_sound():
 
 # SCARF ================
 
-const TARGET_SCARF_SPEED := 20 # top speed while moving in scarf
-const SCARF_DECELERATION := 70 # rate at which you match that scarf speed\
+const TARGET_SCARF_SPEED := 30 # top speed while moving in scarf
+const SCARF_DECELERATION := 1000 # rate at which you match that scarf speed
 var scarf_invincible := false # is invincible to scarf?
 var is_in_scarf := false # is currently in scarf?
 
@@ -67,7 +67,7 @@ func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
 	if velocity.y > TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, TARGET_SCARF_SPEED, SCARF_DECELERATION)
 	if velocity.y < -TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, -TARGET_SCARF_SPEED, SCARF_DECELERATION)
 	if velocity.x > TARGET_SCARF_SPEED: velocity.x = move_toward(velocity.x, TARGET_SCARF_SPEED, SCARF_DECELERATION)
-	if velocity.x < -TARGET_SCARF_SPEED: velocity.x = move_toward(velocity.y, -TARGET_SCARF_SPEED, SCARF_DECELERATION)
+	if velocity.x < -TARGET_SCARF_SPEED: velocity.x = move_toward(velocity.x, -TARGET_SCARF_SPEED, SCARF_DECELERATION)
 
 func scarf_increment(): # call scarf to increment lifespan
 	scarf.increment_node_lifespan()
@@ -86,6 +86,10 @@ func blinked_charge_update():
 	current_blink_count -= 1 # remove blink charge
 	if blink_refresh_timer.is_stopped(): # if refresh timer not going
 		blink_refresh_timer.start() # start timer
+
+# called from blink usage and reeler usage
+func scarf_invincible_timer():
+	get_tree().create_timer(BLINK_SCARF_I_DURATION).timeout.connect(func(): scarf_invincible = false) # start timer to end cooldown
 
 # PICKUPS ===============
 
@@ -164,11 +168,13 @@ func use_sugar():
 	current_sugar_timer.timeout.connect(sugar_timeout) # after duration, disable sugar effects
 
 func use_reeler():
+	scarf_invincible_timer()
 	AudioManager.play("usescarfreeler", 3) # play blink restore use noise
 	scarf.reel() # tell scarf to reel back
 
+# Check if it works
 func use_packed_fuel():
-	recieve_fuel()
+	recieve_fuel() # give player fuel
 
 func use_blink_restore():
 	AudioManager.play("useblinkrestore") # play blink restore use noise
@@ -249,7 +255,7 @@ const BLINKING_VELOCITY := 500 # velocity while player is travelling in blink, a
 const BLINK_OUT_VELOCITY := 400 # amount of velocity set in blink direction after charge blink
 const BLINK_DURATION := .15 # how long blink takes from start to finish
 const BLINK_COOLDOWN := .5 # blink cooldown duration
-const BLINK_SCARF_I_DURATION := .25 # duration of being invincible to scarf after blink
+const BLINK_SCARF_I_DURATION := .5 # duration of being invincible to scarf after blink
 var is_blinking := false # ignore all other physics while true
 var blink_on_cooldown := false # is blink on cooldown?
 
@@ -267,7 +273,7 @@ func _physics_process(delta: float) -> void:
 		# gravity and decelerate
 		velocity.y += current_gravity * delta # apply gravity to y velocity
 		velocity.x = move_toward(velocity.x, 0, GROUND_ACCEL if is_on_floor() else AIR_ACCEL) # decelerate to 0, taken from part below
-		if is_on_floor() and (not anim_sprite.is_playing() or anim_sprite.animation == "freeze_fall"): # be grounded and await death animation finish
+		if is_on_floor() and (not anim_sprite.is_playing() or anim_sprite.animation == "freeze_fall_has_fuel" or anim_sprite.animation == "freeze_fall_no_fuel"): # be grounded and await death animation finish or interrupt falling animation finish
 			play_anim("fainted") # ends both air and ground fainting animations
 		move_and_slide() # duh
 		return # dont do anything else
@@ -368,7 +374,6 @@ func _physics_process(delta: float) -> void:
 	 
 	if is_wall_slide and velocity.y > 0: # if wall sliding downward 
 		velocity.y = move_toward(velocity.y, WALL_SLIDE_Y_VELOCITY, 50)  # move toward wall sliding speed 
-	
 
 	# BLINKING
 	if Input.is_action_just_pressed("ability") and not blink_on_cooldown and current_blink_count > 0: # when blink input pressed and cooldown not active and atleast one blink charge
@@ -398,7 +403,7 @@ func _physics_process(delta: float) -> void:
 		is_blinking = false # no longer blinking
 		scarf_invincible = true # post blink invincibility
 		# set timer to remove invincibility
-		get_tree().create_timer(BLINK_SCARF_I_DURATION).timeout.connect(func(): scarf_invincible = false) # start timer to end cooldown
+		scarf_invincible_timer()
 		
 		# set velocity
 		velocity = Vector2(
