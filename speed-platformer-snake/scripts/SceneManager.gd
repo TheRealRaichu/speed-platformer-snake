@@ -43,7 +43,8 @@ func game_over():
 
 func _switch_scene(scene : Variant):
 	get_tree().paused = false # unpause game
-	clear_child_scenes()
+	is_paused = false # set flag
+	clear_child_scenes() 
 	var inst_scene = scene.instantiate() # instantiate scene
 	inst_scene.scene_manager = self # set scene manager reference
 	add_child(inst_scene) # add as child to scene root
