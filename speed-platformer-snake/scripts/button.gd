@@ -16,19 +16,20 @@ enum COLORS {
 
 # convert color enum to animation name suffix
 var color_to_suffix := {COLORS.RED : "_red", COLORS.GREEN : "_green", COLORS.BLUE : "_blue", COLORS.YELLOW : "_yellow"}
-
 var color : COLORS # current color, taken from door
-
+# activation
 signal activated
+var is_activated := false
 
 func _ready() -> void:
 	sprite.play("inactive" + color_to_suffix.get(color))
 
 func _on_detector_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"): # if body is player
+	if body.is_in_group("player") and not is_activated: # if body is player
 		activate()
 
 func activate():
+	is_activated = true
 	AudioManager.play("button", 2)
 	sprite.play("active" + color_to_suffix.get(color))
 	activated.emit() # exclaim
