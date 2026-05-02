@@ -6,10 +6,12 @@ extends Node2D
 var node_scene := preload("res://scenes/scarf_node.tscn")
 
 # node properties
-var NODE_ACTIVATION_TIME := 1 # time to activate in seconds
-var NODE_LIFESPAN := 1.5 # total lifespan of a node, determines length of scarf
-var NODE_LIFESPAN_INCREMENT := .2 # amount of time to increment node lifespan by
+var node_activation_time := 1 # time to activate in seconds
+var node_lifespan := 1.5 # total lifespan of a node, determines length of scarf
+var node_lifespan_increment := .2 # amount of time to increment node lifespan by
 const NODE_POS_OFFSET = Vector2(0, -16)
+# style
+var pixel_offset := 4
 
 # manager properties
 var nodes : Array[ScarfNode] = [] # list of all nodes
@@ -17,16 +19,16 @@ var reeling_kill_interval # how quickly to kill nodes when reeling
 
 func create_node():
 	var node_instance := node_scene.instantiate() # create instance
-	node_instance.lifespan = NODE_LIFESPAN # set lifespan attribute
-	node_instance.activation_time = NODE_ACTIVATION_TIME # set lifespan activation time
+	node_instance.lifespan = node_lifespan # set lifespan attribute
+	node_instance.activation_time = node_activation_time # set lifespan activation time
 	node_instance.connect("lifespan_over", kill_node) # connect signal
 	
 	var current_pos := self.global_position + NODE_POS_OFFSET
 	var start_pos : Vector2
 	if nodes:
-		var prev_point := nodes[-1].get_point_position(1)
-		var dir := (current_pos - prev_point).normalized()
-		start_pos = prev_point - dir * 4 # extend back by 4 pixels
+		var prev_point := nodes[-1].get_point_position(1) # get second point of last node
+		var dir := (current_pos - prev_point).normalized() # normalize the difference
+		start_pos = prev_point - dir * pixel_offset # extend back by 4 pixels
 	else:
 		start_pos = current_pos
 	
@@ -37,7 +39,7 @@ func create_node():
 	add_child(node_instance) # add child
 
 func increment_node_lifespan(): # increment lifespan
-	NODE_LIFESPAN += NODE_LIFESPAN_INCREMENT
+	node_lifespan += node_lifespan_increment
 
 func kill_node(): # remove node from front and kill it
 	var node = nodes.pop_front()

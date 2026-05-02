@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://dj5ahqhuq3lv3" path="res://assets/music/freeze timing drum and bass.mp3" id="2_i3r22"]
 [ext_resource type="AudioStream" uid="uid://yrafc6h3unoh" path="res://assets/music/freeze timing piano.mp3" id="3_wh65u"]
 [ext_resource type="AudioStream" uid="uid://b5h4rsukjn0du" path="res://assets/music/freeze timing backing.mp3" id="4_d6wjf"]
+[ext_resource type="AudioStream" uid="uid://cbx3buo7icp7h" path="res://assets/music/freeze timing tamb.mp3" id="5_wh65u"]
 
 [node name="MusicManager" type="Node" unique_id=15124038]
 process_mode = 3
@@ -11,13 +12,20 @@ script = ExtResource("1_k17rw")
 
 [node name="drums_bass" type="AudioStreamPlayer" parent="." unique_id=709933937]
 stream = ExtResource("2_i3r22")
-autoplay = true
 bus = &"Music"
+parameters/looping = true
 
 [node name="piano" type="AudioStreamPlayer" parent="." unique_id=12973461]
 stream = ExtResource("3_wh65u")
 bus = &"Music"
+parameters/looping = true
 
 [node name="backing" type="AudioStreamPlayer" parent="." unique_id=996553648]
 stream = ExtResource("4_d6wjf")
 bus = &"Music"
+parameters/looping = true
+
+[node name="tamb" type="AudioStreamPlayer" parent="." unique_id=912309986]
+stream = ExtResource("5_wh65u")
+bus = &"Music"
+parameters/looping = true

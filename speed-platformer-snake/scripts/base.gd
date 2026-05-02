@@ -10,6 +10,8 @@ extends Node2D
 const WEAKNESS_THRESHOLD := 0.5 # when to start playing weak animation
 const REG_LIFESPAN := 10 # time in seconds per level
 const BOSS_LIFESPAN := 19 # time in seconds per boss level
+const EARLY_LEVEL_LIFESPAN_BONUS := 10 # extra seconds on the timer for early levels
+const EARLY_LEVEL_COUNT := 10 # how many levels count as "early"
 const QUICKNESS_MARGIN := 4 # is quick margin, in seconds
 # score
 const REG_SCORE := 1
@@ -27,7 +29,7 @@ signal fuel_received
 signal died_out
 
 func _ready() -> void:
-	life_timer.start(REG_LIFESPAN) # begin life timer
+	life_timer.start(get_lifespan()) # begin life timer
 
 # called from process, when player is in range and has fuel
 func recieve_fuel():
@@ -49,7 +51,12 @@ func check_success():
 		
 		# sucess! reset flags
 		current_fuel_count = 0
-		life_timer.start(REG_LIFESPAN if not is_blue_fire else BOSS_LIFESPAN) # reset life timer and set time accordingly
+		life_timer.start(get_lifespan()) # reset life timer and set time accordingly
+
+func get_lifespan() -> int:
+	var lifespan := REG_LIFESPAN if not is_blue_fire else BOSS_LIFESPAN # init lifespan
+	lifespan += EARLY_LEVEL_LIFESPAN_BONUS if Globals.day_count <= EARLY_LEVEL_COUNT else 0 # add early level bonus
+	return lifespan
 
 # becoming blue fire?
 func blue_fire_check():
@@ -60,9 +67,11 @@ func blue_fire_check():
 
 func become_blue_fire():
 	is_blue_fire = true # set flag
+	MusicManager.set_state(MusicManager.STATE.GAMEPLAY_BLUE_FIRE)
 
 func become_reg_fire():
 	is_blue_fire = false # set flag
+	MusicManager.set_state(MusicManager.STATE.GAMEPLAY)
 
 # returns value between 1.0 and 0.0
 func life_timer_remaining_ratio() -> float:

@@ -18,9 +18,6 @@ var current_pause_menu
 # GAME DATA
 
 func _ready() -> void:
-	# reset score
-	Globals.day_count = 1
-	Globals.score = 1
 	# connect signals
 	level.base_received_fuel.connect(base_received_fuel)
 	level.base_died_out.connect(game_over)

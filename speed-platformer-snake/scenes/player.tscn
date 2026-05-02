@@ -738,6 +738,7 @@ animations = [{
 }]
 
 [node name="player" type="CharacterBody2D" unique_id=1759500252 groups=["player"]]
+safe_margin = 0.1
 script = ExtResource("1_3vyb7")
 
 [node name="collision box" type="CollisionShape2D" parent="." unique_id=854408467]
@@ -765,5 +766,15 @@ texture_filter = 1
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_4ni07")
 animation = &"idle_no_fuel"
+
+[node name="left wall jump detector" type="RayCast2D" parent="." unique_id=1546371039]
+position = Vector2(0, -16)
+target_position = Vector2(-16, 0)
+collision_mask = 2
+
+[node name="right wall jump detector" type="RayCast2D" parent="." unique_id=951560076]
+position = Vector2(0, -16)
+target_position = Vector2(16, 0)
+collision_mask = 2
 
 [connection signal="timeout" from="blink refresh timer" to="." method="_on_blink_refresh_timer_timeout"]

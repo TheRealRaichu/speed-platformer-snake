@@ -7,7 +7,8 @@ extends CharacterBody2D
 @onready var scarf_box := $"scarf detector"
 @onready var anim_sprite := $AnimatedSprite2D
 @onready var blink_refresh_timer := $"blink refresh timer"
-
+@onready var left_wall_detector := $"left wall jump detector"
+@onready var right_wall_detector := $"right wall jump detector"
 
 # ready
 func _ready() -> void:
@@ -105,6 +106,7 @@ const SUGAR_WALL_JUMP := -520 # wall jump velocity during sugar effect
 const SUGAR_STEP_INTERVAL := .15
 var sugar_active := false # sugar active flag
 var current_sugar_timer # reference to current sugar timer for refreshes
+
 # reset sugar flags
 var sugar_timeout := func(): 
 	sugar_active = false
@@ -247,6 +249,7 @@ const BASE_WALLJUMP_VELOCITY := -400.0 # y velocity after wall jump
 var current_wall_jump_velocity := BASE_WALLJUMP_VELOCITY
 const WALL_PUSHBACK_VELOCITY := 300 # x velocity after wall jump
 const WALLJUMP_IGNORE_DURATION := .15 # duration to ignore x input after wall jump
+var on_wall := false # is on wall right now?
 var walljump_ignore_x := false # should ignore deceleration and run input?
 var is_wall_slide := false # is sliding on wall?
 const WALL_SLIDE_Y_VELOCITY := 100 # target velocity when sliding down a wall
@@ -286,6 +289,10 @@ func _physics_process(delta: float) -> void:
 	# TAKE INPUT DIRECTIONS
 	var horizontal_direction := Input.get_axis("move_left", "move_right") # get horizontal axis input
 	var vertical_direction := Input.get_axis("move_up", "move_down") # get vertical axis input
+	
+	# WALL DETECTION
+	# check if wall is jumpable rn
+	on_wall = true if left_wall_detector.is_colliding() or right_wall_detector.is_colliding() else false
 	
 	# BUFFERING
 	# rightward
@@ -336,7 +343,7 @@ func _physics_process(delta: float) -> void:
 	
 	# WALL JUMPING
 	# put on elif to avoid duplicate jumps
-	elif is_on_wall_only() and (Input.is_action_just_pressed("jump") or jump_buffer): # on wall only and jumped (or jump buffered)
+	elif on_wall and not is_on_floor() and (Input.is_action_just_pressed("jump") or jump_buffer): # on wall only and jumped (or jump buffered)
 		AudioManager.play("walljump", 2) # play jump noise
 		jump_buffer = false # reset jump buffer
 		velocity.y = current_wall_jump_velocity # set y velocity accordingly
