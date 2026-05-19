@@ -33,6 +33,9 @@ func die():
 	# play appropriate freeze animation
 	if is_on_floor(): play_anim("freeze_ground")
 	else: play_anim("freeze_fall")
+	# reset sound effect players
+	AudioManager.play_wall_slide(false)
+	AudioManager.play_scarf_reeler(false)
 	AudioManager.play("deathfreeze") # play death sound
 
 # SOUND ===============
@@ -42,9 +45,10 @@ var current_step_interval := BASE_STEP_INTERVAL
 var step_sound_on_cooldown := false # is the step noise on cooldown?
 
 func attempt_play_step_sound():
-	AudioManager.play("step") # play step
-	step_sound_on_cooldown = true # set cooldown flag
-	get_tree().create_timer(current_step_interval).timeout.connect(func(): step_sound_on_cooldown = false) # reset cooldown after timer
+	if is_on_floor() and velocity.x and not step_sound_on_cooldown: # if moving on ground and step sound off cooldown
+		AudioManager.play("step") # play step
+		step_sound_on_cooldown = true # set cooldown flag
+		get_tree().create_timer(current_step_interval).timeout.connect(func(): step_sound_on_cooldown = false) # reset cooldown after timer
 
 # SCARF ================
 
@@ -220,6 +224,9 @@ func attempt_give_fuel() -> bool:
 # base movement and buffers
 const BASE_SPEED := 300.0 # running speed
 var current_speed := BASE_SPEED # current speed used in calculations
+var horizontal_direction : float
+var vertical_direction : float
+var horizontal_acceleration : float
 const GROUND_ACCEL := 100.0 # accleration on ground
 const AIR_ACCEL := 60.0 # acceleration in air
 const BASE_JUMP_VELOCITY := -350.0 # jump impulse ~ 2.5 blocks
@@ -266,35 +273,22 @@ var blink_on_cooldown := false # is blink on cooldown?
 # HELPERS FOR CHARACTER CONTROLLER
 # called from physics process
 
-func reset_jump_attributes():
-	is_jump = false # not currently jumping
-	jump_released = false # not jumping so reset
-	fast_fall = false # not fast falling
-	current_gravity = BASE_GRAVITY # reset gravity
+func dying_process(delta: float):
+	# gravity and decelerate
+	velocity.y += current_gravity * delta # apply gravity to y velocity
+	velocity.x = move_toward(velocity.x, 0, GROUND_ACCEL if is_on_floor() else AIR_ACCEL) # decelerate to 0, taken from part below
+	if is_on_floor() and (not anim_sprite.is_playing() or anim_sprite.animation == "freeze_fall_has_fuel" or anim_sprite.animation == "freeze_fall_no_fuel"): # be grounded and await death animation finish or interrupt falling animation finish
+		play_anim("fainted") # ends both air and ground fainting animations
+	move_and_slide() # duh
 
-func _physics_process(delta: float) -> void:
-	if dying: # if flag
-		# gravity and decelerate
-		velocity.y += current_gravity * delta # apply gravity to y velocity
-		velocity.x = move_toward(velocity.x, 0, GROUND_ACCEL if is_on_floor() else AIR_ACCEL) # decelerate to 0, taken from part below
-		if is_on_floor() and (not anim_sprite.is_playing() or anim_sprite.animation == "freeze_fall_has_fuel" or anim_sprite.animation == "freeze_fall_no_fuel"): # be grounded and await death animation finish or interrupt falling animation finish
-			play_anim("fainted") # ends both air and ground fainting animations
-		move_and_slide() # duh
-		return # dont do anything else
-	if is_blinking: # if currently in blink
-		move_and_slide()
-		return
-	
-	# MOVEMENT
-	# TAKE INPUT DIRECTIONS
-	var horizontal_direction := Input.get_axis("move_left", "move_right") # get horizontal axis input
-	var vertical_direction := Input.get_axis("move_up", "move_down") # get vertical axis input
-	
-	# WALL DETECTION
-	# check if wall is jumpable rn
+func get_input_direction():
+	horizontal_direction = Input.get_axis("move_left", "move_right") # get horizontal axis input
+	vertical_direction = Input.get_axis("move_up", "move_down") # get vertical axis input
+
+func wall_check():
 	on_wall = true if left_wall_detector.is_colliding() or right_wall_detector.is_colliding() else false
-	
-	# BUFFERING
+
+func set_buffers():
 	# rightward
 	if (Input.is_action_just_released("move_right") or Input.is_action_just_pressed("move_right")) and not right_buffer: # if right just released and buffer not already active
 		right_buffer = true # set right buffer flag to true
@@ -314,76 +308,74 @@ func _physics_process(delta: float) -> void:
 		was_on_floor = false # reset grounded tag
 		coyote_buffer = true # set flag to true
 		get_tree().create_timer(COYOTE_DURATION).timeout.connect(func(): coyote_buffer = false) # set buffer flag to false after buffer duration
-	
-	# RUNNING
+
+func running_accel_process():
 	if not walljump_ignore_x: # if x velocity change is being accepted
 		# get acceleration based on grounded status
-		var horizontal_acceleration = GROUND_ACCEL if is_on_floor() else AIR_ACCEL # 100 on ground, 60 in air
+		horizontal_acceleration = GROUND_ACCEL if is_on_floor() else AIR_ACCEL # 100 on ground, 60 in air
 		# move in direction of acceleration or decelerate
 		if horizontal_direction:
 			velocity.x = move_toward(velocity.x, horizontal_direction * current_speed, horizontal_acceleration) # accelerate toward top speed
 		else: # no dir held
 			velocity.x = move_toward(velocity.x, 0, horizontal_acceleration) # decelerate to 0
-	
-	# JUMPING
-	# reset all jump status if on the floor
+
+func reset_jump_attributes_process():
 	if is_on_floor() or is_on_wall():
-		reset_jump_attributes()
-	
-	# base jump if on floor
-	if (is_on_floor() or coyote_buffer) and (Input.is_action_just_pressed("jump") or jump_buffer):
-		AudioManager.play("jump", -7) # play jump noise
-		jump_buffer = false # reset jump buffer
-		velocity.y = current_jump_velocity # apply jump velocity
-		is_jump = true # currently jumping
-		# create apex grav timer
-		get_tree().create_timer(PRE_APEX_INTERVAL).timeout.connect(func(): # after a timer with apex interval duration
-			if Input.is_action_pressed("jump") and is_jump and not jump_released and not fast_fall: # only if jump is still held and was never released and not in fast fall during jump
-				current_gravity = HELD_APEX_GRAVITY) # set gravity to apex gravity
-	
-	# WALL JUMPING
-	# put on elif to avoid duplicate jumps
-	elif on_wall and not is_on_floor() and (Input.is_action_just_pressed("jump") or jump_buffer): # on wall only and jumped (or jump buffered)
-		AudioManager.play("walljump", 2) # play jump noise
-		jump_buffer = false # reset jump buffer
-		velocity.y = current_wall_jump_velocity # set y velocity accordingly
-		# set flags for wall jump
-		walljump_ignore_x = true 
-		is_jump = true
-		# check what side wall is on
-		if get_wall_normal().x > 0: # wall on left
-			velocity.x = WALL_PUSHBACK_VELOCITY # push to the right
-		else: # wall on right
-			velocity.x = -WALL_PUSHBACK_VELOCITY # push to the left
-		# create timer to reset ignore flag after ignore duration
-		get_tree().create_timer(WALLJUMP_IGNORE_DURATION).timeout.connect(func(): walljump_ignore_x = false)
-	
-	# JUMP RELEASE
+		is_jump = false # not currently jumping
+		jump_released = false # not jumping so reset
+		fast_fall = false # not fast falling
+		current_gravity = BASE_GRAVITY # reset gravity
+
+func base_jump():
+	AudioManager.play("jump", -7) # play jump noise
+	jump_buffer = false # reset jump buffer
+	velocity.y = current_jump_velocity # apply jump velocity
+	is_jump = true # currently jumping
+	# create apex grav timer
+	get_tree().create_timer(PRE_APEX_INTERVAL).timeout.connect(func(): # after a timer with apex interval duration
+		if Input.is_action_pressed("jump") and is_jump and not jump_released and not fast_fall: # only if jump is still held and was never released and not in fast fall during jump
+			current_gravity = HELD_APEX_GRAVITY) # set gravity to apex gravity
+
+func wall_jump():
+	AudioManager.play("walljump", 2) # play jump noise
+	jump_buffer = false # reset jump buffer
+	velocity.y = current_wall_jump_velocity # set y velocity accordingly
+	# set flags for wall jump
+	walljump_ignore_x = true 
+	is_jump = true
+	# check what side wall is on
+	if get_wall_normal().x > 0: # wall on left
+		velocity.x = WALL_PUSHBACK_VELOCITY # push to the right
+	else: # wall on right
+		velocity.x = -WALL_PUSHBACK_VELOCITY # push to the left
+	# create timer to reset ignore flag after ignore duration
+	get_tree().create_timer(WALLJUMP_IGNORE_DURATION).timeout.connect(func(): walljump_ignore_x = false)
+
+func do_jump_release_process():
 	if Input.is_action_just_released("jump") and is_jump: # if are jumping and jump was released
 		jump_released = true # flag for jump key has been released
 		current_gravity = RELEASE_GRAVITY # adjust gravity accordingly
-	
-	# FAST FALL
+
+func do_fast_fall_process():
 	if not is_on_floor() and Input.is_action_pressed("ui_down"):
 		fast_fall = true
 		current_gravity = FAST_FALL_GRAVITY
-	
-	# GRAVITY
+
+func apply_gravity_process(delta: float):
 	if not is_on_floor():
 		velocity.y += current_gravity * delta # apply gravity to y velocity
-	
-	# WALL SLIDING
+
+func wall_slide_process():
 	if is_on_wall_only() and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
 		is_wall_slide = true # set flag
 	else:
 		is_wall_slide = false # set flag
 	AudioManager.play_wall_slide(is_wall_slide) # play audio accodingly
 	
-	 
 	if is_wall_slide and velocity.y > 0: # if wall sliding downward 
 		velocity.y = move_toward(velocity.y, WALL_SLIDE_Y_VELOCITY, 50)  # move toward wall sliding speed 
 
-	# BLINKING
+func blink_process():
 	if Input.is_action_just_pressed("ability") and not blink_on_cooldown and current_blink_count > 0: # when blink input pressed and cooldown not active and atleast one blink charge
 		AudioManager.play("blink") # play audio
 		# cooldown
@@ -395,8 +387,7 @@ func _physics_process(delta: float) -> void:
 		blink_vector = blink_vector.normalized() # normalize
 		
 		# fix jump flags
-		reset_jump_attributes()
-		
+		reset_jump_attributes_process()
 		velocity = blink_vector*BLINKING_VELOCITY # set velocity during blink
 		is_blinking = true # mark player as blinking
 		
@@ -426,14 +417,62 @@ func _physics_process(delta: float) -> void:
 	if check_in_scarf():
 		scarf_slowdown() # enact scarf penalty
 	AudioManager.scarf_collision_playing = true if is_in_scarf else false # set scarf collision noise depending on if in scarf
+
+func _physics_process(delta: float) -> void:
+	if dying: # if flag
+		dying_process(delta)
+		return # dont do anything else
+	if is_blinking: # if currently in blink
+		move_and_slide()
+		return
 	
+	# MOVEMENT
+	# TAKE INPUT DIRECTIONS
+	get_input_direction()
+	
+	# WALL DETECTION
+	# check if wall is jumpable rn
+	wall_check()
+	
+	# BUFFERING
+	set_buffers()
+	
+	# RUNNING
+	running_accel_process()
+	
+	# JUMPING
+	# reset all jump status if on the floor
+	reset_jump_attributes_process()                     
+	
+	# base jump if on floor
+	if (is_on_floor() or coyote_buffer) and (Input.is_action_just_pressed("jump") or jump_buffer):
+		base_jump()
+	
+	# WALL JUMPING
+	# put on elif to avoid duplicate jumps
+	elif on_wall and not is_on_floor() and (Input.is_action_just_pressed("jump") or jump_buffer): # on wall only and jumped (or jump buffered)
+		wall_jump()
+	
+	# JUMP RELEASE
+	do_jump_release_process()
+	
+	# FAST FALL
+	do_fast_fall_process()
+	
+	# GRAVITY
+	apply_gravity_process(delta)
+	
+	# WALL SLIDING
+	wall_slide_process()
+
+	# BLINKING
+	blink_process()
 	
 	move_and_slide() # duh
 	
 	# SOUND
 	# stepping
-	if is_on_floor() and velocity.x and not step_sound_on_cooldown: # if moving on ground and step sound off cooldown
-		attempt_play_step_sound()
+	attempt_play_step_sound()
 	
 	# ANIMATION PROCESS
 	# ordered by precedence (e.g. check tangle after run)
