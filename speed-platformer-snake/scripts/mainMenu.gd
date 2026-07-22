@@ -8,19 +8,19 @@ var scene_manager
 @onready var mainmenu := $MainMenuTitle
 
 # references to the cursor images
-@onready var cursor_start := $MainMenuTitle/Cursor_1
-@onready var cursor_htp := $MainMenuTitle/Cursor_2
-@onready var cursor_quit := $MainMenuTitle/Cursor_3
+@onready var cursor_start := $MainMenuTitle/VBoxContainer/StartNode/StartCursor
+@onready var cursor_htp := $MainMenuTitle/VBoxContainer/HTPNode/HTPCursor
+@onready var cursor_quit := $MainMenuTitle/VBoxContainer/QuitNode/QuitCursor
 
 # refernces to the buttons
-@onready var start_button := $"MainMenuTitle/start game"
-@onready var howtoplay_button := $"MainMenuTitle/howtoplay game"
-@onready var quit_button := $"MainMenuTitle/quit game"
-@onready var back_button := $HowToPlay/back
+@onready var start_button := $"MainMenuTitle/VBoxContainer/StartNode/start game"
+@onready var howtoplay_button := $"MainMenuTitle/VBoxContainer/HTPNode/howtoplay game"
+@onready var quit_button := $"MainMenuTitle/VBoxContainer/QuitNode/quit game"
+@onready var back_button := $HowToPlay/BackNode/back
 
-@onready var start_text := $"MainMenuTitle/VBoxContainer/StartText"
-@onready var htp_text := $"MainMenuTitle/VBoxContainer/HowToPlayText"
-@onready var quit_text := $"MainMenuTitle/VBoxContainer/QuitText"
+@onready var start_text := $"MainMenuTitle/VBoxContainer/StartNode/StartText"
+@onready var htp_text := $"MainMenuTitle/VBoxContainer/HTPNode/HowToPlayText"
+@onready var quit_text := $"MainMenuTitle/VBoxContainer/QuitNode/QuitText"
 
 ## Initialize the main menu as true and How To Play section as false when first time running, and initilizaed cursor as false.
 func _ready() -> void:
