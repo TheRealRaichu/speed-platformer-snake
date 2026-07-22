@@ -44,7 +44,6 @@ offset_bottom = 360.0
 texture = ExtResource("2_8ln24")
 
 [node name="MainMenuTitle" type="Node2D" parent="." unique_id=35243169]
-visible = false
 position = Vector2(-64, 16)
 
 [node name="Game Title" type="TextureRect" parent="MainMenuTitle" unique_id=1430529614]
