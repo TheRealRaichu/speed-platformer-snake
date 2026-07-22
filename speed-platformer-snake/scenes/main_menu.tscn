@@ -129,10 +129,44 @@ script = ExtResource("3_wu84c")
 metadata/_custom_type_script = "uid://bldstivarsngb"
 
 [node name="HTPCursor" parent="MainMenuTitle/VBoxContainer/HTPNode" unique_id=1890186492 instance=ExtResource("3_bqqt6")]
-offset_left = 63.74994
-offset_top = 64.999985
-offset_right = 63.74994
-offset_bottom = 64.999985
+offset_left = 67.49998
+offset_top = 66.25
+offset_right = 67.49998
+offset_bottom = 66.25
+
+[node name="SettingsNode" type="Node2D" parent="MainMenuTitle/VBoxContainer" unique_id=27436828]
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="SettingsText" type="TextureRect" parent="MainMenuTitle/VBoxContainer/SettingsNode" unique_id=13172943]
+offset_left = 2.4999619
+offset_top = 97.5
+offset_right = 331.49997
+offset_bottom = 133.5
+theme = ExtResource("2_ekxnf")
+texture = ExtResource("5_jk1qb")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+focused_image = ExtResource("9_5pajh")
+unfocused_image = ExtResource("5_jk1qb")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="settings" type="Button" parent="MainMenuTitle/VBoxContainer/SettingsNode" unique_id=1959377549]
+modulate = Color(1, 1, 1, 0)
+offset_left = 98.750015
+offset_top = 104.999985
+offset_right = 193.75002
+offset_bottom = 129.99998
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_ekxnf")
+text = "SETTINGS"
+script = ExtResource("3_wu84c")
+metadata/_custom_type_script = "uid://bldstivarsngb"
+
+[node name="SettingsCursor" parent="MainMenuTitle/VBoxContainer/SettingsNode" unique_id=894841464 instance=ExtResource("3_bqqt6")]
+offset_left = 67.49998
+offset_top = 116.249985
+offset_right = 67.49998
+offset_bottom = 116.249985
 
 [node name="QuitNode" type="Node2D" parent="MainMenuTitle/VBoxContainer" unique_id=372612481]
 
@@ -167,6 +201,7 @@ unfocused_image = ExtResource("6_5dd4i")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
 [node name="HowToPlay" type="Node2D" parent="." unique_id=1158100470]
+visible = false
 
 [node name="HTP bg" type="AnimatedSprite2D" parent="HowToPlay" unique_id=1655926663]
 position = Vector2(320, 180)
@@ -231,12 +266,19 @@ offset_bottom = 347.0
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("17_j7ex8")
 
+[node name="Settings" type="Node2D" parent="." unique_id=1488941467]
+position = Vector2(414, 221)
+scale = Vector2(0.8, 0.8)
+
 [connection signal="focus_entered" from="MainMenuTitle/VBoxContainer/StartNode/start game" to="." method="_on_start_game_focus_entered"]
 [connection signal="focus_exited" from="MainMenuTitle/VBoxContainer/StartNode/start game" to="." method="_on_start_game_focus_exited"]
 [connection signal="pressed" from="MainMenuTitle/VBoxContainer/StartNode/start game" to="." method="_on_start_game_pressed"]
 [connection signal="focus_entered" from="MainMenuTitle/VBoxContainer/HTPNode/howtoplay game" to="." method="_on_howtoplay_game_focus_entered"]
 [connection signal="focus_exited" from="MainMenuTitle/VBoxContainer/HTPNode/howtoplay game" to="." method="_on_howtoplay_game_focus_exited"]
 [connection signal="pressed" from="MainMenuTitle/VBoxContainer/HTPNode/howtoplay game" to="." method="_on_howtoplay_game_pressed"]
+[connection signal="focus_entered" from="MainMenuTitle/VBoxContainer/SettingsNode/settings" to="." method="_on_settings_focus_entered"]
+[connection signal="focus_exited" from="MainMenuTitle/VBoxContainer/SettingsNode/settings" to="." method="_on_settings_focus_exited"]
+[connection signal="pressed" from="MainMenuTitle/VBoxContainer/SettingsNode/settings" to="." method="_on_settings_pressed"]
 [connection signal="focus_entered" from="MainMenuTitle/VBoxContainer/QuitNode/quit game" to="." method="_on_quit_game_focus_entered"]
 [connection signal="focus_exited" from="MainMenuTitle/VBoxContainer/QuitNode/quit game" to="." method="_on_quit_game_focus_exited"]
 [connection signal="pressed" from="MainMenuTitle/VBoxContainer/QuitNode/quit game" to="." method="_on_quit_game_pressed"]
