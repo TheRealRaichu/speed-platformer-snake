@@ -4,6 +4,7 @@ extends Node
 
 var day_count := 1 # how many days survived, start at one for day one
 var score := 1 # score that gets displayed
+var blink_used := false
 
 # make sure to update with the list in pickup.gd as well
 enum PICKUP_TYPES {

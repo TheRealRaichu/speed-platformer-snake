@@ -23,12 +23,14 @@ const SCENES := {
 func _ready() -> void:
 	clear_child_scenes() # ensure no children
 	AudioManager.scenemanager = self # give audio manager reference
+	Globals.blink_used = false # Resets if player used blink ability
 	# load into main menu
 	main_menu()
 
 func start_game(): # called from main menu
 	MusicManager.set_state(MusicManager.STATE.GAMEPLAY)
 	current_scene = SCENES_ENUM.gameplay
+	Globals.blink_used = false # Resets if player used blink ability
 	_switch_scene(SCENES.get("gameplay"))
 
 func main_menu():

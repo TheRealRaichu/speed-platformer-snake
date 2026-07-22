@@ -43,6 +43,7 @@ func check_success():
 		recent_quick_success = life_timer.time_left > life_timer.wait_time - QUICKNESS_MARGIN # if stage was completed in less that 5 seconds
 		Globals.day_count += 1 # inc day count by 1
 		Globals.score += REG_SCORE if not recent_quick_success else QUICK_SCORE # inc score by 1 regularly and 2 for quick
+		Globals.score += 1 if not Globals.blink_used else 0 # extra point for completing without using blink
 		fuel_received.emit() # exclaim fuel collection
 		
 		blue_fire_check() # check if this stage is a blue fire stage
@@ -50,6 +51,10 @@ func check_success():
 		# sucess! reset flags
 		current_fuel_count = 0
 		life_timer.start(REG_LIFESPAN if not is_blue_fire else BOSS_LIFESPAN) # reset life timer and set time accordingly
+		Globals.blink_used = false
+
+		print(Globals.score)
+		print("blink Restart")
 
 # becoming blue fire?
 func blue_fire_check():
