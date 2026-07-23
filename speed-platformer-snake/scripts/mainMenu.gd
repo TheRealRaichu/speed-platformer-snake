@@ -99,6 +99,7 @@ func _on_howtoplay_game_focus_entered() -> void:
 func _on_settings_pressed() -> void:
 	mainmenu.visible = false
 	settings.visible = true
+	settings_button.grab_focus()
 
 func _on_settings_focus_exited() -> void:
 	cursor_settings.visible = false
@@ -153,3 +154,10 @@ func _on_back_pressed() -> void:
 	howtoplay_button.grab_focus()
 	mainmenu.visible = true
 	howtoplay.visible = false
+	settings.visible = false
+
+func _on_settings_back_pressed() -> void:
+	settings_button.grab_focus()
+	mainmenu.visible = true
+	howtoplay.visible = false
+	settings.visible = false

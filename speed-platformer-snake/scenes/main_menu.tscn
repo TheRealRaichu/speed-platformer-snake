@@ -350,6 +350,37 @@ offset_right = -94.75
 offset_bottom = -19.749989
 theme_override_colors/font_hover_color = Color(0.047058824, 0.9490196, 0.9490196, 1)
 
+[node name="BackNode" type="Node2D" parent="Settings" unique_id=378324037]
+position = Vector2(-537.49994, -161.24998)
+
+[node name="back" type="Button" parent="Settings/BackNode" unique_id=193392569]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 9.0
+offset_top = 318.00003
+offset_right = 56.0
+offset_bottom = 343.00003
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_ekxnf")
+text = "BACK
+"
+
+[node name="BackText" type="TextureRect" parent="Settings/BackNode" unique_id=2001591397]
+offset_left = 31.999998
+offset_top = 304.0
+offset_right = 96.0
+offset_bottom = 328.0
+scale = Vector2(0.8, 0.8)
+theme = ExtResource("2_ekxnf")
+texture = ExtResource("10_5dd4i")
+
+[node name="TextureRect" type="TextureRect" parent="Settings/BackNode" unique_id=940436839]
+offset_left = 88.0
+offset_top = 307.0
+offset_right = 128.0
+offset_bottom = 347.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("17_j7ex8")
+
 [connection signal="focus_entered" from="MainMenuTitle/VBoxContainer/StartNode/start game" to="." method="_on_start_game_focus_entered"]
 [connection signal="focus_exited" from="MainMenuTitle/VBoxContainer/StartNode/start game" to="." method="_on_start_game_focus_exited"]
 [connection signal="pressed" from="MainMenuTitle/VBoxContainer/StartNode/start game" to="." method="_on_start_game_pressed"]
@@ -365,3 +396,5 @@ theme_override_colors/font_hover_color = Color(0.047058824, 0.9490196, 0.9490196
 [connection signal="focus_entered" from="HowToPlay/BackNode/back" to="." method="_on_back_focus_entered"]
 [connection signal="focus_exited" from="HowToPlay/BackNode/back" to="." method="_on_back_focus_exited"]
 [connection signal="pressed" from="HowToPlay/BackNode/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Settings/BackNode/back" to="." method="_on_settings_back_pressed"]
+[connection signal="pressed" from="Settings/BackNode/back" to="." method="_on_back_pressed"]
