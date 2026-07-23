@@ -52,7 +52,6 @@ offset_bottom = 360.0
 texture = ExtResource("2_8ln24")
 
 [node name="MainMenuTitle" type="Node2D" parent="." unique_id=35243169]
-visible = false
 position = Vector2(-64, 16)
 
 [node name="Game Title" type="TextureRect" parent="MainMenuTitle" unique_id=1430529614]
@@ -276,6 +275,7 @@ scale = Vector2(0.4, 0.4)
 texture = ExtResource("17_j7ex8")
 
 [node name="Settings" type="Node2D" parent="." unique_id=1488941467]
+visible = false
 position = Vector2(414, 221)
 scale = Vector2(0.8, 0.8)
 
