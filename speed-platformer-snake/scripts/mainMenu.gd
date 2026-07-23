@@ -13,6 +13,7 @@ var scene_manager
 @onready var cursor_htp := $MainMenuTitle/VBoxContainer/HTPNode/HTPCursor
 @onready var cursor_quit := $MainMenuTitle/VBoxContainer/QuitNode/QuitCursor
 @onready var cursor_settings := $MainMenuTitle/VBoxContainer/SettingsNode/SettingsCursor
+@onready var volume_slider := $Settings/Audio/AudioControl
 
 # refernces to the buttons
 @onready var start_button := $"MainMenuTitle/VBoxContainer/StartNode/start game"
@@ -38,6 +39,13 @@ func _ready() -> void:
 	cursor_htp.visible = false
 	cursor_quit.visible = false
 	cursor_settings.visible = false
+
+	if volume_slider:
+		volume_slider.min_value = AudioManager.MIN_VOLUME
+		volume_slider.max_value = AudioManager.MAX_VOLUME
+		volume_slider.step = 1.0
+		volume_slider.value = AudioManager.get_bus_volume_db(AudioManager.MUSIC_BUS)
+		volume_slider.value_changed.connect(_on_volume_slider_changed)
 
 ## Starts the game when pressed
 func _on_start_game_pressed() -> void:
@@ -78,6 +86,9 @@ func _on_settings_focus_exited() -> void:
 func _on_settings_focus_entered() -> void:
 	cursor_settings.visible = true
 	settings_text.focused()
+
+func _on_volume_slider_changed(value: float) -> void:
+	AudioManager.set_bus_volume_db(AudioManager.MUSIC_BUS, value)
 
 ## Stops the game when pressed
 func _on_quit_game_pressed() -> void:
