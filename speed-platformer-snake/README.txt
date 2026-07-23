@@ -1,4 +1,5 @@
-Ilyas Khan (main programming, gameplay design, composition)
+Made for the UTD SGDA Spring '26 Classic Jam!
+Ilyas Khan (main programming, gameplay design, music composition)
 James Zheng (side programming, interface, sound effects)
 En Bui (art !!!)
 Todd (emotional/financial support)

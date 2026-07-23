@@ -19,7 +19,7 @@ func _ready() -> void:
 	cursor_quit.visible = false
 
 func display_score():
-	score_label.text = "Score: " + str(Globals.score)
+	score_label.text = "days survived: " + str(Globals.score - 1)
 
 ## Restarts game
 func _on_restart_pressed() -> void:

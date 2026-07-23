@@ -44,6 +44,8 @@ func increment_node_lifespan(): # increment lifespan
 	node_lifespan += node_lifespan_increment
 
 func kill_node(): # remove node from front and kill it
+	if nodes.is_empty(): # guard against empty array desync
+		return
 	var node = nodes.pop_front()
 	node.die()
 

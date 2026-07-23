@@ -19,17 +19,17 @@ func _ready() -> void:
 var no_interrupt := false
 
 func play_anim(animation_name : String): # get animation from process
-	# suffix fuel status for player
-	if has_fuel(): animation_name += "_has_fuel"
-	else: animation_name += "_no_fuel"
-	anim_sprite.play(animation_name)
+	if not dying or animation_name == "fainted":
+		# suffix fuel status for player
+		if has_fuel(): animation_name += "_has_fuel"
+		else: animation_name += "_no_fuel"
+		anim_sprite.play(animation_name)
 
 # GAME OVER ===========
 
 var dying := false # is currently in dying animation, diables physics
 
 func die():
-	dying = true # set flag
 	# play appropriate freeze animation
 	if is_on_floor(): play_anim("freeze_ground")
 	else: play_anim("freeze_fall")
@@ -37,6 +37,7 @@ func die():
 	AudioManager.play_wall_slide(false)
 	AudioManager.play_scarf_reeler(false)
 	AudioManager.play("deathfreeze") # play death sound
+	dying = true # set flag
 
 # SOUND ===============
 
@@ -54,6 +55,7 @@ func attempt_play_step_sound():
 
 const TARGET_SCARF_SPEED := 30 # top speed while moving in scarf
 const SCARF_DECELERATION := 1000 # rate at which you match that scarf speed
+var current_scarf_speed_limit := TARGET_SCARF_SPEED
 var scarf_invincible := false # is invincible to scarf?
 var is_in_scarf := false # is currently in scarf?
 
@@ -69,10 +71,10 @@ func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
 	if is_blinking or scarf_invincible: # dont apply during blink or invinciblity
 		return
 	# if moving faster than max scarf speed, slowdown to scarf speed
-	if velocity.y > TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, TARGET_SCARF_SPEED, SCARF_DECELERATION)
-	if velocity.y < -TARGET_SCARF_SPEED: velocity.y = move_toward(velocity.y, -TARGET_SCARF_SPEED, SCARF_DECELERATION)
-	if velocity.x > TARGET_SCARF_SPEED: velocity.x = move_toward(velocity.x, TARGET_SCARF_SPEED, SCARF_DECELERATION)
-	if velocity.x < -TARGET_SCARF_SPEED: velocity.x = move_toward(velocity.x, -TARGET_SCARF_SPEED, SCARF_DECELERATION)
+	if velocity.y > current_scarf_speed_limit: velocity.y = move_toward(velocity.y, current_scarf_speed_limit, SCARF_DECELERATION)
+	if velocity.y < -current_scarf_speed_limit: velocity.y = move_toward(velocity.y, -current_scarf_speed_limit, SCARF_DECELERATION)
+	if velocity.x > current_scarf_speed_limit: velocity.x = move_toward(velocity.x, current_scarf_speed_limit, SCARF_DECELERATION)
+	if velocity.x < -current_scarf_speed_limit: velocity.x = move_toward(velocity.x, -current_scarf_speed_limit, SCARF_DECELERATION)
 
 func scarf_increment(): # call scarf to increment lifespan
 	scarf.increment_node_lifespan()
@@ -107,7 +109,8 @@ const SUGAR_DURATION := 8 # duration of sugar effect
 const SUGAR_SPEED := 500.0 # speed during sugar effect
 const SUGAR_JUMP := -500.0 # jump velocity during sugar effect
 const SUGAR_WALL_JUMP := -520 # wall jump velocity during sugar effect
-const SUGAR_STEP_INTERVAL := .15
+const SUGAR_STEP_INTERVAL := .15 # step noise interval during sugar effect
+const SUGAR_SCARF_SPEED := 150 # scarf speed limit during sugar effect
 var sugar_active := false # sugar active flag
 var current_sugar_timer # reference to current sugar timer for refreshes
 
@@ -119,6 +122,7 @@ var sugar_timeout := func():
 	current_jump_velocity = BASE_JUMP_VELOCITY
 	current_wall_jump_velocity = BASE_WALLJUMP_VELOCITY
 	current_step_interval = BASE_STEP_INTERVAL
+	current_scarf_speed_limit = TARGET_SCARF_SPEED
 	
 # ... --
 
@@ -170,11 +174,13 @@ func use_sugar():
 	current_jump_velocity = SUGAR_JUMP # set sugar jump
 	current_wall_jump_velocity = SUGAR_WALL_JUMP # set sugar wall jump
 	current_step_interval = SUGAR_STEP_INTERVAL
+	current_scarf_speed_limit = SUGAR_SCARF_SPEED
 	# reset timer
 	current_sugar_timer = get_tree().create_timer(SUGAR_DURATION) # create and store timer
 	current_sugar_timer.timeout.connect(sugar_timeout) # after duration, disable sugar effects
 
 func use_reeler():
+	scarf_invincible = true
 	scarf_invincible_timer()
 	AudioManager.play("usescarfreeler", 3) # play blink restore use noise
 	scarf.reel() # tell scarf to reel back
@@ -392,6 +398,7 @@ func blink_process():
 		is_blinking = true # mark player as blinking
 		
 		no_interrupt = true # mark as unanimatable
+		
 		play_anim("blink_in") # play in animation
 		
 		await get_tree().create_timer(BLINK_DURATION).timeout

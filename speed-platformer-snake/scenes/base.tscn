@@ -136,7 +136,6 @@ one_shot = true
 position = Vector2(0, -40)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_ei55q")
-animation = &"blue_full"
-frame_progress = 0.6743013
+animation = &"dead"
 
 [connection signal="timeout" from="life timer" to="." method="_on_life_timer_timeout"]
