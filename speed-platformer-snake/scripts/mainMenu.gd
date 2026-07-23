@@ -18,6 +18,11 @@ var scene_manager
 @onready var resolution_slider := $Settings/Resolution/ResolutionControl
 @onready var fullscreen_check := $Settings/Fullscreen/FullScreenCheck
 @onready var up_jump_check := $Settings/UpInputJump/JumpCheck
+@onready var cursor_resolution := $Settings/Resolution/ResolutionControl/ResolutionCursor
+@onready var cursor_audio := $Settings/Audio/AudioControl/AudioCursor
+@onready var cursor_fullscreen := $Settings/Fullscreen/FullScreenCursor
+@onready var cursor_up_jump := $Settings/UpInputJump/JumpCursor
+@onready var cursor_settings_back := $Settings/BackNode/SettingsBackCursor
 
 # refernces to the buttons
 @onready var start_button := $"MainMenuTitle/VBoxContainer/StartNode/start game"
@@ -25,12 +30,19 @@ var scene_manager
 @onready var quit_button := $"MainMenuTitle/VBoxContainer/QuitNode/quit game"
 @onready var back_button := $HowToPlay/BackNode/back
 @onready var settings_button := $MainMenuTitle/VBoxContainer/SettingsNode/settings
+@onready var settings_back_button := $Settings/BackNode/back
 
 # references to texts
 @onready var start_text := $"MainMenuTitle/VBoxContainer/StartNode/StartText"
 @onready var htp_text := $"MainMenuTitle/VBoxContainer/HTPNode/HowToPlayText"
 @onready var quit_text := $"MainMenuTitle/VBoxContainer/QuitNode/QuitText"
 @onready var settings_text := $MainMenuTitle/VBoxContainer/SettingsNode/SettingsText
+@onready var resolution_text := $Settings/Resolution/ResolutionControl/ResolutionText
+@onready var audio_text := $Settings/Audio/AudioControl/AudioText
+@onready var fullscreen_text := $Settings/Fullscreen/FullScreenCheck
+@onready var up_jump_text := $Settings/UpInputJump/JumpCheck
+@onready var settings_back_text := $Settings/BackNode/BackText
+@onready var settings_back_arrow := $Settings/BackNode/TextureRect
 
 const RESOLUTIONS := [Vector2i(1280, 720), Vector2i(1920, 1080), Vector2i(2560, 1440)]
 
@@ -45,6 +57,11 @@ func _ready() -> void:
 	cursor_htp.visible = false
 	cursor_quit.visible = false
 	cursor_settings.visible = false
+	cursor_resolution.visible = false
+	cursor_audio.visible = false
+	cursor_fullscreen.visible = false
+	cursor_up_jump.visible = false
+	cursor_settings_back.visible = false
 
 	if volume_slider:
 		volume_slider.min_value = AudioManager.MIN_VOLUME
@@ -99,7 +116,7 @@ func _on_howtoplay_game_focus_entered() -> void:
 func _on_settings_pressed() -> void:
 	mainmenu.visible = false
 	settings.visible = true
-	settings_button.grab_focus()
+	settings_back_button.grab_focus() # Sets cursor to back button
 
 func _on_settings_focus_exited() -> void:
 	cursor_settings.visible = false
@@ -111,6 +128,48 @@ func _on_settings_focus_entered() -> void:
 
 func _on_volume_slider_changed(value: float) -> void:
 	AudioManager.set_bus_volume_db(AudioManager.MUSIC_BUS, value)
+
+func _on_resolution_focus_entered() -> void:
+	cursor_resolution.visible = true
+	resolution_text.focused()
+
+func _on_audio_focus_entered() -> void:
+	cursor_audio.visible = true
+	audio_text.focused()
+
+func _on_fullscreen_focus_entered() -> void:
+	cursor_fullscreen.visible = true
+
+func _on_up_jump_focus_entered() -> void:
+	cursor_up_jump.visible = true
+
+func _on_settings_back_focus_entered() -> void:
+	cursor_settings_back.visible = true
+	if settings_back_text and settings_back_text.has_method("focused"):
+		settings_back_text.focused()
+	elif settings_back_text:
+		settings_back_text.texture = preload("res://assets/UI/Buttons/back.png")
+
+func _on_resolution_focus_exited() -> void:
+	cursor_resolution.visible = false
+	resolution_text.unfocused()
+
+func _on_audio_focus_exited() -> void:
+	cursor_audio.visible = false
+	audio_text.unfocused()
+
+func _on_fullscreen_focus_exited() -> void:
+	cursor_fullscreen.visible = false
+
+func _on_up_jump_focus_exited() -> void:
+	cursor_up_jump.visible = false
+
+func _on_settings_back_focus_exited() -> void:
+	cursor_settings_back.visible = false
+	if settings_back_text and settings_back_text.has_method("unfocused"):
+		settings_back_text.unfocused()
+	elif settings_back_text:
+		settings_back_text.texture = preload("res://assets/UI/Buttons/back.png")
 
 func _on_resolution_slider_changed(value: float) -> void:
 	var index := int(value)
@@ -128,6 +187,23 @@ func _on_fullscreen_toggled(button_pressed: bool) -> void:
 
 func _on_up_jump_toggled(button_pressed: bool) -> void:
 	Globals.up_input_is_jump = button_pressed
+
+func _clear_settings_highlight() -> void:
+	cursor_resolution.visible = false
+	cursor_audio.visible = false
+	cursor_fullscreen.visible = false
+	cursor_up_jump.visible = false
+	cursor_settings_back.visible = false
+	if resolution_text:
+		resolution_text.unfocused()
+	if audio_text:
+		audio_text.unfocused()
+	if settings_back_text and settings_back_text.has_method("unfocused"):
+		settings_back_text.unfocused()
+	elif settings_back_text:
+		settings_back_text.texture = preload("res://assets/UI/Buttons/back.png")
+	if settings_back_arrow:
+		settings_back_arrow.texture = preload("res://assets/UI/Buttons/back.png")
 
 func _get_current_resolution_index() -> int:
 	var current_size := DisplayServer.window_get_size()
@@ -157,7 +233,8 @@ func _on_back_pressed() -> void:
 	settings.visible = false
 
 func _on_settings_back_pressed() -> void:
-	settings_button.grab_focus()
+	_clear_settings_highlight()
 	mainmenu.visible = true
 	howtoplay.visible = false
 	settings.visible = false
+	settings_button.grab_focus()
