@@ -283,10 +283,10 @@ scale = Vector2(0.8, 0.8)
 scale = Vector2(0.9999998, 0.9999998)
 
 [node name="ResolutionControl" type="HSlider" parent="Settings/Resolution" unique_id=1863749466]
-offset_left = -246.25005
-offset_top = -163.75002
-offset_right = 21.249893
-offset_bottom = -140.25002
+offset_left = -243.75003
+offset_top = -186.25002
+offset_right = 23.749908
+offset_bottom = -162.75002
 theme_override_styles/slider = SubResource("StyleBoxLine_j7ex8")
 theme_override_styles/grabber_area = SubResource("StyleBoxLine_a8gd2")
 
@@ -344,10 +344,10 @@ theme_override_colors/font_hover_color = Color(0.047058824, 0.9490196, 0.9490196
 [node name="UpInputJump" type="Node2D" parent="Settings" unique_id=1195772602]
 
 [node name="JumpCheck" type="CheckButton" parent="Settings/UpInputJump" unique_id=1828693322]
-offset_left = -138.74997
-offset_top = -88.749985
-offset_right = -94.74997
-offset_bottom = -64.749985
+offset_left = -138.75
+offset_top = -43.74999
+offset_right = -94.75
+offset_bottom = -19.749989
 theme_override_colors/font_hover_color = Color(0.047058824, 0.9490196, 0.9490196, 1)
 
 [connection signal="focus_entered" from="MainMenuTitle/VBoxContainer/StartNode/start game" to="." method="_on_start_game_focus_entered"]

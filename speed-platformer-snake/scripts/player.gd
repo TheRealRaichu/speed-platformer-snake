@@ -275,6 +275,15 @@ func reset_jump_attributes():
 	fast_fall = false # not fast falling
 	current_gravity = BASE_GRAVITY # reset gravity
 
+func jump_input_pressed() -> bool:
+	return Input.is_action_just_pressed("jump") or (Globals.up_input_is_jump and Input.is_action_just_pressed("move_up"))
+
+func jump_input_released() -> bool:
+	return Input.is_action_just_released("jump") or (Globals.up_input_is_jump and Input.is_action_just_released("move_up"))
+
+func jump_input_held() -> bool:
+	return Input.is_action_pressed("jump") or (Globals.up_input_is_jump and Input.is_action_pressed("move_up"))
+
 func _physics_process(delta: float) -> void:
 	if dying: # if flag
 		# gravity and decelerate
@@ -303,7 +312,7 @@ func _physics_process(delta: float) -> void:
 		left_buffer = true # set left buffer flag to true
 		get_tree().create_timer(BUFFER_DURATION).timeout.connect(func(): left_buffer = false) # set buffer flag to false after buffer duration
 	# jump
-	if Input.is_action_just_pressed("jump") and not jump_buffer: # if left just released and buffer not already active
+	if jump_input_pressed() and not jump_buffer: # if left just released and buffer not already active
 		jump_buffer = true # set jump buffer flag to true
 		get_tree().create_timer(BUFFER_DURATION).timeout.connect(func(): jump_buffer = false) # set buffer flag to false after buffer duration
 	# coyote
@@ -330,19 +339,19 @@ func _physics_process(delta: float) -> void:
 		reset_jump_attributes()
 	
 	# base jump if on floor
-	if (is_on_floor() or coyote_buffer) and (Input.is_action_just_pressed("jump") or jump_buffer):
+	if (is_on_floor() or coyote_buffer) and (jump_input_pressed() or jump_buffer):
 		AudioManager.play("jump", -7) # play jump noise
 		jump_buffer = false # reset jump buffer
 		velocity.y = current_jump_velocity # apply jump velocity
 		is_jump = true # currently jumping
 		# create apex grav timer
 		get_tree().create_timer(PRE_APEX_INTERVAL).timeout.connect(func(): # after a timer with apex interval duration
-			if Input.is_action_pressed("jump") and is_jump and not jump_released and not fast_fall: # only if jump is still held and was never released and not in fast fall during jump
+			if jump_input_held() and is_jump and not jump_released and not fast_fall: # only if jump is still held and was never released and not in fast fall during jump
 				current_gravity = HELD_APEX_GRAVITY) # set gravity to apex gravity
 	
 	# WALL JUMPING
 	# put on elif to avoid duplicate jumps
-	elif is_on_wall_only() and (Input.is_action_just_pressed("jump") or jump_buffer): # on wall only and jumped (or jump buffered)
+	elif is_on_wall_only() and (jump_input_pressed() or jump_buffer): # on wall only and jumped (or jump buffered)
 		AudioManager.play("walljump", 2) # play jump noise
 		jump_buffer = false # reset jump buffer
 		velocity.y = current_wall_jump_velocity # set y velocity accordingly
@@ -358,7 +367,7 @@ func _physics_process(delta: float) -> void:
 		get_tree().create_timer(WALLJUMP_IGNORE_DURATION).timeout.connect(func(): walljump_ignore_x = false)
 	
 	# JUMP RELEASE
-	if Input.is_action_just_released("jump") and is_jump: # if are jumping and jump was released
+	if jump_input_released() and is_jump: # if are jumping and jump was released
 		jump_released = true # flag for jump key has been released
 		current_gravity = RELEASE_GRAVITY # adjust gravity accordingly
 	
