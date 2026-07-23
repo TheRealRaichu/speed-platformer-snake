@@ -528,3 +528,6 @@ func _process(_delta: float) -> void:
 		return
 	if Input.is_action_just_pressed("add_reel"):
 		attempt_recieve_pickup(Pickup.PICKUP_TYPES.SCARF_REELER)
+	if Input.is_action_just_pressed("add_sugar"):
+		attempt_recieve_pickup(Pickup.PICKUP_TYPES.SUGAR)
+	
