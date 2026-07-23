@@ -17,7 +17,7 @@ func update_day_count():
 
 # show pickup relay from game to pickup indicator
 func show_pickup(type : Globals.PICKUP_TYPES):
-	pickup_indicator.show_pickup(type) 
+	pickup_indicator.show_pickup(type)
 
 
 func _process(_delta: float) -> void:
