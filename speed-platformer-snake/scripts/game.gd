@@ -17,6 +17,7 @@ var PAUSE_MENU = preload("res://scenes/pausemenu.tscn")
 var current_pause_menu
 # GAME DATA
 
+
 func _ready() -> void:
 	# connect signals
 	level.base_received_fuel.connect(base_received_fuel)
@@ -32,7 +33,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			current_pause_menu.player = player
 			add_child(current_pause_menu)
 
-# Have Option to restart the game
+# have option to restart the game
 func game_over(): # called when campfire dies and by signal
 	player.die() # tell player to do death animation
 	await get_tree().create_timer(2).timeout # give time for player freeze animation and campfire smoke

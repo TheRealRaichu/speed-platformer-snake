@@ -15,7 +15,9 @@ var pixel_offset := 4
 
 # manager properties
 var nodes : Array[ScarfNode] = [] # list of all nodes
-var reeling_kill_interval # how quickly to kill nodes when reeling
+var reeling := false
+var reel_accumulator := 0.0
+const REEL_RATE := 200.0 # nodes killed per second
 
 func create_node():
 	var node_instance := node_scene.instantiate() # create instance
@@ -47,14 +49,20 @@ func kill_node(): # remove node from front and kill it
 
 # reel scarf back, called from player
 func reel():
-	# quickly kill all victims
-	while get_children(): # while children exist
-		kill_node() # kill them all
-		await get_tree().create_timer(0.0001, false).timeout # wait a small bit
+	reeling = true
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# Freezes the scarf
 	if get_tree().paused:
 		return
+	
+	if reeling:
+		reel_accumulator += delta * REEL_RATE
+		while reel_accumulator >= 1.0 and nodes:
+			kill_node()
+			reel_accumulator -= 1.0
+		if nodes.is_empty():
+			reeling = false
+			reel_accumulator = 0.0
 	
 	create_node() # create every tick

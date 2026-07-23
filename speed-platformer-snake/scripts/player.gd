@@ -514,3 +514,10 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("use_item"): # when item button is pressed
 		attempt_use_pickup() # try to use item
+	
+	var debug_mode := true # temp until debugmode is actually added to settings
+	## DEBUG CONTROLS
+	if not debug_mode:
+		return
+	if Input.is_action_just_pressed("add_reel"):
+		attempt_recieve_pickup(Pickup.PICKUP_TYPES.SCARF_REELER)
