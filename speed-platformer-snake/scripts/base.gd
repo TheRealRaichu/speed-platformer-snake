@@ -14,8 +14,9 @@ const EARLY_LEVEL_LIFESPAN_BONUS := 10 # extra seconds on the timer for early le
 const EARLY_LEVEL_COUNT := 10 # how many levels count as "early"
 const QUICKNESS_MARGIN := 4 # is quick margin, in seconds
 # score
-const REG_SCORE := 1
-const QUICK_SCORE := 2
+const REG_SCORE := 1 # normal clear score
+const QUICK_SCORE := 1 # quickness extra points
+const BLINKLESS_SCORE := 1 # blinkless extra points
 # fuel req
 const REG_FUEL_REQ := 1
 const BOSS_FUEL_REQ := 2
@@ -23,7 +24,10 @@ const BOSS_FUEL_REQ := 2
 var is_dead := false # is the campfire dead?
 var is_blue_fire := false # flag for blue fire level
 var current_fuel_count := 0 # fuel in fire currently
-var recent_quick_success := false # last level was quick? for UI
+var is_quick_success := false # last level was quick? for UI
+var player_blinked_this_room := false # player blinked in the current room
+var is_blinkless_success := false # last level was blinkless? for UI
+
 # signals
 signal fuel_received
 signal died_out
@@ -42,15 +46,20 @@ func check_success():
 	# if 1 fuel in not blue fire or 2 fuel in blue fire
 	if (not is_blue_fire and current_fuel_count == REG_FUEL_REQ) or (is_blue_fire and current_fuel_count == BOSS_FUEL_REQ):
 		# check if success was quick
-		recent_quick_success = life_timer.time_left > life_timer.wait_time - QUICKNESS_MARGIN # if stage was completed in less that 5 seconds
+		is_quick_success = life_timer.time_left > life_timer.wait_time - QUICKNESS_MARGIN # if stage was completed in less that 5 seconds
+		is_blinkless_success = not player_blinked_this_room # set blinkless success flag
 		Globals.day_count += 1 # inc day count by 1
-		Globals.score += REG_SCORE if not recent_quick_success else QUICK_SCORE # inc score by 1 regularly and 2 for quick
+		Globals.score += REG_SCORE # score for clear
+		Globals.score += QUICK_SCORE if is_quick_success else 0 # score for quick
+		Globals.score += BLINKLESS_SCORE if not player_blinked_this_room else 0  # score for blinkless
+		
 		fuel_received.emit() # exclaim fuel collection
 		
 		blue_fire_check() # check if this stage is a blue fire stage
 		
 		# sucess! reset flags
 		current_fuel_count = 0
+		player_blinked_this_room = false
 		life_timer.start(get_lifespan()) # reset life timer and set time accordingly
 
 func get_lifespan() -> int:
@@ -72,6 +81,9 @@ func become_blue_fire():
 func become_reg_fire():
 	is_blue_fire = false # set flag
 	MusicManager.set_state(MusicManager.STATE.GAMEPLAY)
+
+func player_blinked(): # connected to player blink signal from game.gd
+	player_blinked_this_room = true
 
 # returns value between 1.0 and 0.0
 func life_timer_remaining_ratio() -> float:

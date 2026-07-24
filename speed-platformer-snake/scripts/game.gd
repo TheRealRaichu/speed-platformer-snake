@@ -17,11 +17,11 @@ var PAUSE_MENU = preload("res://scenes/pausemenu.tscn")
 var current_pause_menu
 # GAME DATA
 
-
 func _ready() -> void:
 	# connect signals
 	level.base_received_fuel.connect(base_received_fuel)
 	level.base_died_out.connect(game_over)
+	player.blinked.connect(level.base.player_blinked) # connect player blink signal to player blink
 	# set player reference
 	UI.player = player
 	UI.base = level.base
@@ -32,6 +32,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			current_pause_menu.scene_manager = scene_manager
 			current_pause_menu.player = player
 			add_child(current_pause_menu)
+
+
 
 # have option to restart the game
 func game_over(): # called when campfire dies and by signal

@@ -286,6 +286,7 @@ const BLINK_COOLDOWN := .5 # blink cooldown duration
 const BLINK_SCARF_I_DURATION := .5 # duration of being invincible to scarf after blink
 var is_blinking := false # ignore all other physics while true
 var blink_on_cooldown := false # is blink on cooldown?
+signal blinked # emit when blinked
 
 # HELPERS FOR CHARACTER CONTROLLER
 # called from physics process
@@ -395,6 +396,7 @@ func wall_slide_process():
 func blink_process():
 	if Input.is_action_just_pressed("ability") and not blink_on_cooldown and current_blink_count > 0: # when blink input pressed and cooldown not active and atleast one blink charge
 		AudioManager.play("blink") # play audio
+		blinked.emit() # signal blink
 		# cooldown
 		blinked_charge_update() # tell blink management system that blink was used
 		blink_on_cooldown = true # start cooldown
@@ -543,4 +545,6 @@ func _process(_delta: float) -> void:
 		attempt_recieve_pickup(Pickup.PICKUP_TYPES.SUGAR)
 	if Input.is_action_just_pressed("add_blink"):
 		attempt_recieve_pickup(Pickup.PICKUP_TYPES.BLINK_RESTORE)
+	if Input.is_action_just_pressed("add_portfuel"):
+		attempt_recieve_pickup(Pickup.PICKUP_TYPES.PACKAGED_FUEL)
 	
