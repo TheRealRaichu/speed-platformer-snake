@@ -18,6 +18,7 @@ var nodes : Array[ScarfNode] = [] # list of all nodes
 var reeling := false
 var reel_accumulator := 0.0
 const REEL_RATE := 200.0 # nodes killed per second
+const REEL_MAX_DURATION := 2.5
 
 func create_node():
 	var node_instance := node_scene.instantiate() # create instance
@@ -51,7 +52,9 @@ func kill_node(): # remove node from front and kill it
 
 # reel scarf back, called from player
 func reel():
-	reeling = true
+	reeling = true # begin reeling
+	# set max duration of reel
+	get_tree().create_timer(REEL_MAX_DURATION).timeout.connect(func(): reeling = false)
 
 func _physics_process(delta: float) -> void:
 	# Freezes the scarf
@@ -60,10 +63,10 @@ func _physics_process(delta: float) -> void:
 	
 	if reeling:
 		reel_accumulator += delta * REEL_RATE
-		while reel_accumulator >= 1.0 and nodes:
+		while reel_accumulator >= 1.0 and nodes: # kill node while nodes are active
 			kill_node()
 			reel_accumulator -= 1.0
-		if nodes.is_empty():
+		if nodes.is_empty(): # if no nodes, reset reeling status
 			reeling = false
 			reel_accumulator = 0.0
 	

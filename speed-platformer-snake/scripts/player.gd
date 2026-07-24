@@ -194,12 +194,9 @@ func use_sugar():
 	current_sugar_timer.timeout.connect(sugar_timeout) # after duration, disable sugar effects
 
 func use_reeler():
-	scarf_invincible = true
-	scarf_invincible_timer()
 	AudioManager.play("usescarfreeler", 3) # play blink restore use noise
 	scarf.reel() # tell scarf to reel back
 
-# Check if it works
 func use_packed_fuel():
 	recieve_fuel() # give player fuel
 
