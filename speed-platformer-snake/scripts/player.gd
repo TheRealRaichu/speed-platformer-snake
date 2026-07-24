@@ -102,7 +102,8 @@ func scarf_invincible_timer():
 
 # holding variables
 var pickup_on_hand := false # player is carrying fuel?
-var pickup_type : Globals.PICKUP_TYPES # taken from pickup
+var pickup_type : Pickup.PICKUP_TYPES # taken from pickup
+signal attempt_swap
 
 # sugar --
 const SUGAR_DURATION := 8 # duration of sugar effect
@@ -153,15 +154,28 @@ func attempt_use_pickup():
 		Globals.PICKUP_TYPES.SCARF_REELER:
 			use_reeler()
 		Globals.PICKUP_TYPES.PACKAGED_FUEL:
-			if not fuel_on_hand: # only if fuel not already on hand
-				use_packed_fuel()
+			if fuel_on_hand: # only if fuel not already on hand
+				attempt_swap.emit()
+				return
+			# otherwise, there's fuel on hand
+			use_packed_fuel()
 		Globals.PICKUP_TYPES.BLINK_RESTORE:
-			if current_blink_count < MAX_BLINK: # only if blinks are less than max
-				use_blink_restore()
+			if current_blink_count >= MAX_BLINK: # only if blinks are less than max
+				attempt_swap.emit()
+				return
+			# otherwise, at max blinks
+			use_blink_restore()
 	
 	# reset pickup held flags
 	pickup_on_hand = false 
-	pickup_type = Globals.PICKUP_TYPES.NULL
+	pickup_type = Pickup.PICKUP_TYPES.NULL
+
+# take type of item nearby and returned handed type
+func swap_pickup(given_type : Pickup.PICKUP_TYPES):
+	print("attempt swap")
+	var swapped_type := pickup_type # store hand type
+	pickup_type = given_type # swap hand with grounded item type
+	return swapped_type # return handed type
 
 func use_sugar():
 	AudioManager.play("usesugar", -5) # play sugar use noise
@@ -530,4 +544,6 @@ func _process(_delta: float) -> void:
 		attempt_recieve_pickup(Pickup.PICKUP_TYPES.SCARF_REELER)
 	if Input.is_action_just_pressed("add_sugar"):
 		attempt_recieve_pickup(Pickup.PICKUP_TYPES.SUGAR)
+	if Input.is_action_just_pressed("add_blink"):
+		attempt_recieve_pickup(Pickup.PICKUP_TYPES.BLINK_RESTORE)
 	

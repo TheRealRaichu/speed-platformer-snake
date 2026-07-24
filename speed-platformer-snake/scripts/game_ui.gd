@@ -16,7 +16,7 @@ func update_day_count():
 	day_counter.set_day_count(Globals.score, base.recent_quick_success) # display score and text based on speed
 
 # show pickup relay from game to pickup indicator
-func show_pickup(type : Globals.PICKUP_TYPES):
+func show_pickup(type : Pickup.PICKUP_TYPES):
 	pickup_indicator.show_pickup(type)
 
 
