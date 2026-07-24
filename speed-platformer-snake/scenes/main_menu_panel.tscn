@@ -1,0 +1,174 @@
+[gd_scene format=3 uid="uid://d22etbi5lnsld"]
+
+[ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="1_8ln24"]
+[ext_resource type="Script" uid="uid://bldstivarsngb" path="res://scripts/menu_button.gd" id="2_wu84c"]
+[ext_resource type="Script" uid="uid://b8ubdyemrg6uu" path="res://scripts/ui_text.gd" id="3_1ajci"]
+[ext_resource type="PackedScene" uid="uid://c2fqqr5mv6gl3" path="res://scenes/cursor.tscn" id="4_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://b32egywpbrhcx" path="res://assets/UI/Buttons/start.png" id="5_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://cyee32edfxhou" path="res://assets/UI/Buttons/start_alt.png" id="6_7b55j"]
+[ext_resource type="Texture2D" uid="uid://qi3c4f66soqo" path="res://assets/UI/Buttons/htp.png" id="7_jk1qb"]
+[ext_resource type="Texture2D" uid="uid://cm7l6vd7lkio" path="res://assets/UI/Buttons/htp_alt.png" id="8_5pajh"]
+[ext_resource type="Texture2D" uid="uid://diri7yqpu0mc5" path="res://assets/UI/Buttons/quit.png" id="9_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://dpm31yynu8u2d" path="res://assets/UI/Buttons/quit_alt.png" id="10_j7ex8"]
+[ext_resource type="Texture2D" uid="uid://cocna63li02fo" path="res://assets/UI/Title_Screen/Title_Logo.png" id="13_jk1qb"]
+
+[node name="MainMenuPanel" type="Control" unique_id=716355623]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="MainMenuTitle" type="Node2D" parent="." unique_id=1463970259]
+position = Vector2(-64, 16)
+
+[node name="Game Title" type="TextureRect" parent="MainMenuTitle" unique_id=731720358]
+texture_filter = 1
+offset_left = 416.0
+offset_top = 72.0
+offset_right = 696.0
+offset_bottom = 108.0
+theme = ExtResource("1_8ln24")
+theme_type_variation = &"HeaderLarge"
+texture = ExtResource("13_jk1qb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuTitle" unique_id=1783172587]
+offset_left = 424.00003
+offset_top = 152.0
+offset_right = 754.0
+offset_bottom = 333.25
+scale = Vector2(0.8, 0.8)
+theme_override_constants/separation = 20
+
+[node name="StartNode" type="Node2D" parent="MainMenuTitle/VBoxContainer" unique_id=1918592028]
+
+[node name="start game" type="Button" parent="MainMenuTitle/VBoxContainer/StartNode" unique_id=1051751945]
+modulate = Color(1, 1, 1, 0)
+offset_left = 124.99996
+offset_top = 1.2499962
+offset_right = 186.0
+offset_bottom = 26.249996
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("1_8ln24")
+theme_override_font_sizes/font_size = 16
+text = "START"
+script = ExtResource("2_wu84c")
+metadata/_custom_type_script = "uid://bldstivarsngb"
+metadata/_edit_use_anchors_ = true
+
+[node name="StartText" type="TextureRect" parent="MainMenuTitle/VBoxContainer/StartNode" unique_id=1160562309]
+offset_right = 329.0
+offset_bottom = 28.0
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("1_8ln24")
+texture = ExtResource("5_tbmy8")
+stretch_mode = 3
+script = ExtResource("3_1ajci")
+focused_image = ExtResource("6_7b55j")
+unfocused_image = ExtResource("5_tbmy8")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+metadata/_edit_use_anchors_ = true
+
+[node name="StartCursor" parent="MainMenuTitle/VBoxContainer/StartNode" unique_id=655418376 instance=ExtResource("4_bqqt6")]
+offset_left = 114.99994
+offset_top = 17.5
+offset_right = 114.99994
+offset_bottom = 17.5
+metadata/_edit_use_anchors_ = true
+
+[node name="HTPNode" type="Node2D" parent="MainMenuTitle/VBoxContainer" unique_id=186176263]
+
+[node name="HowToPlayText" type="TextureRect" parent="MainMenuTitle/VBoxContainer/HTPNode" unique_id=849214131]
+offset_left = 1.2499617
+offset_top = 49.999996
+offset_right = 330.24997
+offset_bottom = 86.0
+theme = ExtResource("1_8ln24")
+texture = ExtResource("7_jk1qb")
+stretch_mode = 3
+script = ExtResource("3_1ajci")
+focused_image = ExtResource("8_5pajh")
+unfocused_image = ExtResource("7_jk1qb")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="howtoplay game" type="Button" parent="MainMenuTitle/VBoxContainer/HTPNode" unique_id=261244846]
+modulate = Color(1, 1, 1, 0)
+offset_left = 97.500015
+offset_top = 57.499985
+offset_right = 192.50002
+offset_bottom = 82.499985
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("1_8ln24")
+text = "HOW TO PLAY"
+script = ExtResource("2_wu84c")
+metadata/_custom_type_script = "uid://bldstivarsngb"
+
+[node name="HTPCursor" parent="MainMenuTitle/VBoxContainer/HTPNode" unique_id=802395296 instance=ExtResource("4_bqqt6")]
+offset_left = 67.49998
+offset_top = 66.25
+offset_right = 67.49998
+offset_bottom = 66.25
+
+[node name="SettingsNode" type="Node2D" parent="MainMenuTitle/VBoxContainer" unique_id=861550437]
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="SettingsText" type="TextureRect" parent="MainMenuTitle/VBoxContainer/SettingsNode" unique_id=838424011]
+offset_left = 2.4999619
+offset_top = 97.5
+offset_right = 331.49997
+offset_bottom = 133.5
+theme = ExtResource("1_8ln24")
+texture = ExtResource("7_jk1qb")
+stretch_mode = 3
+script = ExtResource("3_1ajci")
+focused_image = ExtResource("8_5pajh")
+unfocused_image = ExtResource("7_jk1qb")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="settings" type="Button" parent="MainMenuTitle/VBoxContainer/SettingsNode" unique_id=879846750]
+modulate = Color(1, 1, 1, 0)
+offset_left = 98.750015
+offset_top = 104.999985
+offset_right = 193.75002
+offset_bottom = 129.99998
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("1_8ln24")
+text = "SETTINGS"
+script = ExtResource("2_wu84c")
+metadata/_custom_type_script = "uid://bldstivarsngb"
+
+[node name="SettingsCursor" parent="MainMenuTitle/VBoxContainer/SettingsNode" unique_id=286131473 instance=ExtResource("4_bqqt6")]
+offset_left = 67.49998
+offset_top = 116.249985
+offset_right = 67.49998
+offset_bottom = 116.249985
+
+[node name="QuitNode" type="Node2D" parent="MainMenuTitle/VBoxContainer" unique_id=1675960193]
+
+[node name="quit game" type="Button" parent="MainMenuTitle/VBoxContainer/QuitNode" unique_id=1370713208]
+modulate = Color(1, 1, 1, 0)
+offset_left = 133.74995
+offset_top = 142.49998
+offset_right = 180.7499
+offset_bottom = 167.49998
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("1_8ln24")
+text = "QUIT"
+metadata/_custom_type_script = "uid://bldstivarsngb"
+
+[node name="QuitCursor" parent="MainMenuTitle/VBoxContainer/QuitNode" unique_id=1322694662 instance=ExtResource("4_bqqt6")]
+offset_left = 119.99994
+offset_top = 158.74998
+offset_right = 119.99994
+offset_bottom = 158.74998
+
+[node name="QuitText" type="TextureRect" parent="MainMenuTitle/VBoxContainer/QuitNode" unique_id=136314733]
+offset_left = -1.250038
+offset_top = 138.74998
+offset_right = 327.74997
+offset_bottom = 174.75
+theme = ExtResource("1_8ln24")
+texture = ExtResource("9_5dd4i")
+stretch_mode = 3
+script = ExtResource("3_1ajci")
+focused_image = ExtResource("10_j7ex8")
+unfocused_image = ExtResource("9_5dd4i")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
