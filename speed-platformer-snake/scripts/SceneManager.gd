@@ -23,7 +23,7 @@ const SCENES := {
 func _ready() -> void:
 	clear_child_scenes() # ensure no children
 	AudioManager.scenemanager = self # give audio manager reference
-	Globals.blink_used = false # Resets if player used blink ability
+	##Globals.blink_used = false # Resets if player used blink ability
 	# load into main menu
 	main_menu()
 

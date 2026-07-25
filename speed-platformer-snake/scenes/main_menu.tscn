@@ -100,9 +100,9 @@ metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
 [node name="howtoplay game" type="Button" parent="MainMenuTitle/VBoxContainer/HTPNode" unique_id=881764021]
 modulate = Color(1, 1, 1, 0)
-offset_left = 97.500015
+offset_left = 97.4999
 offset_top = 57.499985
-offset_right = 192.50002
+offset_right = 192.49991
 offset_bottom = 82.499985
 scale = Vector2(1.3, 1.3)
 theme = ExtResource("2_ekxnf")
@@ -181,16 +181,3 @@ script = ExtResource("6_1ajci")
 focused_image = ExtResource("11_j7ex8")
 unfocused_image = ExtResource("6_5dd4i")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
-
-[connection signal="focus_entered" from="MainMenuTitle/VBoxContainer/StartNode/start game" to="." method="_on_start_game_focus_entered"]
-[connection signal="focus_exited" from="MainMenuTitle/VBoxContainer/StartNode/start game" to="." method="_on_start_game_focus_exited"]
-[connection signal="pressed" from="MainMenuTitle/VBoxContainer/StartNode/start game" to="." method="_on_start_game_pressed"]
-[connection signal="focus_entered" from="MainMenuTitle/VBoxContainer/HTPNode/howtoplay game" to="." method="_on_howtoplay_game_focus_entered"]
-[connection signal="focus_exited" from="MainMenuTitle/VBoxContainer/HTPNode/howtoplay game" to="." method="_on_howtoplay_game_focus_exited"]
-[connection signal="pressed" from="MainMenuTitle/VBoxContainer/HTPNode/howtoplay game" to="." method="_on_howtoplay_game_pressed"]
-[connection signal="focus_entered" from="MainMenuTitle/VBoxContainer/SettingsNode/settings" to="." method="_on_settings_focus_entered"]
-[connection signal="focus_exited" from="MainMenuTitle/VBoxContainer/SettingsNode/settings" to="." method="_on_settings_focus_exited"]
-[connection signal="pressed" from="MainMenuTitle/VBoxContainer/SettingsNode/settings" to="." method="_on_settings_pressed"]
-[connection signal="focus_entered" from="MainMenuTitle/VBoxContainer/QuitNode/quit game" to="." method="_on_quit_game_focus_entered"]
-[connection signal="focus_exited" from="MainMenuTitle/VBoxContainer/QuitNode/quit game" to="." method="_on_quit_game_focus_exited"]
-[connection signal="pressed" from="MainMenuTitle/VBoxContainer/QuitNode/quit game" to="." method="_on_quit_game_pressed"]

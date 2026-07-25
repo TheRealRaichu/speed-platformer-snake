@@ -395,7 +395,6 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ability") and not blink_on_cooldown and current_blink_count > 0: # when blink input pressed and cooldown not active and atleast one blink charge
 		AudioManager.play("blink") # play audio
 		Globals.blink_used = true
-		print("blink Used")
 		# cooldown
 		blinked_charge_update() # tell blink management system that blink was used
 		blink_on_cooldown = true # start cooldown

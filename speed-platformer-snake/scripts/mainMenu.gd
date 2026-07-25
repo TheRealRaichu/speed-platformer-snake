@@ -9,24 +9,24 @@ const MAIN_MENU_SCENE := preload("res://scenes/main_menu_panel.tscn")
 const HOW_TO_PLAY_SCENE := preload("res://scenes/how_to_play.tscn")
 const SETTINGS_SCENE := preload("res://scenes/settings.tscn")
  
-# references to the scenes
-var main_menu_panel: Control
+# scenes
+var main_menu: Control
 var how_to_play_panel: Control
 var settings_panel: Control
  
-# references to the cursor images
+# cursor images
 var cursor_start: Control
 var cursor_htp: Control
 var cursor_quit: Control
 var cursor_settings: Control
  
-# references to the buttons
+# buttons
 var start_button: Button
 var howtoplay_button: Button
 var quit_button: Button
 var settings_button: Button
  
-# references to texts
+# texts
 var start_text: TextureRect
 var htp_text: TextureRect
 var quit_text: TextureRect
@@ -39,10 +39,10 @@ func _ready() -> void:
 	_setup_initial_state()
  
 func _instantiate_panels() -> void:
-	main_menu_panel = MAIN_MENU_SCENE.instantiate()
-	main_menu_panel.name = "MainMenuPanel"
-	add_child(main_menu_panel)
-	main_menu_panel.owner = self
+	main_menu = MAIN_MENU_SCENE.instantiate()
+	main_menu.name = "MainMenuPanel"
+	add_child(main_menu)
+	main_menu.owner = self
  
 	how_to_play_panel = HOW_TO_PLAY_SCENE.instantiate()
 	how_to_play_panel.name = "HowToPlayPanel"
@@ -57,33 +57,40 @@ func _instantiate_panels() -> void:
 	settings_panel.visible = false
 
 func _connect_panel_signals() -> void:
-	cursor_start = main_menu_panel.get_node("MainMenuTitle/VBoxContainer/StartNode/StartCursor")
-	cursor_htp = main_menu_panel.get_node("MainMenuTitle/VBoxContainer/HTPNode/HTPCursor")
-	cursor_quit = main_menu_panel.get_node("MainMenuTitle/VBoxContainer/QuitNode/QuitCursor")
-	cursor_settings = main_menu_panel.get_node("MainMenuTitle/VBoxContainer/SettingsNode/SettingsCursor")
+	# references to cursors
+	cursor_start = main_menu.get_node("MainMenuTitle/VBoxContainer/StartNode/StartCursor")
+	cursor_htp = main_menu.get_node("MainMenuTitle/VBoxContainer/HTPNode/HTPCursor")
+	cursor_quit = main_menu.get_node("MainMenuTitle/VBoxContainer/QuitNode/QuitCursor")
+	cursor_settings = main_menu.get_node("MainMenuTitle/VBoxContainer/SettingsNode/SettingsCursor")
  
-	start_button = main_menu_panel.get_node("MainMenuTitle/VBoxContainer/StartNode/start game")
-	howtoplay_button = main_menu_panel.get_node("MainMenuTitle/VBoxContainer/HTPNode/howtoplay game")
-	quit_button = main_menu_panel.get_node("MainMenuTitle/VBoxContainer/QuitNode/quit game")
-	settings_button = main_menu_panel.get_node("MainMenuTitle/VBoxContainer/SettingsNode/settings")
- 
-	start_text = main_menu_panel.get_node("MainMenuTitle/VBoxContainer/StartNode/StartText")
-	htp_text = main_menu_panel.get_node("MainMenuTitle/VBoxContainer/HTPNode/HowToPlayText")
-	quit_text = main_menu_panel.get_node("MainMenuTitle/VBoxContainer/QuitNode/QuitText")
-	settings_text = main_menu_panel.get_node("MainMenuTitle/VBoxContainer/SettingsNode/SettingsText")
- 
+	# references to buttons
+	start_button = main_menu.get_node("MainMenuTitle/VBoxContainer/StartNode/start game")
+	howtoplay_button = main_menu.get_node("MainMenuTitle/VBoxContainer/HTPNode/howtoplay game")
+	quit_button = main_menu.get_node("MainMenuTitle/VBoxContainer/QuitNode/quit game")
+	settings_button = main_menu.get_node("MainMenuTitle/VBoxContainer/SettingsNode/settings")
+	
+	# references to text
+	start_text = main_menu.get_node("MainMenuTitle/VBoxContainer/StartNode/StartText")
+	htp_text = main_menu.get_node("MainMenuTitle/VBoxContainer/HTPNode/HowToPlayText")
+	quit_text = main_menu.get_node("MainMenuTitle/VBoxContainer/QuitNode/QuitText")
+	settings_text = main_menu.get_node("MainMenuTitle/VBoxContainer/SettingsNode/SettingsText")
+	
+	# references to start
 	start_button.focus_entered.connect(_on_start_game_focus_entered)
 	start_button.focus_exited.connect(_on_start_game_focus_exited)
 	start_button.pressed.connect(_on_start_game_pressed)
- 
+	
+	# references to howtoplay
 	howtoplay_button.focus_entered.connect(_on_howtoplay_game_focus_entered)
 	howtoplay_button.focus_exited.connect(_on_howtoplay_game_focus_exited)
 	howtoplay_button.pressed.connect(_on_howtoplay_game_pressed)
- 
+	
+	# references to quit
 	quit_button.focus_entered.connect(_on_quit_game_focus_entered)
 	quit_button.focus_exited.connect(_on_quit_game_focus_exited)
 	quit_button.pressed.connect(_on_quit_game_pressed)
- 
+	
+	# references to quit
 	settings_button.focus_entered.connect(_on_settings_focus_entered)
 	settings_button.focus_exited.connect(_on_settings_focus_exited)
 	settings_button.pressed.connect(_on_settings_pressed)
@@ -107,7 +114,7 @@ func _setup_initial_state() -> void:
 		legacy_settings.visible = false
  
 	start_button.grab_focus()
-	main_menu_panel.visible = true
+	main_menu.visible = true
 	how_to_play_panel.visible = false
 	settings_panel.visible = false
 	cursor_start.visible = true
@@ -129,7 +136,7 @@ func _on_start_game_focus_exited() -> void:
  
 ## Goes to the How to play section inside of main menu scene through panel switching.
 func _on_howtoplay_game_pressed() -> void:
-	main_menu_panel.visible = false
+	main_menu.visible = false
 	how_to_play_panel.visible = true
 	settings_panel.visible = false
 	how_to_play_panel.focus_back_button()
@@ -144,10 +151,10 @@ func _on_howtoplay_game_focus_entered() -> void:
  
 ## Goes to Settings
 func _on_settings_pressed() -> void:
-	main_menu_panel.visible = false
+	main_menu.visible = false
 	how_to_play_panel.visible = false
 	settings_panel.visible = true
-	settings_panel.focus_back_button()
+	settings_panel.focus_first_control()
  
 func _on_settings_focus_exited() -> void:
 	cursor_settings.visible = false
@@ -172,13 +179,13 @@ func _on_quit_game_focus_exited() -> void:
 ## Go back to main menu (From the How To Play)
 func _on_how_to_play_back_pressed() -> void:
 	howtoplay_button.grab_focus()
-	main_menu_panel.visible = true
+	main_menu.visible = true
 	how_to_play_panel.visible = false
 	settings_panel.visible = false
  
 ## Go back to main menu (From the Settings)
 func _on_settings_back_pressed() -> void:
-	main_menu_panel.visible = true
+	main_menu.visible = true
 	how_to_play_panel.visible = false
 	settings_panel.visible = false
 	settings_button.grab_focus()
