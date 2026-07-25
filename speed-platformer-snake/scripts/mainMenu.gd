@@ -5,14 +5,16 @@ extends Control
 var scene_manager
  
 # references to the scenes to switch
-const MAIN_MENU_SCENE := preload("res://scenes/main_menu_panel.tscn")
 const HOW_TO_PLAY_SCENE := preload("res://scenes/how_to_play.tscn")
 const SETTINGS_SCENE := preload("res://scenes/settings.tscn")
+const KEYBIND_SCENE := preload("res://scenes/keybind.tscn")
  
 # scenes
-var main_menu: Control
+var main_screen: TextureRect
+var main_menu: Node2D
 var how_to_play_panel: Control
 var settings_panel: Control
+var keybind_panel: Control
  
 # cursor images
 var cursor_start: Control
@@ -39,10 +41,8 @@ func _ready() -> void:
 	_setup_initial_state()
  
 func _instantiate_panels() -> void:
-	main_menu = MAIN_MENU_SCENE.instantiate()
-	main_menu.name = "MainMenuPanel"
-	add_child(main_menu)
-	main_menu.owner = self
+	main_screen = get_node("Main Screen")
+	main_menu = get_node("MainMenuTitle")
  
 	how_to_play_panel = HOW_TO_PLAY_SCENE.instantiate()
 	how_to_play_panel.name = "HowToPlayPanel"
@@ -56,24 +56,30 @@ func _instantiate_panels() -> void:
 	settings_panel.owner = self
 	settings_panel.visible = false
 
+	keybind_panel = KEYBIND_SCENE.instantiate()
+	keybind_panel.name = "KeybindPanel"
+	add_child(keybind_panel)
+	keybind_panel.owner = self
+	keybind_panel.visible = false
+
 func _connect_panel_signals() -> void:
 	# references to cursors
-	cursor_start = main_menu.get_node("MainMenuTitle/VBoxContainer/StartNode/StartCursor")
-	cursor_htp = main_menu.get_node("MainMenuTitle/VBoxContainer/HTPNode/HTPCursor")
-	cursor_quit = main_menu.get_node("MainMenuTitle/VBoxContainer/QuitNode/QuitCursor")
-	cursor_settings = main_menu.get_node("MainMenuTitle/VBoxContainer/SettingsNode/SettingsCursor")
+	cursor_start = get_node("MainMenuTitle/VBoxContainer/StartNode/StartCursor")
+	cursor_htp = get_node("MainMenuTitle/VBoxContainer/HTPNode/HTPCursor")
+	cursor_quit = get_node("MainMenuTitle/VBoxContainer/QuitNode/QuitCursor")
+	cursor_settings = get_node("MainMenuTitle/VBoxContainer/SettingsNode/SettingsCursor")
  
 	# references to buttons
-	start_button = main_menu.get_node("MainMenuTitle/VBoxContainer/StartNode/start game")
-	howtoplay_button = main_menu.get_node("MainMenuTitle/VBoxContainer/HTPNode/howtoplay game")
-	quit_button = main_menu.get_node("MainMenuTitle/VBoxContainer/QuitNode/quit game")
-	settings_button = main_menu.get_node("MainMenuTitle/VBoxContainer/SettingsNode/settings")
+	start_button = get_node("MainMenuTitle/VBoxContainer/StartNode/start game")
+	howtoplay_button = get_node("MainMenuTitle/VBoxContainer/HTPNode/howtoplay game")
+	quit_button = get_node("MainMenuTitle/VBoxContainer/QuitNode/quit game")
+	settings_button = get_node("MainMenuTitle/VBoxContainer/SettingsNode/settings")
 	
 	# references to text
-	start_text = main_menu.get_node("MainMenuTitle/VBoxContainer/StartNode/StartText")
-	htp_text = main_menu.get_node("MainMenuTitle/VBoxContainer/HTPNode/HowToPlayText")
-	quit_text = main_menu.get_node("MainMenuTitle/VBoxContainer/QuitNode/QuitText")
-	settings_text = main_menu.get_node("MainMenuTitle/VBoxContainer/SettingsNode/SettingsText")
+	start_text = get_node("MainMenuTitle/VBoxContainer/StartNode/StartText")
+	htp_text = get_node("MainMenuTitle/VBoxContainer/HTPNode/HowToPlayText")
+	quit_text = get_node("MainMenuTitle/VBoxContainer/QuitNode/QuitText")
+	settings_text = get_node("MainMenuTitle/VBoxContainer/SettingsNode/SettingsText")
 	
 	# references to start
 	start_button.focus_entered.connect(_on_start_game_focus_entered)
@@ -98,25 +104,20 @@ func _connect_panel_signals() -> void:
 	# Panels notify us when their own "back" button is pressed.
 	how_to_play_panel.back_pressed.connect(_on_how_to_play_back_pressed)
 	settings_panel.back_pressed.connect(_on_settings_back_pressed)
+	settings_panel.keybind_pressed.connect(_on_settings_keybind_pressed)
+	keybind_panel.back_pressed.connect(_on_keybind_back_pressed)
+
+func _set_main_menu_visible(visible: bool) -> void:
+	main_screen.visible = visible
+	main_menu.visible = visible
  
 func _setup_initial_state() -> void:
-	var legacy_main_screen := get_node_or_null("Main Screen")
-	var legacy_menu_title := get_node_or_null("MainMenuTitle")
-	var legacy_how_to_play := get_node_or_null("HowToPlay")
-	var legacy_settings := get_node_or_null("Settings")
-	if legacy_main_screen:
-		legacy_main_screen.visible = true
-	if legacy_menu_title:
-		legacy_menu_title.visible = false
-	if legacy_how_to_play:
-		legacy_how_to_play.visible = false
-	if legacy_settings:
-		legacy_settings.visible = false
+	_set_main_menu_visible(true)
  
 	start_button.grab_focus()
-	main_menu.visible = true
 	how_to_play_panel.visible = false
 	settings_panel.visible = false
+	keybind_panel.visible = false
 	cursor_start.visible = true
 	cursor_htp.visible = false
 	cursor_quit.visible = false
@@ -136,9 +137,10 @@ func _on_start_game_focus_exited() -> void:
  
 ## Goes to the How to play section inside of main menu scene through panel switching.
 func _on_howtoplay_game_pressed() -> void:
-	main_menu.visible = false
+	_set_main_menu_visible(false)
 	how_to_play_panel.visible = true
 	settings_panel.visible = false
+	keybind_panel.visible = false
 	how_to_play_panel.focus_back_button()
  
 func _on_howtoplay_game_focus_exited() -> void:
@@ -151,10 +153,18 @@ func _on_howtoplay_game_focus_entered() -> void:
  
 ## Goes to Settings
 func _on_settings_pressed() -> void:
-	main_menu.visible = false
+	_set_main_menu_visible(false)
 	how_to_play_panel.visible = false
 	settings_panel.visible = true
+	keybind_panel.visible = false
 	settings_panel.focus_first_control()
+
+func _on_settings_keybind_pressed() -> void:
+	_set_main_menu_visible(false)
+	how_to_play_panel.visible = false
+	settings_panel.visible = false
+	keybind_panel.visible = true
+	keybind_panel.focus_back_button()
  
 func _on_settings_focus_exited() -> void:
 	cursor_settings.visible = false
@@ -179,13 +189,23 @@ func _on_quit_game_focus_exited() -> void:
 ## Go back to main menu (From the How To Play)
 func _on_how_to_play_back_pressed() -> void:
 	howtoplay_button.grab_focus()
-	main_menu.visible = true
+	_set_main_menu_visible(true)
 	how_to_play_panel.visible = false
 	settings_panel.visible = false
+	keybind_panel.visible = false
  
 ## Go back to main menu (From the Settings)
 func _on_settings_back_pressed() -> void:
-	main_menu.visible = true
+	_set_main_menu_visible(true)
 	how_to_play_panel.visible = false
 	settings_panel.visible = false
+	keybind_panel.visible = false
 	settings_button.grab_focus()
+
+## Go back to settings (From Keybind)
+func _on_keybind_back_pressed() -> void:
+	_set_main_menu_visible(false)
+	how_to_play_panel.visible = false
+	settings_panel.visible = true
+	keybind_panel.visible = false
+	settings_panel.focus_keybind_control()

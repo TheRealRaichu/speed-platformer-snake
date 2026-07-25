@@ -2,6 +2,7 @@ extends Control
 
 ## SETTINGS
 signal back_pressed
+signal keybind_pressed
 
 # controls
 var volume_slider: HSlider
@@ -57,6 +58,7 @@ func _connect_controls() -> void:
 	# audio slider signals
 	volume_slider.focus_entered.connect(_on_audio_focus_entered)
 	volume_slider.focus_exited.connect(_on_audio_focus_exited)
+	volume_slider.value_changed.connect(_on_audio_value_changed)
 	
 	# resolution slider signals
 	resolution_slider.focus_entered.connect(_on_resolution_focus_entered)
@@ -73,6 +75,7 @@ func _connect_controls() -> void:
 	# keybind control signals
 	keybind_control.focus_entered.connect(_on_keybind_focus_entered)
 	keybind_control.focus_exited.connect(_on_keybind_focus_exited)
+	keybind_control.pressed.connect(_on_keybind_pressed)
 	
 	# back button signals
 	settings_back_button.focus_entered.connect(_on_settings_back_focus_entered)
@@ -103,6 +106,10 @@ func _initialize_settings_controls() -> void:
 func focus_first_control() -> void:
 	volume_slider.grab_focus()
 
+## Called by main menu script after returning from keybind panel.
+func focus_keybind_control() -> void:
+	keybind_control.grab_focus()
+
 func _on_audio_focus_entered() -> void:
 	cursor_audio.visible = true
 
@@ -132,6 +139,12 @@ func _on_keybind_focus_entered() -> void:
 
 func _on_keybind_focus_exited() -> void:
 	cursor_keybind.visible = false
+
+func _on_audio_value_changed(value: float) -> void:
+	AudioManager.set_bus_volume_db(AudioManager.MUSIC_BUS, value)
+
+func _on_keybind_pressed() -> void:
+	keybind_pressed.emit()
 
 func _on_settings_back_focus_entered() -> void:
 	pass
