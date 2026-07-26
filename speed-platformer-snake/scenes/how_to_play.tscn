@@ -145,5 +145,3 @@ offset_right = 144.99997
 offset_bottom = 355.31506
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_e0xnd")
-
-[connection signal="pressed" from="TutorialPlayNode/tutorial" to="." method="_on_tutorial_pressed"]

@@ -10,7 +10,6 @@ const SETTINGS_SCENE := preload("res://scenes/settings.tscn")
 
 # references of scenes inside of other scenes.
 const KEYBIND_SCENE := preload("res://scenes/keybind.tscn") # inside of settings
-const TUTORIAL_SCENE := preload("res://scenes/tutorial.tscn") # inside of how to play
  
 # main menu texture
 var main_screen: TextureRect
@@ -20,7 +19,6 @@ var main_menu: Node2D
 var how_to_play_scene: Control
 var settings_scene: Control
 var keybind_scene: Control
-var tutorial_scene: Node2D
  
 # cursor images
 var cursor_start: Control
@@ -67,12 +65,6 @@ func _instantiate_scenes() -> void:
 	add_child(keybind_scene)
 	keybind_scene.owner = self
 	keybind_scene.visible = false
-
-	tutorial_scene = TUTORIAL_SCENE.instantiate()
-	tutorial_scene.name = "Tutorial"
-	add_child(tutorial_scene)
-	tutorial_scene.owner = self
-	tutorial_scene.visible = false
 
 func _connect_panel_signals() -> void:
 	# references to cursors
@@ -155,7 +147,6 @@ func _on_howtoplay_game_pressed() -> void:
 	how_to_play_scene.visible = true
 	settings_scene.visible = false
 	keybind_scene.visible = false
-	tutorial_scene.visible = false
 	how_to_play_scene.focus_back_button()
 
 func _on_tutorial_pressed() -> void:
@@ -163,7 +154,6 @@ func _on_tutorial_pressed() -> void:
 	how_to_play_scene.visible = false
 	settings_scene.visible = false
 	keybind_scene.visible = false
-	tutorial_scene.visible = true
  
 func _on_howtoplay_game_focus_exited() -> void:
 	cursor_htp.visible = false
@@ -215,7 +205,6 @@ func _on_how_to_play_back_pressed() -> void:
 	how_to_play_scene.visible = false
 	settings_scene.visible = false
 	keybind_scene.visible = false
-	tutorial_scene.visible = false
  
 ## Go back to main menu (From the Settings)
 func _on_settings_back_pressed() -> void:
@@ -223,7 +212,6 @@ func _on_settings_back_pressed() -> void:
 	how_to_play_scene.visible = false
 	settings_scene.visible = false
 	keybind_scene.visible = false
-	tutorial_scene.visible = false
 	settings_button.grab_focus()
 
 ## Go back to settings (From Keybind)
@@ -232,5 +220,4 @@ func _on_keybind_back_pressed() -> void:
 	how_to_play_scene.visible = false
 	settings_scene.visible = true
 	keybind_scene.visible = false
-	tutorial_scene.visible = false
 	settings_scene.focus_keybind_control()
