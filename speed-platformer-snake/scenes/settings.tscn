@@ -16,7 +16,7 @@ thickness = 4
 color = Color(4.813075e-08, 0.40799627, 0.47786003, 1)
 thickness = 4
 
-[node name="SettingsPanel" type="Control" unique_id=571302623]
+[node name="Settings" type="Control" unique_id=571302623]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_gis3k")

@@ -31,6 +31,7 @@ func _ready() -> void:
 	_initialize_settings_controls()
 
 func _connect_controls() -> void:
+	# references to the buttons, sliders, or checks
 	volume_slider = get_node("Settings/Audio/AudioControl")
 	resolution_slider = get_node("Settings/Resolution/ResolutionControl")
 	fullscreen_check = get_node("Settings/Fullscreen/FullScreenCheck")
@@ -38,17 +39,19 @@ func _connect_controls() -> void:
 	keybind_control = get_node("Settings/Keybinds/keybind")
 	settings_back_button = get_node("Settings/BackNode/back")
 
+	# references to cursors
 	cursor_resolution = get_node("Settings/Resolution/ResolutionControl/ResolutionCursor")
 	cursor_audio = get_node("Settings/Audio/AudioControl/AudioCursor")
 	cursor_fullscreen = get_node("Settings/Fullscreen/FullScreenCursor")
 	cursor_up_jump = get_node("Settings/UpInputJump/JumpCursor")
 	cursor_keybind = get_node("Settings/Keybinds/KeybindCursor")
 
+	# references to text
 	resolution_text = get_node("Settings/Resolution/ResolutionControl/ResolutionText")
 	audio_text = get_node("Settings/Audio/AudioControl/AudioText")
 	settings_back_text = get_node("Settings/BackNode/BackText")
 
-	# Hide cursors initially
+	# Set cursor visibility
 	cursor_audio.visible = false
 	cursor_resolution.visible = false
 	cursor_fullscreen.visible = false

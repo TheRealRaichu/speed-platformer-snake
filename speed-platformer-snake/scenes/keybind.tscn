@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b32egywpbrhcx" path="res://assets/UI/Buttons/start.png" id="4_t4iyq"]
 [ext_resource type="Texture2D" uid="uid://cyee32edfxhou" path="res://assets/UI/Buttons/start_alt.png" id="6_wf677"]
 
-[node name="KeybindPanel" type="Control" unique_id=1875071967]
+[node name="Keybind" type="Control" unique_id=1875071967]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
