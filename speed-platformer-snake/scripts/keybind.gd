@@ -1,7 +1,7 @@
 extends Control
 
 ## KEYBIND
-signal back_pressed
+var scene_manager
 
 var back_button: Button
 var keybind_rows: Dictionary = {}
@@ -11,9 +11,6 @@ func _ready() -> void:
 	back_button = get_node("BackNode/back")
 	back_button.pressed.connect(_on_back_pressed)
 	_refresh_keybind_rows()
-
-## Called by main menu script right after this panel is shown.
-func focus_back_button() -> void:
 	back_button.grab_focus()
 
 ## Prepares row references for rebind button wiring and UI updates.
@@ -61,4 +58,4 @@ func begin_rebind_for_row(row_name: String) -> void:
 		return
 
 func _on_back_pressed() -> void:
-	back_pressed.emit()
+	scene_manager.settings()

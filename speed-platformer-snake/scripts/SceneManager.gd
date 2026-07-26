@@ -8,6 +8,9 @@ var is_paused := false # pause menu open?
 
 enum SCENES_ENUM {
 	mainmenu,
+	howtoplay,
+	settings,
+	keybind,
 	gameplay,
 	tutorial,
 	gameover,
@@ -16,6 +19,9 @@ enum SCENES_ENUM {
 # SCENE REFERENCES
 const SCENES := {
 	"main_menu" : preload("res://scenes/main_menu.tscn"),
+	"how_to_play" : preload("res://scenes/how_to_play.tscn"),
+	"settings" : preload("res://scenes/settings.tscn"),
+	"keybind" : preload("res://scenes/keybind.tscn"),
 	"gameplay" : preload("res://scenes/game.tscn"),
 	"tutorial" : preload("res://scenes/tutorial.tscn"),
 	"game_over" : preload("res://scenes/game_over.tscn"),
@@ -34,6 +40,21 @@ func start_game(): # called from main menu
 	current_scene = SCENES_ENUM.gameplay
 	Globals.blink_used = false # Resets if player used blink ability
 	_switch_scene(SCENES.get("gameplay"))
+
+func how_to_play(): # called from main menu
+	MusicManager.set_state(MusicManager.STATE.MAIN_MENU)
+	current_scene = SCENES_ENUM.howtoplay
+	_switch_scene(SCENES.get("how_to_play"))
+
+func settings(): # called from main menu
+	MusicManager.set_state(MusicManager.STATE.MAIN_MENU)
+	current_scene = SCENES_ENUM.settings
+	_switch_scene(SCENES.get("settings"))
+
+func keybind(): # called from settings
+	MusicManager.set_state(MusicManager.STATE.MAIN_MENU)
+	current_scene = SCENES_ENUM.keybind
+	_switch_scene(SCENES.get("keybind"))
 
 func start_tutorial(): # called from how to play
 	MusicManager.set_state(MusicManager.STATE.GAMEPLAY)

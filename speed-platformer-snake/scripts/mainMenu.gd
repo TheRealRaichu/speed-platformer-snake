@@ -4,21 +4,11 @@ extends Control
 # reference to scenemanager, set when initialized
 var scene_manager
  
-# references to the scenes to switch
-const HOW_TO_PLAY_SCENE := preload("res://scenes/how_to_play.tscn")
-const SETTINGS_SCENE := preload("res://scenes/settings.tscn")
-
-# references of scenes inside of other scenes.
-const KEYBIND_SCENE := preload("res://scenes/keybind.tscn") # inside of settings
- 
 # main menu texture
 var main_screen: TextureRect
 
-# scenes
+# scene references
 var main_menu: Node2D
-var how_to_play_scene: Control
-var settings_scene: Control
-var keybind_scene: Control
  
 # cursor images
 var cursor_start: Control
@@ -40,31 +30,13 @@ var settings_text: TextureRect
  
 ## Initialize the main menu panels and wire their controls.
 func _ready() -> void:
-	_instantiate_scenes()
+	_cache_scene_references()
 	_connect_panel_signals()
 	_setup_initial_state()
  
-func _instantiate_scenes() -> void:
+func _cache_scene_references() -> void:
 	main_screen = get_node("Main Screen")
 	main_menu = get_node("MainMenuTitle")
- 
-	how_to_play_scene = HOW_TO_PLAY_SCENE.instantiate()
-	how_to_play_scene.name = "HowToPlay"
-	add_child(how_to_play_scene)
-	how_to_play_scene.owner = self
-	how_to_play_scene.visible = false
- 
-	settings_scene = SETTINGS_SCENE.instantiate()
-	settings_scene.name = "Settings"
-	add_child(settings_scene)
-	settings_scene.owner = self
-	settings_scene.visible = false
-
-	keybind_scene = KEYBIND_SCENE.instantiate()
-	keybind_scene.name = "Keybind"
-	add_child(keybind_scene)
-	keybind_scene.owner = self
-	keybind_scene.visible = false
 
 func _connect_panel_signals() -> void:
 	# references to cursors
@@ -105,14 +77,6 @@ func _connect_panel_signals() -> void:
 	settings_button.focus_exited.connect(_on_settings_focus_exited)
 	settings_button.pressed.connect(_on_settings_pressed)
  
-	# Panels notify us when their own "back" button is pressed.
-	how_to_play_scene.back_pressed.connect(_on_how_to_play_back_pressed)
-	how_to_play_scene.tutorial_pressed.connect(_on_tutorial_pressed)
-	settings_scene.back_pressed.connect(_on_settings_back_pressed)
-	settings_scene.keybind_pressed.connect(_on_settings_keybind_pressed)
-	keybind_scene.back_pressed.connect(_on_keybind_back_pressed)
-
-
 func _set_main_menu_visible(visible: bool) -> void:
 	main_screen.visible = visible
 	main_menu.visible = visible
@@ -121,9 +85,6 @@ func _setup_initial_state() -> void:
 	_set_main_menu_visible(true)
  
 	start_button.grab_focus()
-	how_to_play_scene.visible = false
-	settings_scene.visible = false
-	keybind_scene.visible = false
 	cursor_start.visible = true
 	cursor_htp.visible = false
 	cursor_quit.visible = false
@@ -143,18 +104,8 @@ func _on_start_game_focus_exited() -> void:
  
 ## Goes to the How to play section inside of main menu scene through panel switching.
 func _on_howtoplay_game_pressed() -> void:
-	_set_main_menu_visible(false)
-	how_to_play_scene.visible = true
-	settings_scene.visible = false
-	keybind_scene.visible = false
-	how_to_play_scene.focus_back_button()
+	scene_manager.how_to_play()
 
-func _on_tutorial_pressed() -> void:
-	_set_main_menu_visible(false)
-	how_to_play_scene.visible = false
-	settings_scene.visible = false
-	keybind_scene.visible = false
- 
 func _on_howtoplay_game_focus_exited() -> void:
 	cursor_htp.visible = false
 	htp_text.unfocused()
@@ -165,18 +116,7 @@ func _on_howtoplay_game_focus_entered() -> void:
  
 ## Goes to Settings
 func _on_settings_pressed() -> void:
-	_set_main_menu_visible(false)
-	how_to_play_scene.visible = false
-	settings_scene.visible = true
-	keybind_scene.visible = false
-	settings_scene.focus_first_control()
-
-func _on_settings_keybind_pressed() -> void:
-	_set_main_menu_visible(false)
-	how_to_play_scene.visible = false
-	settings_scene.visible = false
-	keybind_scene.visible = true
-	keybind_scene.focus_back_button()
+	scene_manager.settings()
  
 func _on_settings_focus_exited() -> void:
 	cursor_settings.visible = false
@@ -198,26 +138,3 @@ func _on_quit_game_focus_exited() -> void:
 	cursor_quit.visible = false
 	quit_text.unfocused()
  
-## Go back to main menu (From the How To Play)
-func _on_how_to_play_back_pressed() -> void:
-	howtoplay_button.grab_focus()
-	_set_main_menu_visible(true)
-	how_to_play_scene.visible = false
-	settings_scene.visible = false
-	keybind_scene.visible = false
- 
-## Go back to main menu (From the Settings)
-func _on_settings_back_pressed() -> void:
-	_set_main_menu_visible(true)
-	how_to_play_scene.visible = false
-	settings_scene.visible = false
-	keybind_scene.visible = false
-	settings_button.grab_focus()
-
-## Go back to settings (From Keybind)
-func _on_keybind_back_pressed() -> void:
-	_set_main_menu_visible(false)
-	how_to_play_scene.visible = false
-	settings_scene.visible = true
-	keybind_scene.visible = false
-	settings_scene.focus_keybind_control()

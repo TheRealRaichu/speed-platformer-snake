@@ -1,8 +1,7 @@
 extends Control
 
 ## SETTINGS
-signal back_pressed
-signal keybind_pressed
+var scene_manager
 
 # controls
 var volume_slider: HSlider
@@ -29,6 +28,7 @@ const RESOLUTIONS := [Vector2i(1280, 720), Vector2i(1920, 1080), Vector2i(2560, 
 func _ready() -> void:
 	_connect_controls()
 	_initialize_settings_controls()
+	volume_slider.grab_focus()
 
 func _connect_controls() -> void:
 	# references to the buttons, sliders, or checks
@@ -105,14 +105,6 @@ func _initialize_settings_controls() -> void:
 	if up_jump_check:
 		up_jump_check.button_pressed = Globals.up_input_is_jump
 
-## Called by the main menu script right after this panel is shown.
-func focus_first_control() -> void:
-	volume_slider.grab_focus()
-
-## Called by main menu script after returning from keybind panel.
-func focus_keybind_control() -> void:
-	keybind_control.grab_focus()
-
 func _on_audio_focus_entered() -> void:
 	cursor_audio.visible = true
 
@@ -147,7 +139,7 @@ func _on_audio_value_changed(value: float) -> void:
 	AudioManager.set_bus_volume_db(AudioManager.MUSIC_BUS, value)
 
 func _on_keybind_pressed() -> void:
-	keybind_pressed.emit()
+	scene_manager.keybind()
 
 func _on_settings_back_focus_entered() -> void:
 	pass
@@ -156,7 +148,7 @@ func _on_settings_back_focus_exited() -> void:
 	pass
 
 func _on_settings_back_pressed() -> void:
-	back_pressed.emit()
+	scene_manager.main_menu()
 
 func _get_current_resolution_index() -> int:
 	var current_size := DisplayServer.window_get_size()

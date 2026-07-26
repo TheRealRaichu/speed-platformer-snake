@@ -1,15 +1,17 @@
 extends Control
  
 ## HOW TO PLAY
-signal back_pressed
-signal tutorial_pressed
- 
+var scene_manager # scene manager
+
+# button
 var back_button: Button
 var play_button: Button
 
+# cursors
 var back_cursor: Control
 var play_cursor: Control
 
+# texts
 var back_text: TextureRect
 var play_text: TextureRect
  
@@ -35,13 +37,10 @@ func _ready() -> void:
 	# set cursors visibilitiy
 	play_cursor.visible = false
 	back_cursor.visible = true
+	back_button.grab_focus()
 
 	back_button.pressed.connect(_on_back_pressed)
 	play_button.pressed.connect(_on_tutorial_pressed)
- 
-## Called by the main menu script right after this panel is shown.
-func focus_back_button() -> void:
-	back_button.grab_focus()
 
 func _on_play_focus_entered() -> void:
 	play_cursor.visible = true
@@ -60,7 +59,7 @@ func _on_back_focus_exited() -> void:
 	back_text.unfocused()
  
 func _on_back_pressed() -> void:
-	back_pressed.emit()
+	scene_manager.main_menu()
 
 func _on_tutorial_pressed() -> void:
-	tutorial_pressed.emit()
+	scene_manager.start_tutorial()
