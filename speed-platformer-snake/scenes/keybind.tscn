@@ -430,42 +430,6 @@ unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
-[node name="Keybind_Back" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=710588968]
-position = Vector2(-2.5427892, -6.5811715)
-scale = Vector2(0.072651125, 0.13629344)
-
-[node name="DisplayText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Back" unique_id=1521799869]
-offset_left = 341.0
-offset_top = 304.0
-offset_right = 413.0
-offset_bottom = 332.0
-size_flags_vertical = 4
-mouse_filter = 2
-theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
-stretch_mode = 3
-script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
-metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
-metadata/_edit_use_anchors_ = true
-
-[node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Back" unique_id=71001574]
-offset_left = 493.0
-offset_top = 303.0
-offset_right = 565.0
-offset_bottom = 331.0
-size_flags_vertical = 4
-mouse_filter = 2
-theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
-stretch_mode = 3
-script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
-metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
-metadata/_edit_use_anchors_ = true
-
 [node name="BackNode" type="Node2D" parent="." unique_id=146066729]
 position = Vector2(-58, 24)
 

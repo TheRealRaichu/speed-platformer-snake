@@ -68,6 +68,23 @@ Your blink ability allows you to travel through the scarf, or escape it when stu
 There are various pickups that can appear. Try them out!"
 autowrap_mode = 2
 
+[node name="TutorialPlayNode" type="Node2D" parent="." unique_id=1948823637]
+
+[node name="play" type="Button" parent="TutorialPlayNode" unique_id=907183728]
+offset_left = 274.0
+offset_top = 293.0
+offset_right = 374.0
+offset_bottom = 322.0
+
+[node name="PlayTutorialText" type="TextureRect" parent="TutorialPlayNode" unique_id=1533314608]
+offset_left = 40.0
+offset_top = 300.0
+offset_right = 104.0
+offset_bottom = 324.0
+scale = Vector2(0.8, 0.8)
+theme = ExtResource("4_crhno")
+texture = ExtResource("5_xqkvd")
+
 [node name="BackNode" type="Node2D" parent="." unique_id=352135727]
 
 [node name="back" type="Button" parent="BackNode" unique_id=427650269]
@@ -82,10 +99,10 @@ text = "BACK
 "
 
 [node name="BackText" type="TextureRect" parent="BackNode" unique_id=780247143]
-offset_left = 40.0
-offset_top = 300.0
-offset_right = 104.0
-offset_bottom = 324.0
+offset_left = 278.0
+offset_top = 295.0
+offset_right = 394.25
+offset_bottom = 325.25
 scale = Vector2(0.8, 0.8)
 theme = ExtResource("4_crhno")
 texture = ExtResource("5_xqkvd")

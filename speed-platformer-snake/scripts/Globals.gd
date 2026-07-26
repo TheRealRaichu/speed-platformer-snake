@@ -20,7 +20,6 @@ const KEYBIND_ROW_ACTIONS := {
 	"Keybind_DecreaseVolume": "decrease_volume",
 	"Keybind_IncreaseVolume": "increase_volume",
 	"Keybind_Pause": "ui_cancel",
-	"Keybind_Back": "ui_cancel",
 }
 
 # make sure to update with the list in pickup.gd as well
