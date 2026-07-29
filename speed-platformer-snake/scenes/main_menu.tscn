@@ -151,6 +151,7 @@ offset_right = 519.0
 offset_bottom = 252.0
 
 [node name="HowToPlay" type="Node2D" parent="." unique_id=1158100470]
+visible = false
 
 [node name="HTP bg" type="AnimatedSprite2D" parent="HowToPlay" unique_id=1655926663]
 position = Vector2(320, 180)

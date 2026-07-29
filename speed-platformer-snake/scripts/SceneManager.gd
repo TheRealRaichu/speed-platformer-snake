@@ -28,7 +28,7 @@ func _ready() -> void:
 
 func start_game(): # called from main menu
 	MusicManager.set_state(MusicManager.STATE.GAMEPLAY)
-	current_scene = SCENES_ENUM.gameplay
+	Globals.reset_score() # reset score every time gameplay starts
 	_switch_scene(SCENES.get("gameplay"))
 
 func main_menu():
