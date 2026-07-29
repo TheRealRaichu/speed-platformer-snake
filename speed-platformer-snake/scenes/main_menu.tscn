@@ -59,26 +59,26 @@ theme = ExtResource("2_ekxnf")
 theme_type_variation = &"HeaderLarge"
 texture = ExtResource("4_jk1qb")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuTitle" unique_id=1979905102]
+[node name="MenuButtons" type="VBoxContainer" parent="MainMenuTitle" unique_id=1979905102]
 layout_mode = 0
 offset_left = 504.0
-offset_top = 136.0
-offset_right = 724.0
-offset_bottom = 346.0
+offset_top = 144.0
+offset_right = 674.0
+offset_bottom = 294.0
 scale = Vector2(0.8, 0.8)
-theme_override_constants/separation = 34
+theme_override_constants/separation = 32
 
-[node name="Start" parent="MainMenuTitle/VBoxContainer" unique_id=1943041356 instance=ExtResource("5_5pajh")]
+[node name="Start" parent="MainMenuTitle/MenuButtons" unique_id=1943041356 instance=ExtResource("5_5pajh")]
 layout_mode = 2
 focused_texture = ExtResource("7_7b55j")
 unfocused_texture = ExtResource("4_tbmy8")
 
-[node name="HowToPlay" parent="MainMenuTitle/VBoxContainer" unique_id=742597826 instance=ExtResource("5_5pajh")]
+[node name="HowToPlay" parent="MainMenuTitle/MenuButtons" unique_id=742597826 instance=ExtResource("5_5pajh")]
 layout_mode = 2
 focused_texture = ExtResource("9_5pajh")
 unfocused_texture = ExtResource("5_jk1qb")
 
-[node name="Quit" parent="MainMenuTitle/VBoxContainer" unique_id=1492484920 instance=ExtResource("5_5pajh")]
+[node name="Quit" parent="MainMenuTitle/MenuButtons" unique_id=1492484920 instance=ExtResource("5_5pajh")]
 layout_mode = 2
 focused_texture = ExtResource("11_j7ex8")
 unfocused_texture = ExtResource("6_5dd4i")
@@ -153,9 +153,9 @@ Your blink ability allows you to travel through the scarf, or escape it when stu
 There are various pickups that can appear. Try them out!"
 autowrap_mode = 2
 
-[connection signal="pressed" from="MainMenuTitle/VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="MainMenuTitle/VBoxContainer/HowToPlay" to="." method="_on_how_to_play_pressed"]
-[connection signal="pressed" from="MainMenuTitle/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MainMenuTitle/MenuButtons/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MainMenuTitle/MenuButtons/HowToPlay" to="." method="_on_how_to_play_pressed"]
+[connection signal="pressed" from="MainMenuTitle/MenuButtons/Quit" to="." method="_on_quit_pressed"]
 [connection signal="focus_entered" from="HowToPlay/back" to="." method="_on_back_focus_entered"]
 [connection signal="focus_exited" from="HowToPlay/back" to="." method="_on_back_focus_exited"]
 [connection signal="pressed" from="HowToPlay/back" to="." method="_on_back_pressed"]

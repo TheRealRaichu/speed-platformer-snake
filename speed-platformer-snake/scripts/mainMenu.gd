@@ -8,9 +8,9 @@ var scene_manager
 @onready var mainmenu := $MainMenuTitle
 
 # refernces to the buttons
-@onready var start_button := $MainMenuTitle/VBoxContainer/Start
-@onready var howtoplay_button := $MainMenuTitle/VBoxContainer/HowToPlay
-@onready var quit_button := $MainMenuTitle/VBoxContainer/Quit
+@onready var start_button := $MainMenuTitle/MenuButtons/Start
+@onready var howtoplay_button := $MainMenuTitle/MenuButtons/HowToPlay
+@onready var quit_button := $MainMenuTitle/MenuButtons/Quit
 @onready var back_button := $HowToPlay/back
 
 
@@ -27,9 +27,9 @@ func _on_start_pressed() -> void:
 
 ## Goes to the How to play section inside of main menu scene through turn on and off nodes.
 func _on_how_to_play_pressed() -> void:
+	back_button.grab_focus() # Sets cursor to back button
 	mainmenu.visible = false
 	howtoplay.visible = true
-	back_button.grab_focus() # Sets cursor to back button
 
 ## Stops the game when pressed
 func _on_quit_pressed() -> void:

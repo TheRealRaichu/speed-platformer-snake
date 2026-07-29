@@ -3,11 +3,8 @@
 [ext_resource type="Script" uid="uid://b8ubdyemrg6uu" path="res://scripts/ui_text.gd" id="1_4ny4e"]
 
 [node name="Control" type="TextureRect" unique_id=337887425]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 64.0
+offset_bottom = 36.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_4ny4e")

@@ -111,7 +111,7 @@ const SUGAR_SPEED := 500.0 # speed during sugar effect
 const SUGAR_JUMP := -500.0 # jump velocity during sugar effect
 const SUGAR_WALL_JUMP := -520 # wall jump velocity during sugar effect
 const SUGAR_STEP_INTERVAL := .15 # step noise interval during sugar effect
-const SUGAR_SCARF_SPEED := 150 # scarf speed limit during sugar effect
+const SUGAR_SCARF_SPEED := 250 # scarf speed limit during sugar effect
 var sugar_active := false # sugar active flag
 var current_sugar_timer # reference to current sugar timer for refreshes
 
