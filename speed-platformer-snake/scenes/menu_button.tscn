@@ -1,13 +1,29 @@
 [gd_scene format=3 uid="uid://cl3b08io2yaoi"]
 
-[ext_resource type="Script" path="res://scripts/menu_button.gd" id="1_xsssc"]
+[ext_resource type="Script" uid="uid://bldstivarsngb" path="res://scripts/menu_button.gd" id="1_xsssc"]
+[ext_resource type="PackedScene" uid="uid://c2fqqr5mv6gl3" path="res://scenes/cursor.tscn" id="2_fpmxc"]
+[ext_resource type="PackedScene" uid="uid://c88m1m5vdw716" path="res://scenes/UI Text.tscn" id="3_hunp8"]
 
 [node name="MenuButton" type="Button" unique_id=1943041356]
+self_modulate = Color(1, 1, 1, 0)
 offset_right = 8.0
 offset_bottom = 8.0
 mouse_filter = 2
 button_mask = 0
 script = ExtResource("1_xsssc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=249498260]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 28.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Cursor" parent="HBoxContainer" unique_id=894841464 instance=ExtResource("2_fpmxc")]
+layout_mode = 2
+
+[node name="Text" parent="HBoxContainer" unique_id=337887425 instance=ExtResource("3_hunp8")]
+layout_mode = 2
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
