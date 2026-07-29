@@ -13,14 +13,13 @@ var base # set from Game
 
 # day count relay from game to day counter
 func update_day_count():
-	## Chanegd back to using the score instead
-	day_counter.set_day_count(Globals.score, base.recent_quick_success) # display score and text based on speed
+	day_counter.set_day_count(Globals.score, base.is_quick_success, base.is_blinkless_success) # display score and text based on speed
 
 ## Have a scoreboard
 
 # show pickup relay from game to pickup indicator
-func show_pickup(type : Globals.PICKUP_TYPES):
-	pickup_indicator.show_pickup(type) 
+func show_pickup(type : Pickup.PICKUP_TYPES):
+	pickup_indicator.show_pickup(type)
 
 
 func _process(_delta: float) -> void:

@@ -32,3 +32,7 @@ enum PICKUP_TYPES {
 	BLINK_RESTORE,
 	# etc..
 }
+
+func reset_score():
+	day_count = 1
+	score = 1

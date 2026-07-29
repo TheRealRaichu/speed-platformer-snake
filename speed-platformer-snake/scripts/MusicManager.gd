@@ -6,13 +6,15 @@ extends Node
 
 enum STATE {
 	MAIN_MENU,   # piano + pads
-	GAMEPLAY,    # all stems
+	GAMEPLAY,    # piano + pad + drums
+	GAMEPLAY_BLUE_FIRE, # gameplay + tamb
 	GAME_OVER,   # piano only
 }
 
 const FADE_DURATION := 1.0 # crossfade time between states
 const PAUSE_FADE_DURATION := 0.3
 const TARGET_VOLUME := 1.0
+const MUTE_VOLUME := -80.0
 
 const MUSIC_BUS := "Music"
 const LOWPASS_EFFECT_IDX := 0 # index of the lowpass effect on the bus
@@ -20,33 +22,44 @@ const LOWPASS_EFFECT_IDX := 0 # index of the lowpass effect on the bus
 # stem players
 @onready var piano := $piano
 @onready var drums_bass := $drums_bass
-@onready var elements := $backing
+@onready var backing := $backing
+@onready var tamb := $tamb
 
 func _ready() -> void:
 	# start all stems in sync, muted until set_state is called
 	piano.play()
 	drums_bass.play()
-	elements.play()
-	# start silent
+	backing.play()
+	tamb.play()
+	# start silent or proper volume
 	piano.volume_db = TARGET_VOLUME
-	drums_bass.volume_db = -80.0
-	elements.volume_db = TARGET_VOLUME
+	drums_bass.volume_db = MUTE_VOLUME
+	backing.volume_db = TARGET_VOLUME
+	tamb.volume_db = MUTE_VOLUME
 	set_paused(false) # set not paused
 
 func set_state(state: STATE) -> void:
-	match state: # fade music stems by state
+	match state: # states are managed by scene switcher, other than blue fire
 		STATE.MAIN_MENU:
-			fade(piano, TARGET_VOLUME) # fade to target
-			fade(drums_bass, 0.0) # fade to 0
-			fade(elements, TARGET_VOLUME) # etc..
+			fade(piano, TARGET_VOLUME)
+			fade(drums_bass, MUTE_VOLUME)
+			fade(backing, TARGET_VOLUME)
+			fade(tamb, MUTE_VOLUME)
 		STATE.GAMEPLAY:
 			fade(piano, TARGET_VOLUME)
 			fade(drums_bass, TARGET_VOLUME)
-			fade(elements, TARGET_VOLUME)
+			fade(backing, TARGET_VOLUME)
+			fade(tamb, MUTE_VOLUME)
+		STATE.GAMEPLAY_BLUE_FIRE: # set from base.gd
+			fade(piano, TARGET_VOLUME)
+			fade(drums_bass, TARGET_VOLUME)
+			fade(backing, TARGET_VOLUME)
+			fade(tamb, TARGET_VOLUME)
 		STATE.GAME_OVER:
 			fade(piano, TARGET_VOLUME)
-			fade(drums_bass, 0.0)
-			fade(elements, 0.0)
+			fade(drums_bass, MUTE_VOLUME)
+			fade(backing, MUTE_VOLUME)
+			fade(tamb, MUTE_VOLUME)
 
 func fade(player: AudioStreamPlayer, target_volume: float) -> void:
 	var tween := create_tween()

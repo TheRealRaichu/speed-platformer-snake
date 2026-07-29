@@ -6,27 +6,32 @@ extends Node2D
 var node_scene := preload("res://scenes/scarf_node.tscn")
 
 # node properties
-var NODE_ACTIVATION_TIME := 1 # time to activate in seconds
-var NODE_LIFESPAN := 1.5 # total lifespan of a node, determines length of scarf
-var NODE_LIFESPAN_INCREMENT := .2 # amount of time to increment node lifespan by
+var node_activation_time := 1 # time to activate in seconds
+var node_lifespan := 1.5 # total lifespan of a node, determines length of scarf
+var node_lifespan_increment := .2 # amount of time to increment node lifespan by
 const NODE_POS_OFFSET = Vector2(0, -16)
+# style
+var pixel_offset := 4
 
 # manager properties
 var nodes : Array[ScarfNode] = [] # list of all nodes
-const REEL_NODES_PER_FRAME := 3 # how many nodes dead per frame of reeling, affects reel speed
+var reeling := false
+var reel_accumulator := 0.0
+const REEL_RATE := 200.0 # nodes killed per second
+const REEL_MAX_DURATION := 2.5
 
 func create_node():
 	var node_instance := node_scene.instantiate() # create instance
-	node_instance.lifespan = NODE_LIFESPAN # set lifespan attribute
-	node_instance.activation_time = NODE_ACTIVATION_TIME # set lifespan activation time
+	node_instance.lifespan = node_lifespan # set lifespan attribute
+	node_instance.activation_time = node_activation_time # set lifespan activation time
 	node_instance.connect("lifespan_over", kill_node) # connect signal
 	
 	var current_pos := self.global_position + NODE_POS_OFFSET
 	var start_pos : Vector2
 	if nodes:
-		var prev_point := nodes[-1].get_point_position(1)
-		var dir := (current_pos - prev_point).normalized()
-		start_pos = prev_point - dir * 4 # extend back by 4 pixels
+		var prev_point := nodes[-1].get_point_position(1) # get second point of last node
+		var dir := (current_pos - prev_point).normalized() # normalize the difference
+		start_pos = prev_point - dir * pixel_offset # extend back by 4 pixels
 	else:
 		start_pos = current_pos
 	
@@ -37,7 +42,7 @@ func create_node():
 	add_child(node_instance) # add child
 
 func increment_node_lifespan(): # increment lifespan
-	NODE_LIFESPAN += NODE_LIFESPAN_INCREMENT
+	node_lifespan += node_lifespan_increment
 
 func kill_node(): # remove node from front and kill it
 	if nodes.is_empty(): # guard against empty array desync
@@ -47,13 +52,22 @@ func kill_node(): # remove node from front and kill it
 
 # reel scarf back, called from player
 func reel():
-	var has_children := not nodes.is_empty()
-	while has_children:
-		for i in REEL_NODES_PER_FRAME: # kill several at once
-			if nodes.is_empty():
-				has_children = false
-			kill_node()
-		await get_tree().physics_frame # base it on physics frames so arrays don't desync
+	reeling = true # begin reeling
+	# set max duration of reel
+	get_tree().create_timer(REEL_MAX_DURATION).timeout.connect(func(): reeling = false)
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	# Freezes the scarf
+	if get_tree().paused:
+		return
+	
+	if reeling:
+		reel_accumulator += delta * REEL_RATE
+		while reel_accumulator >= 1.0 and nodes: # kill node while nodes are active
+			kill_node()
+			reel_accumulator -= 1.0
+		if nodes.is_empty(): # if no nodes, reset reeling status
+			reeling = false
+			reel_accumulator = 0.0
+	
 	create_node() # create every tick
