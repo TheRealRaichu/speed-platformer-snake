@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cbx3buo7icp7h"
+path="res://.godot/imported/freeze timing tamb.mp3-8ba380347af521bf309d50de50f003fe.mp3str"
+
+[deps]
+
+source_file="res://assets/music/freeze timing tamb.mp3"
+dest_files=["res://.godot/imported/freeze timing tamb.mp3-8ba380347af521bf309d50de50f003fe.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

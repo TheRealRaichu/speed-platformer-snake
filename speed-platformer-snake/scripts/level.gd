@@ -106,8 +106,6 @@ func fade_room_out():
 	room_modulate_tween.tween_property(current_room, "modulate:g", 0.5, ROOM_FADE_OUT_TIME).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN) # fade to black
 	room_modulate_tween.tween_interval(NIGHT_DURATION) # hold at black
 	
-	# TODO ALSO DO SKY BACKGROUND TRANSITION
-	
 	await darkness_tween.finished
 	
 	room_faded_out.emit()
@@ -125,8 +123,6 @@ func fade_room_in():
 	current_room.modulate.g = 0.5 # set new room's modulate g to prev value
 	var room_modulate_tween = create_tween()
 	room_modulate_tween.tween_property(current_room, "modulate:g", 1.0, ROOM_FADE_IN_TIME).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT) # fade to black
-	
-	# TODO ALSO DO SKY BACKGROUND TRANSITION
 	
 	await darkness_tween.finished
 	
