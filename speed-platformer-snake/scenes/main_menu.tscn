@@ -167,6 +167,7 @@ offset_right = 67.49998
 offset_bottom = 116.249985
 
 [node name="QuitNode" type="Node2D" parent="MainMenuTitle/VBoxContainer" unique_id=372612481]
+position = Vector2(-3.814697e-05, 2.4999998)
 
 [node name="quit game" type="Button" parent="MainMenuTitle/VBoxContainer/QuitNode" unique_id=2016756342]
 modulate = Color(1, 1, 1, 0)
