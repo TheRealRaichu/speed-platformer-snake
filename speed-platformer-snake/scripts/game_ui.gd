@@ -23,6 +23,8 @@ func show_pickup(type : Pickup.PICKUP_TYPES):
 
 
 func _process(_delta: float) -> void:
+	if not player or not base:
+		return
 	
 	show_pickup(player.pickup_type) # keep pickup counter updated
 	

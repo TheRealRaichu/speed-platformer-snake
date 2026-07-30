@@ -28,6 +28,8 @@ func _ready() -> void:
 	# set references for UI
 	UI.player = player
 	UI.base = level.base
+	level.tutorial_room_changed.connect(apply_tutorial_room_rules)
+	apply_tutorial_room_rules(level.current_tutorial_room_path)
 
 	# stop timer
 	var life_timer: Timer = level.base.get_node("life timer")
@@ -53,3 +55,16 @@ func base_received_fuel():
 
 func increment_day_counter():
 	UI.update_day_count()
+
+func apply_tutorial_room_rules(room_path: String) -> void:
+	if room_path.is_empty():
+		return
+
+	var room_name := room_path.get_file().get_basename()
+	var blue_fire_enabled := room_name == "tutorial_8"
+	var scarf_enabled := room_name == "tutorial_5" or room_name == "tutorial_11"
+	var blink_recharge_enabled := room_name != "tutorial_6" and room_name != "tutorial_9"
+
+	level.base.set_fixed_blue_fire(blue_fire_enabled)
+	player.set_scarf_enabled(scarf_enabled)
+	player.set_blink_recharge_enabled(blink_recharge_enabled)

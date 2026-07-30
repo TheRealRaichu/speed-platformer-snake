@@ -23,6 +23,7 @@ const BOSS_FUEL_REQ := 2
 # success checks
 var is_dead := false # is the campfire dead?
 var is_blue_fire := false # flag for blue fire level
+var blue_fire_auto_cycle_enabled := true # can this level switch blue fire on its own?
 var current_fuel_count := 0 # fuel in fire currently
 var is_quick_success := false # last level was quick? for UI
 var player_blinked_this_room := false # player blinked in the current room
@@ -55,7 +56,8 @@ func check_success():
 		
 		fuel_received.emit() # exclaim fuel collection
 		
-		blue_fire_check() # check if this stage is a blue fire stage
+		if blue_fire_auto_cycle_enabled:
+			blue_fire_check() # check if this stage is a blue fire stage
 		
 		# sucess! reset flags
 		current_fuel_count = 0
@@ -81,6 +83,13 @@ func become_blue_fire():
 func become_reg_fire():
 	is_blue_fire = false # set flag
 	MusicManager.set_state(MusicManager.STATE.GAMEPLAY)
+
+func set_fixed_blue_fire(enabled: bool) -> void:
+	blue_fire_auto_cycle_enabled = false
+	if enabled:
+		become_blue_fire()
+	else:
+		become_reg_fire()
 
 func player_blinked(): # connected to player blink signal from game.gd
 	player_blinked_this_room = true

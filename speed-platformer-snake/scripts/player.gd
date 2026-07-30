@@ -10,9 +10,14 @@ extends CharacterBody2D
 @onready var left_wall_detector := $"left wall jump detector"
 @onready var right_wall_detector := $"right wall jump detector"
 
+var scarf_enabled := true
+var blink_recharge_enabled := true
+
 # ready
 func _ready() -> void:
 	blink_refresh_timer.wait_time = BLINK_REFRESH_DURATION # set blink timer duration
+	set_blink_recharge_enabled(true)
+	set_scarf_enabled(true)
 
 # ANIMATION HANDLER ======
 
@@ -60,6 +65,9 @@ var scarf_invincible := false # is invincible to scarf?
 var is_in_scarf := false # is currently in scarf?
 
 func check_in_scarf() -> bool: # check if overlapping with scarf via scarf box
+	if not scarf_enabled:
+		is_in_scarf = false
+		return false
 	for area in scarf_box.get_overlapping_areas(): # check each body
 		if area.get_parent().is_active: # only if that scarf is active
 			is_in_scarf = true
@@ -77,6 +85,8 @@ func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
 	if velocity.x < -current_scarf_speed_limit: velocity.x = move_toward(velocity.x, -current_scarf_speed_limit, SCARF_DECELERATION)
 
 func scarf_increment(): # call scarf to increment lifespan
+	if not scarf_enabled:
+		return
 	scarf.increment_node_lifespan()
 
 const MAX_BLINK := 3 # max amount of blink charges that can be held
@@ -84,12 +94,16 @@ const BLINK_REFRESH_DURATION := 3 # time it takes to charge another blink
 var current_blink_count := MAX_BLINK # current number of blinks on hand
 
 func _on_blink_refresh_timer_timeout() -> void:
+	if not blink_recharge_enabled:
+		return
 	if current_blink_count < MAX_BLINK: # if blinks are not full
 		current_blink_count += 1 # add blink charge
 	if current_blink_count < MAX_BLINK: # if still not full
 		blink_refresh_timer.start() # start timer
 
 func blinked_charge_update(): 
+	if not blink_recharge_enabled:
+		return
 	current_blink_count -= 1 # remove blink charge
 	if blink_refresh_timer.is_stopped(): # if refresh timer not going
 		blink_refresh_timer.start() # start timer
@@ -194,6 +208,8 @@ func use_sugar():
 	current_sugar_timer.timeout.connect(sugar_timeout) # after duration, disable sugar effects
 
 func use_reeler():
+	if not scarf_enabled:
+		return
 	AudioManager.play("usescarfreeler", 3) # play blink restore use noise
 	scarf.reel() # tell scarf to reel back
 
@@ -203,6 +219,23 @@ func use_packed_fuel():
 func use_blink_restore():
 	AudioManager.play("useblinkrestore") # play blink restore use noise
 	current_blink_count = MAX_BLINK # reset blinks
+
+func set_scarf_enabled(enabled: bool) -> void:
+	scarf_enabled = enabled
+	scarf.visible = enabled
+	scarf_box.monitoring = enabled
+	if not enabled:
+		is_in_scarf = false
+		AudioManager.play_scarf_reeler(false)
+
+func set_blink_recharge_enabled(enabled: bool) -> void:
+	blink_recharge_enabled = enabled
+	blink_refresh_timer.stop()
+	if enabled:
+		current_blink_count = MAX_BLINK
+	else:
+		current_blink_count = 0
+		blink_on_cooldown = false
 
 # FUEL ==================
 
@@ -226,7 +259,8 @@ func recieve_fuel():
 func give_fuel():
 	AudioManager.play("fueldeposit", -2) # play fuel deposit noise
 	fuel_on_hand = false # lose fuel
-	scarf_increment() # fuel given, increment scarf
+	if scarf_enabled:
+		scarf_increment() # fuel given, increment scarf
 
 # called from base, return true if fuel is had and can be given, false if not
 func attempt_give_fuel() -> bool:
