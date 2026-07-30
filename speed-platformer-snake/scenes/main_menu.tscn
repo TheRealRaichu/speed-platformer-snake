@@ -13,6 +13,22 @@
 [ext_resource type="Texture2D" uid="uid://cyee32edfxhou" path="res://assets/UI/Buttons/start_alt.png" id="7_7b55j"]
 [ext_resource type="Texture2D" uid="uid://cm7l6vd7lkio" path="res://assets/UI/Buttons/htp_alt.png" id="9_5pajh"]
 [ext_resource type="Texture2D" uid="uid://dpm31yynu8u2d" path="res://assets/UI/Buttons/quit_alt.png" id="11_j7ex8"]
+[ext_resource type="Texture2D" uid="uid://b5cqmxj3jpev8" path="res://assets/UI/Subscreens/HTP/HTP_Screen.png" id="12_j24oi"]
+[ext_resource type="Texture2D" uid="uid://dw1pwh01uutvn" path="res://assets/UI/Subscreens/HTP/HTP_Screen2.png" id="13_3f9fw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a8gd2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_j24oi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_3f9fw")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
 
 [node name="mainMenu" type="Control" unique_id=1836141774]
 layout_mode = 3
@@ -163,23 +179,24 @@ theme = ExtResource("2_ekxnf")
 text = "QUIT"
 metadata/_custom_type_script = "uid://bldstivarsngb"
 
-[node name="Cursor_1" parent="MainMenuTitle" unique_id=529316777 instance=ExtResource("3_bqqt6")]
-offset_left = 516.0
-offset_top = 166.0
-offset_right = 516.0
-offset_bottom = 166.0
+[node name="QuitText" type="TextureRect" parent="MainMenuTitle/VBoxContainer/QuitNode" unique_id=34875076]
+offset_left = -6.2500296
+offset_top = 134.99998
+offset_right = 322.74997
+offset_bottom = 170.99998
+theme = ExtResource("2_ekxnf")
+texture = ExtResource("6_5dd4i")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+focused_image = ExtResource("6_5dd4i")
+unfocused_image = ExtResource("6_5dd4i")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="Cursor_2" parent="MainMenuTitle" unique_id=1890186492 instance=ExtResource("3_bqqt6")]
-offset_left = 475.0
-offset_top = 204.0
-offset_right = 475.0
-offset_bottom = 204.0
-
-[node name="Cursor_3" parent="MainMenuTitle" unique_id=195575091 instance=ExtResource("3_bqqt6")]
-offset_left = 519.0
-offset_top = 252.0
-offset_right = 519.0
-offset_bottom = 252.0
+[node name="QuitCursor" parent="MainMenuTitle/VBoxContainer/QuitNode" unique_id=453276808 instance=ExtResource("3_bqqt6")]
+offset_left = 117.49997
+offset_top = 154.99998
+offset_right = 117.49997
+offset_bottom = 154.99998
 
 [node name="HowToPlay" type="Node2D" parent="." unique_id=1158100470]
 visible = false

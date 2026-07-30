@@ -316,7 +316,7 @@ func set_buffers():
 		left_buffer = true # set left buffer flag to true
 		get_tree().create_timer(BUFFER_DURATION).timeout.connect(func(): left_buffer = false) # set buffer flag to false after buffer duration
 	# jump
-	if jump_input_pressed() and not jump_buffer: # if left just released and buffer not already active
+	if Input.is_action_just_pressed("jump") and not jump_buffer: # if left just released and buffer not already active
 		jump_buffer = true # set jump buffer flag to true
 		get_tree().create_timer(BUFFER_DURATION).timeout.connect(func(): jump_buffer = false) # set buffer flag to false after buffer duration
 	# coyote
