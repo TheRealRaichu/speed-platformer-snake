@@ -2,7 +2,6 @@
 
 [ext_resource type="TileSet" uid="uid://cc5fna00x7ehi" path="res://assets/tileset/snow_tiles.tres" id="1_b7vy7"]
 [ext_resource type="PackedScene" uid="uid://bhabbrhnkbcwb" path="res://scenes/pickup.tscn" id="2_ebbfh"]
-[ext_resource type="PackedScene" uid="uid://cukh6qf3i5aji" path="res://scenes/button.tscn" id="4_edh57"]
 
 [node name="tutorial_4" type="Node2D" unique_id=846762763]
 
@@ -13,6 +12,3 @@ tile_set = ExtResource("1_b7vy7")
 [node name="fuel" parent="." unique_id=768821429 instance=ExtResource("2_ebbfh")]
 position = Vector2(126, 86)
 type = 1
-
-[node name="button" parent="." unique_id=1879702441 instance=ExtResource("4_edh57")]
-position = Vector2(334, 272)
