@@ -5,8 +5,6 @@
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_hylqw"]
 [ext_resource type="Texture2D" uid="uid://cowwmvythqm41" path="res://assets/UI/Buttons/back.png" id="3_lix1u"]
 [ext_resource type="Script" uid="uid://b8ubdyemrg6uu" path="res://scripts/ui_text.gd" id="3_o7f8x"]
-[ext_resource type="Texture2D" uid="uid://b32egywpbrhcx" path="res://assets/UI/Buttons/start.png" id="4_t4iyq"]
-[ext_resource type="Texture2D" uid="uid://cyee32edfxhou" path="res://assets/UI/Buttons/start_alt.png" id="6_wf677"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t4iyq"]
 bg_color = Color(0.11489678, 0.11489683, 0.11489671, 1)
@@ -26,6 +24,222 @@ layout_mode = 0
 offset_right = 640.0
 offset_bottom = 360.0
 texture = ExtResource("1_2ow0f")
+
+[node name="Placeholder_DELETE" type="Node2D" parent="." unique_id=207253896]
+position = Vector2(103, 59)
+
+[node name="PLACEHOLDER" type="Label" parent="Placeholder_DELETE" unique_id=1333414238]
+offset_right = 218.0
+offset_bottom = 24.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "UP"
+
+[node name="PLACEHOLDER2" type="Label" parent="Placeholder_DELETE" unique_id=740535655]
+offset_left = 141.0
+offset_right = 359.0
+offset_bottom = 24.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "W"
+
+[node name="PLACEHOLDER3" type="Label" parent="Placeholder_DELETE" unique_id=856483550]
+offset_left = -14.0
+offset_top = 43.0
+offset_right = 204.0
+offset_bottom = 67.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "DOWN"
+
+[node name="PLACEHOLDER4" type="Label" parent="Placeholder_DELETE" unique_id=1882736445]
+offset_left = 141.0
+offset_top = 43.0
+offset_right = 359.0
+offset_bottom = 67.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "S"
+
+[node name="PLACEHOLDER5" type="Label" parent="Placeholder_DELETE" unique_id=145722253]
+offset_left = -14.0
+offset_top = 87.0
+offset_right = 204.0
+offset_bottom = 111.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "RIGHT"
+
+[node name="PLACEHOLDER6" type="Label" parent="Placeholder_DELETE" unique_id=1843426775]
+offset_left = 141.0
+offset_top = 87.0
+offset_right = 359.0
+offset_bottom = 111.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "D"
+
+[node name="PLACEHOLDER7" type="Label" parent="Placeholder_DELETE" unique_id=285325937]
+offset_left = -14.0
+offset_top = 129.0
+offset_right = 204.0
+offset_bottom = 153.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "LEFT"
+
+[node name="PLACEHOLDER8" type="Label" parent="Placeholder_DELETE" unique_id=1422235998]
+offset_left = 141.0
+offset_top = 129.0
+offset_right = 359.0
+offset_bottom = 153.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "A"
+
+[node name="PLACEHOLDER9" type="Label" parent="Placeholder_DELETE" unique_id=1030840243]
+offset_left = -14.0
+offset_top = 175.0
+offset_right = 204.0
+offset_bottom = 199.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "JUMP"
+
+[node name="PLACEHOLDER10" type="Label" parent="Placeholder_DELETE" unique_id=1073105136]
+offset_left = 119.0
+offset_top = 175.0
+offset_right = 337.0
+offset_bottom = 199.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "SPACE"
+
+[node name="PLACEHOLDER11" type="Label" parent="Placeholder_DELETE" unique_id=1104925506]
+offset_left = 247.0
+offset_top = -1.0
+offset_right = 465.0
+offset_bottom = 23.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "BLINK"
+
+[node name="PLACEHOLDER12" type="Label" parent="Placeholder_DELETE" unique_id=2005883187]
+offset_left = 394.0
+offset_top = -1.0
+offset_right = 612.0
+offset_bottom = 23.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "M2"
+
+[node name="PLACEHOLDER13" type="Label" parent="Placeholder_DELETE" unique_id=596503466]
+offset_left = -15.0
+offset_top = 220.0
+offset_right = 203.0
+offset_bottom = 244.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "PAUSE"
+
+[node name="PLACEHOLDER14" type="Label" parent="Placeholder_DELETE" unique_id=1957737716]
+offset_left = 129.0
+offset_top = 220.0
+offset_right = 347.0
+offset_bottom = 244.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "ESC"
+
+[node name="PLACEHOLDER15" type="Label" parent="Placeholder_DELETE" unique_id=648543486]
+offset_left = 247.0
+offset_top = 42.0
+offset_right = 465.0
+offset_bottom = 66.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "ITEM"
+
+[node name="PLACEHOLDER16" type="Label" parent="Placeholder_DELETE" unique_id=1923970601]
+offset_left = 394.0
+offset_top = 42.0
+offset_right = 612.0
+offset_bottom = 66.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "M1"
+
+[node name="PLACEHOLDER17" type="Label" parent="Placeholder_DELETE" unique_id=830755445]
+offset_left = 247.0
+offset_top = 88.0
+offset_right = 465.0
+offset_bottom = 112.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "MUTE"
+
+[node name="PLACEHOLDER18" type="Label" parent="Placeholder_DELETE" unique_id=457560345]
+offset_left = 400.0
+offset_top = 90.0
+offset_right = 618.0
+offset_bottom = 114.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "0"
+
+[node name="PLACEHOLDER19" type="Label" parent="Placeholder_DELETE" unique_id=1754986878]
+offset_left = 247.0
+offset_top = 127.0
+offset_right = 465.0
+offset_bottom = 160.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "VOL↓"
+
+[node name="PLACEHOLDER20" type="Label" parent="Placeholder_DELETE" unique_id=1541433139]
+offset_left = 400.0
+offset_top = 129.0
+offset_right = 618.0
+offset_bottom = 153.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "-"
+
+[node name="PLACEHOLDER21" type="Label" parent="Placeholder_DELETE" unique_id=1089573700]
+offset_left = 247.0
+offset_top = 167.0
+offset_right = 465.0
+offset_bottom = 200.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "VOL↑"
+
+[node name="PLACEHOLDER22" type="Label" parent="Placeholder_DELETE" unique_id=85678092]
+offset_left = 400.0
+offset_top = 169.0
+offset_right = 618.0
+offset_bottom = 193.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "+"
+
+[node name="PLACEHOLDER23" type="Label" parent="Placeholder_DELETE" unique_id=522035302]
+offset_left = 247.0
+offset_top = 218.0
+offset_right = 465.0
+offset_bottom = 251.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "CHANNEL"
+
+[node name="PLACEHOLDER24" type="Label" parent="Placeholder_DELETE" unique_id=1102435240]
+offset_left = 364.0
+offset_top = 218.0
+offset_right = 582.0
+offset_bottom = 242.0
+theme = ExtResource("2_hylqw")
+theme_type_variation = &"HeaderMedium"
+text = "HOLD M2"
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=460304857]
 z_index = -1
@@ -52,27 +266,21 @@ offset_bottom = 83.99999
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Up" unique_id=1029702245]
-offset_left = 201.0
-offset_top = 54.999992
-offset_right = 273.0
-offset_bottom = 82.99999
+offset_left = 201.06424
+offset_top = 59.233234
+offset_right = 273.06424
+offset_bottom = 87.23323
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
@@ -88,27 +296,21 @@ offset_bottom = 132.0
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Down" unique_id=2055372310]
-offset_left = 201.0
-offset_top = 102.99999
-offset_right = 273.0
-offset_bottom = 131.0
+offset_left = 201.06424
+offset_top = 107.23323
+offset_right = 273.06424
+offset_bottom = 135.23325
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
@@ -124,27 +326,21 @@ offset_bottom = 182.0
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Right" unique_id=1594084035]
-offset_left = 201.0
-offset_top = 153.0
-offset_right = 273.0
-offset_bottom = 181.0
+offset_left = 201.06424
+offset_top = 157.23325
+offset_right = 273.06424
+offset_bottom = 185.23325
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
@@ -160,27 +356,21 @@ offset_bottom = 229.0
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Left" unique_id=935748543]
-offset_left = 201.0
-offset_top = 200.0
-offset_right = 273.0
-offset_bottom = 228.0
+offset_left = 201.06424
+offset_top = 204.23325
+offset_right = 273.06424
+offset_bottom = 232.23325
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
@@ -196,27 +386,21 @@ offset_bottom = 282.0
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Jump" unique_id=1179715372]
-offset_left = 201.0
-offset_top = 253.0
-offset_right = 273.0
-offset_bottom = 281.0
+offset_left = 201.06424
+offset_top = 257.23325
+offset_right = 273.06424
+offset_bottom = 285.23325
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
@@ -232,27 +416,21 @@ offset_bottom = 83.99999
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Blink" unique_id=5867491]
 offset_left = 493.0
-offset_top = 54.999992
+offset_top = 60.365356
 offset_right = 565.0
-offset_bottom = 82.99999
+offset_bottom = 88.36536
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
@@ -268,27 +446,21 @@ offset_bottom = 132.0
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Item" unique_id=394807601]
 offset_left = 493.0
-offset_top = 102.99999
+offset_top = 108.36536
 offset_right = 565.0
-offset_bottom = 131.0
+offset_bottom = 136.36536
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
@@ -304,27 +476,21 @@ offset_bottom = 182.0
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Mute" unique_id=314073765]
 offset_left = 493.0
-offset_top = 153.0
+offset_top = 158.36537
 offset_right = 565.0
-offset_bottom = 181.0
+offset_bottom = 186.36537
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
@@ -340,27 +506,21 @@ offset_bottom = 229.0
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_DecreaseVolume" unique_id=2091499919]
 offset_left = 494.0
-offset_top = 200.0
+offset_top = 205.36537
 offset_right = 566.0
-offset_bottom = 228.0
+offset_bottom = 233.36537
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
@@ -376,27 +536,21 @@ offset_bottom = 282.0
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_IncreaseVolume" unique_id=1189348446]
 offset_left = 493.0
-offset_top = 253.0
+offset_top = 258.36536
 offset_right = 565.0
-offset_bottom = 281.0
+offset_bottom = 286.36536
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
@@ -412,27 +566,21 @@ offset_bottom = 332.0
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Pause" unique_id=1701319183]
-offset_left = 201.0
-offset_top = 303.0
-offset_right = 273.0
-offset_bottom = 331.0
+offset_left = 201.06424
+offset_top = 307.23325
+offset_right = 273.06424
+offset_bottom = 335.23325
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
@@ -448,27 +596,21 @@ offset_bottom = 332.0
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Channel" unique_id=327431288]
 offset_left = 201.0
-offset_top = 303.0
+offset_top = 308.36536
 offset_right = 273.0
-offset_bottom = 331.0
+offset_bottom = 336.36536
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_hylqw")
-texture = ExtResource("4_t4iyq")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
-focused_image = ExtResource("6_wf677")
-unfocused_image = ExtResource("4_t4iyq")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
@@ -494,3 +636,5 @@ offset_bottom = 330.25
 scale = Vector2(0.8, 0.8)
 theme = ExtResource("2_hylqw")
 texture = ExtResource("3_lix1u")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1150868702]

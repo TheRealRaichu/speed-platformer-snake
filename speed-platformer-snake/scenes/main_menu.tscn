@@ -136,25 +136,32 @@ offset_bottom = 66.25
 [node name="SettingsNode" type="Node2D" parent="MainMenuTitle/VBoxContainer" unique_id=27436828]
 scale = Vector2(0.99999994, 0.99999994)
 
+[node name="PLACEHOLDER" type="Label" parent="MainMenuTitle/VBoxContainer/SettingsNode" unique_id=666172751]
+offset_left = 104.99997
+offset_top = 96.250015
+offset_right = 185.99997
+offset_bottom = 124.250015
+scale = Vector2(1.2945772, 1.3100395)
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderLarge"
+text = "settings"
+
 [node name="SettingsText" type="TextureRect" parent="MainMenuTitle/VBoxContainer/SettingsNode" unique_id=13172943]
-offset_left = 2.4999619
+offset_left = 13.749963
 offset_top = 97.5
-offset_right = 331.49997
+offset_right = 342.74997
 offset_bottom = 133.5
 theme = ExtResource("2_ekxnf")
-texture = ExtResource("5_jk1qb")
 stretch_mode = 3
 script = ExtResource("6_1ajci")
-focused_image = ExtResource("9_5pajh")
-unfocused_image = ExtResource("5_jk1qb")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
 [node name="settings" type="Button" parent="MainMenuTitle/VBoxContainer/SettingsNode" unique_id=1959377549]
 modulate = Color(1, 1, 1, 0)
-offset_left = 98.750015
-offset_top = 104.999985
-offset_right = 193.75002
-offset_bottom = 129.99998
+offset_left = 98.74998
+offset_top = 101.25
+offset_right = 193.74997
+offset_bottom = 126.25
 scale = Vector2(1.3, 1.3)
 theme = ExtResource("2_ekxnf")
 text = "SETTINGS"
@@ -162,9 +169,9 @@ script = ExtResource("3_wu84c")
 metadata/_custom_type_script = "uid://bldstivarsngb"
 
 [node name="SettingsCursor" parent="MainMenuTitle/VBoxContainer/SettingsNode" unique_id=894841464 instance=ExtResource("3_bqqt6")]
-offset_left = 67.49998
+offset_left = 91.24998
 offset_top = 116.249985
-offset_right = 67.49998
+offset_right = 91.24998
 offset_bottom = 116.249985
 
 [node name="QuitNode" type="Node2D" parent="MainMenuTitle/VBoxContainer" unique_id=372612481]
