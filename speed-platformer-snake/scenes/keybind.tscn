@@ -8,6 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://b32egywpbrhcx" path="res://assets/UI/Buttons/start.png" id="4_t4iyq"]
 [ext_resource type="Texture2D" uid="uid://cyee32edfxhou" path="res://assets/UI/Buttons/start_alt.png" id="6_wf677"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t4iyq"]
+bg_color = Color(0.11489678, 0.11489683, 0.11489671, 1)
+
 [node name="Keybind" type="Control" unique_id=1875071967]
 layout_mode = 3
 anchors_preset = 15
@@ -18,25 +21,28 @@ grow_vertical = 2
 script = ExtResource("1_o6n8n")
 
 [node name="Background" type="TextureRect" parent="." unique_id=248572892]
+visible = false
 layout_mode = 0
 offset_right = 640.0
 offset_bottom = 360.0
 texture = ExtResource("1_2ow0f")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1883970082]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=460304857]
+z_index = -1
 layout_mode = 0
 offset_left = 46.0
-offset_top = 16.000002
-offset_right = 86.0
-offset_bottom = 56.0
-scale = Vector2(13.764412, 7.74938)
+offset_top = 41.0
+offset_right = 264.0
+offset_bottom = 253.0
+scale = Vector2(2.4804773, 1.3125966)
+theme_override_styles/panel = SubResource("StyleBoxFlat_t4iyq")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1468944836]
 layout_mode = 2
 
 [node name="Keybind_Up" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=347151190]
-position = Vector2(-2.5427892, -6.5811715)
-scale = Vector2(0.072651125, 0.13629344)
+position = Vector2(-3.628334, -27.670708)
+scale = Vector2(0.36291796, 0.67293787)
 
 [node name="DisplayText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Up" unique_id=1288321893]
 offset_left = 49.0
@@ -71,8 +77,8 @@ metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_Down" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=338928820]
-position = Vector2(-2.5427892, -6.5811715)
-scale = Vector2(0.072651125, 0.13629344)
+position = Vector2(-3.628334, -27.670708)
+scale = Vector2(0.36291796, 0.67293787)
 
 [node name="DisplayText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Down" unique_id=1032440041]
 offset_left = 49.0
@@ -107,8 +113,8 @@ metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_Right" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=1658219220]
-position = Vector2(-2.5427892, -6.5811715)
-scale = Vector2(0.072651125, 0.13629344)
+position = Vector2(-3.628334, -27.670708)
+scale = Vector2(0.36291796, 0.67293787)
 
 [node name="DisplayText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Right" unique_id=18878236]
 offset_left = 49.0
@@ -143,8 +149,8 @@ metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_Left" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=2061503847]
-position = Vector2(-2.5427892, -6.5811715)
-scale = Vector2(0.072651125, 0.13629344)
+position = Vector2(-3.628334, -27.670708)
+scale = Vector2(0.36291796, 0.67293787)
 
 [node name="DisplayText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Left" unique_id=5309884]
 offset_left = 49.0
@@ -179,8 +185,8 @@ metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_Jump" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=197112970]
-position = Vector2(-2.5427892, -6.5811715)
-scale = Vector2(0.072651125, 0.13629344)
+position = Vector2(-3.628334, -27.670708)
+scale = Vector2(0.36291796, 0.67293787)
 
 [node name="DisplayText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Jump" unique_id=173113151]
 offset_left = 49.0
@@ -215,8 +221,8 @@ metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_Blink" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=2048156135]
-position = Vector2(-2.5427892, -6.5811715)
-scale = Vector2(0.072651125, 0.13629344)
+position = Vector2(-3.628334, -27.670708)
+scale = Vector2(0.36291796, 0.67293787)
 
 [node name="DisplayText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Blink" unique_id=271828983]
 offset_left = 341.0
@@ -251,8 +257,8 @@ metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_Item" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=56664000]
-position = Vector2(-2.5427892, -6.5811715)
-scale = Vector2(0.072651125, 0.13629344)
+position = Vector2(-3.628334, -27.670708)
+scale = Vector2(0.36291796, 0.67293787)
 
 [node name="DisplayText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Item" unique_id=1038239334]
 offset_left = 341.0
@@ -287,8 +293,8 @@ metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_Mute" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=874983711]
-position = Vector2(-2.5427892, -6.5811715)
-scale = Vector2(0.072651125, 0.13629344)
+position = Vector2(-3.628334, -27.670708)
+scale = Vector2(0.36291796, 0.67293787)
 
 [node name="DisplayText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Mute" unique_id=1675362782]
 offset_left = 341.0
@@ -323,8 +329,8 @@ metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_DecreaseVolume" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=641696298]
-position = Vector2(-2.5427892, -6.5811715)
-scale = Vector2(0.072651125, 0.13629344)
+position = Vector2(-3.628334, -27.670708)
+scale = Vector2(0.36291796, 0.67293787)
 
 [node name="DisplayText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_DecreaseVolume" unique_id=1032082657]
 offset_left = 342.0
@@ -359,8 +365,8 @@ metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_IncreaseVolume" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=1223319025]
-position = Vector2(-2.5427892, -6.5811715)
-scale = Vector2(0.072651125, 0.13629344)
+position = Vector2(-3.628334, -27.670708)
+scale = Vector2(0.36291796, 0.67293787)
 
 [node name="DisplayText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_IncreaseVolume" unique_id=1403967637]
 offset_left = 341.0
@@ -395,8 +401,8 @@ metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_Pause" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=1777076585]
-position = Vector2(-2.5427892, -6.5811715)
-scale = Vector2(0.072651125, 0.13629344)
+position = Vector2(-3.628334, -27.670708)
+scale = Vector2(0.36291796, 0.67293787)
 
 [node name="DisplayText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Pause" unique_id=1491352874]
 offset_left = 49.0
@@ -415,6 +421,42 @@ metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
 [node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Pause" unique_id=1701319183]
+offset_left = 201.0
+offset_top = 303.0
+offset_right = 273.0
+offset_bottom = 331.0
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_hylqw")
+texture = ExtResource("4_t4iyq")
+stretch_mode = 3
+script = ExtResource("3_o7f8x")
+focused_image = ExtResource("6_wf677")
+unfocused_image = ExtResource("4_t4iyq")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+metadata/_edit_use_anchors_ = true
+
+[node name="Keybind_Channel" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=1156025343]
+position = Vector2(102.39966, -27.670708)
+scale = Vector2(0.36291796, 0.67293787)
+
+[node name="DisplayText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Channel" unique_id=1518863513]
+offset_left = 49.0
+offset_top = 304.0
+offset_right = 121.0
+offset_bottom = 332.0
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_hylqw")
+texture = ExtResource("4_t4iyq")
+stretch_mode = 3
+script = ExtResource("3_o7f8x")
+focused_image = ExtResource("6_wf677")
+unfocused_image = ExtResource("4_t4iyq")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+metadata/_edit_use_anchors_ = true
+
+[node name="InputText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Channel" unique_id=327431288]
 offset_left = 201.0
 offset_top = 303.0
 offset_right = 273.0

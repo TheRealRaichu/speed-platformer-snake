@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bmphexljbattp"]
 
-[ext_resource type="Texture2D" uid="uid://c738wov4jpaii" path="res://assets/UI/Title_Screen/Title_ScreenV2.png" id="1_iu4mn"]
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_60bov"]
 [ext_resource type="Texture2D" uid="uid://cowwmvythqm41" path="res://assets/UI/Buttons/back.png" id="3_npkey"]
 [ext_resource type="Texture2D" uid="uid://b32egywpbrhcx" path="res://assets/UI/Buttons/start.png" id="3_ulmhp"]
@@ -8,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://cyee32edfxhou" path="res://assets/UI/Buttons/start_alt.png" id="5_pc63k"]
 [ext_resource type="PackedScene" uid="uid://c2fqqr5mv6gl3" path="res://scenes/cursor.tscn" id="6_c26hj"]
 [ext_resource type="Script" uid="uid://beamjncl755ur" path="res://scripts/game_modes.gd" id="7_game_modes"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c26hj"]
+bg_color = Color(0.11489678, 0.11489683, 0.11489671, 1)
 
 [node name="GameModes" type="Control" unique_id=194596276]
 layout_mode = 3
@@ -18,12 +20,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_game_modes")
 
-[node name="Main Screen" type="TextureRect" parent="." unique_id=958094482]
-editor_description = "Default Texture, if we plan to change it that is."
+[node name="Main Screen" type="TextureRect" parent="." unique_id=548188469]
+visible = false
 layout_mode = 0
 offset_right = 640.0
 offset_bottom = 360.0
-texture = ExtResource("1_iu4mn")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1101260126]
+z_index = -1
+layout_mode = 0
+offset_left = 253.0
+offset_top = 67.0
+offset_right = 471.0
+offset_bottom = 279.0
+scale = Vector2(0.62211084, 0.8091394)
+theme_override_styles/panel = SubResource("StyleBoxFlat_c26hj")
 
 [node name="NormalMode" type="Node2D" parent="." unique_id=1598756844]
 position = Vector2(1, 14)

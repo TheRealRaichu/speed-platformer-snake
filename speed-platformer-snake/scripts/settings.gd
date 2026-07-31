@@ -6,8 +6,8 @@ var scene_manager
 # controls
 var volume_slider: HSlider
 var resolution_slider: HSlider
-var fullscreen_check: CheckButton
-var up_jump_check: CheckButton
+var fullscreen_check: CheckBox
+var up_jump_check: CheckBox
 var keybind_control: Button
 var settings_back_button: Button
 
