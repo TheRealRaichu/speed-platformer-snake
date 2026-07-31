@@ -25,6 +25,14 @@ func _ready() -> void:
 	# set player reference
 	UI.player = player
 	UI.base = level.base
+	if scene_manager.next_gameplay_variant == "practice":
+		var life_timer: Timer = level.base.get_node("life timer")
+		if life_timer:
+			life_timer.stop()
+			life_timer.paused = true
+		UI.set_life_bar_visible(false)
+	else:
+		UI.set_life_bar_visible(true)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel") and not scene_manager.is_paused: # esc pressed

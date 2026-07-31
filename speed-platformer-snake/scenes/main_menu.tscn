@@ -100,6 +100,7 @@ offset_bottom = 17.5
 metadata/_edit_use_anchors_ = true
 
 [node name="HTPNode" type="Node2D" parent="MainMenuTitle/VBoxContainer" unique_id=209907003]
+position = Vector2(-3.814697e-05, -2.4999998)
 
 [node name="HowToPlayText" type="TextureRect" parent="MainMenuTitle/VBoxContainer/HTPNode" unique_id=436346324]
 offset_left = 1.2499617
@@ -167,7 +168,7 @@ offset_right = 67.49998
 offset_bottom = 116.249985
 
 [node name="QuitNode" type="Node2D" parent="MainMenuTitle/VBoxContainer" unique_id=372612481]
-position = Vector2(-3.814697e-05, 2.4999998)
+position = Vector2(-3.814697e-05, 8.749999)
 
 [node name="quit game" type="Button" parent="MainMenuTitle/VBoxContainer/QuitNode" unique_id=2016756342]
 modulate = Color(1, 1, 1, 0)

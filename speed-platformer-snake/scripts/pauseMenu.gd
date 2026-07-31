@@ -54,7 +54,7 @@ func _on_continue_focus_exited() -> void:
 ## RESTART
 func _on_restart_pressed() -> void:
 	resume()
-	scene_manager.start_game()
+	scene_manager.restart_current_mode()
 
 func _on_restart_focus_entered() -> void:
 	cursor_restart.visible = true

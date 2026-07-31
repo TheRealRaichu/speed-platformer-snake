@@ -23,7 +23,7 @@ func display_score():
 
 ## Restarts game
 func _on_restart_pressed() -> void:
-	scene_manager.start_game()
+	scene_manager.restart_current_mode()
 
 func _on_restart_focus_entered() -> void:
 	cursor_restart.visible = true
