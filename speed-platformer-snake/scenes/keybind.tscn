@@ -5,6 +5,7 @@
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_hylqw"]
 [ext_resource type="Texture2D" uid="uid://cowwmvythqm41" path="res://assets/UI/Buttons/back.png" id="3_lix1u"]
 [ext_resource type="Script" uid="uid://b8ubdyemrg6uu" path="res://scripts/ui_text.gd" id="3_o7f8x"]
+[ext_resource type="PackedScene" uid="uid://c2fqqr5mv6gl3" path="res://scenes/cursor.tscn" id="4_83n5n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t4iyq"]
 bg_color = Color(0.11489678, 0.11489683, 0.11489671, 1)
@@ -258,6 +259,13 @@ layout_mode = 2
 position = Vector2(-3.628334, -27.670708)
 scale = Vector2(0.36291796, 0.67293787)
 
+[node name="Cursor" parent="PanelContainer/VBoxContainer/Keybind_Up" unique_id=894841464 instance=ExtResource("4_83n5n")]
+offset_left = 183.2906
+offset_top = 72.818726
+offset_right = 183.2906
+offset_bottom = 72.818726
+metadata/_edit_use_anchors_ = true
+
 [node name="DisplayText" type="TextureRect" parent="PanelContainer/VBoxContainer/Keybind_Up" unique_id=1288321893]
 offset_left = 49.0
 offset_top = 55.999992
@@ -314,6 +322,13 @@ script = ExtResource("3_o7f8x")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
+[node name="Cursor" parent="PanelContainer/VBoxContainer/Keybind_Down" unique_id=135880532 instance=ExtResource("4_83n5n")]
+offset_left = 183.29062
+offset_top = 122.63214
+offset_right = 183.29062
+offset_bottom = 122.63214
+metadata/_edit_use_anchors_ = true
+
 [node name="Keybind_Right" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=1658219220]
 position = Vector2(-3.628334, -27.670708)
 scale = Vector2(0.36291796, 0.67293787)
@@ -342,6 +357,13 @@ theme = ExtResource("2_hylqw")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+metadata/_edit_use_anchors_ = true
+
+[node name="Cursor" parent="PanelContainer/VBoxContainer/Keybind_Right" unique_id=324587830 instance=ExtResource("4_83n5n")]
+offset_left = 183.2906
+offset_top = 172.44557
+offset_right = 183.2906
+offset_bottom = 172.44557
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_Left" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=2061503847]
@@ -374,6 +396,13 @@ script = ExtResource("3_o7f8x")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
+[node name="Cursor" parent="PanelContainer/VBoxContainer/Keybind_Left" unique_id=733999124 instance=ExtResource("4_83n5n")]
+offset_left = 183.29062
+offset_top = 219.99475
+offset_right = 183.29062
+offset_bottom = 219.99475
+metadata/_edit_use_anchors_ = true
+
 [node name="Keybind_Jump" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=197112970]
 position = Vector2(-3.628334, -27.670708)
 scale = Vector2(0.36291796, 0.67293787)
@@ -402,6 +431,13 @@ theme = ExtResource("2_hylqw")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+metadata/_edit_use_anchors_ = true
+
+[node name="Cursor" parent="PanelContainer/VBoxContainer/Keybind_Jump" unique_id=1308100225 instance=ExtResource("4_83n5n")]
+offset_left = 182.17975
+offset_top = 270.9403
+offset_right = 182.17975
+offset_bottom = 270.9403
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_Blink" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=2048156135]
@@ -434,6 +470,13 @@ script = ExtResource("3_o7f8x")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
+[node name="Cursor" parent="PanelContainer/VBoxContainer/Keybind_Blink" unique_id=680514698 instance=ExtResource("4_83n5n")]
+offset_left = 467.66876
+offset_top = 72.81871
+offset_right = 467.66876
+offset_bottom = 72.81871
+metadata/_edit_use_anchors_ = true
+
 [node name="Keybind_Item" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=56664000]
 position = Vector2(-3.628334, -27.670708)
 scale = Vector2(0.36291796, 0.67293787)
@@ -462,6 +505,13 @@ theme = ExtResource("2_hylqw")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+metadata/_edit_use_anchors_ = true
+
+[node name="Cursor" parent="PanelContainer/VBoxContainer/Keybind_Item" unique_id=1452034497 instance=ExtResource("4_83n5n")]
+offset_left = 467.66876
+offset_top = 121.500015
+offset_right = 467.66876
+offset_bottom = 121.500015
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_Mute" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=874983711]
@@ -494,6 +544,13 @@ script = ExtResource("3_o7f8x")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
+[node name="Cursor" parent="PanelContainer/VBoxContainer/Keybind_Mute" unique_id=488048739 instance=ExtResource("4_83n5n")]
+offset_left = 467.66876
+offset_top = 175.84195
+offset_right = 467.66876
+offset_bottom = 175.84195
+metadata/_edit_use_anchors_ = true
+
 [node name="Keybind_DecreaseVolume" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=641696298]
 position = Vector2(-3.628334, -27.670708)
 scale = Vector2(0.36291796, 0.67293787)
@@ -522,6 +579,13 @@ theme = ExtResource("2_hylqw")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+metadata/_edit_use_anchors_ = true
+
+[node name="Cursor" parent="PanelContainer/VBoxContainer/Keybind_DecreaseVolume" unique_id=575630534 instance=ExtResource("4_83n5n")]
+offset_left = 467.66876
+offset_top = 222.259
+offset_right = 467.66876
+offset_bottom = 222.259
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_IncreaseVolume" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=1223319025]
@@ -554,6 +618,13 @@ script = ExtResource("3_o7f8x")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
+[node name="Cursor" parent="PanelContainer/VBoxContainer/Keybind_IncreaseVolume" unique_id=85653462 instance=ExtResource("4_83n5n")]
+offset_left = 467.66876
+offset_top = 267.54395
+offset_right = 467.66876
+offset_bottom = 267.54395
+metadata/_edit_use_anchors_ = true
+
 [node name="Keybind_Pause" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=1777076585]
 position = Vector2(-3.628334, -27.670708)
 scale = Vector2(0.36291796, 0.67293787)
@@ -582,6 +653,13 @@ theme = ExtResource("2_hylqw")
 stretch_mode = 3
 script = ExtResource("3_o7f8x")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+metadata/_edit_use_anchors_ = true
+
+[node name="Cursor" parent="PanelContainer/VBoxContainer/Keybind_Pause" unique_id=101109539 instance=ExtResource("4_83n5n")]
+offset_left = 182.17975
+offset_top = 320.75375
+offset_right = 182.17975
+offset_bottom = 320.75375
 metadata/_edit_use_anchors_ = true
 
 [node name="Keybind_Channel" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=1156025343]
@@ -614,10 +692,18 @@ script = ExtResource("3_o7f8x")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 metadata/_edit_use_anchors_ = true
 
-[node name="BackNode" type="Node2D" parent="." unique_id=146066729]
-position = Vector2(-58, 24)
+[node name="Cursor" parent="PanelContainer/VBoxContainer/Keybind_Channel" unique_id=570163489 instance=ExtResource("4_83n5n")]
+offset_left = 175.51463
+offset_top = 321.88583
+offset_right = 175.51463
+offset_bottom = 321.88583
+metadata/_edit_use_anchors_ = true
 
-[node name="back" type="Button" parent="BackNode" unique_id=1287564766]
+[node name="BackNode" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=146066729]
+position = Vector2(-41.927414, -12.951424)
+scale = Vector2(0.4031482, 0.7618488)
+
+[node name="back" type="Button" parent="PanelContainer/VBoxContainer/BackNode" unique_id=1287564766]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = 61.0
 offset_top = 300.00003
@@ -628,7 +714,7 @@ theme = ExtResource("2_hylqw")
 text = "BACK
 "
 
-[node name="BackText" type="TextureRect" parent="BackNode" unique_id=1002942471]
+[node name="BackText" type="TextureRect" parent="PanelContainer/VBoxContainer/BackNode" unique_id=1002942471]
 offset_left = 66.24996
 offset_top = 306.25
 offset_right = 130.24997

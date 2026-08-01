@@ -27,6 +27,7 @@ const VOLUME_STEP_DB := 5.0
 func _ready() -> void:
 	_connect_controls()
 	_initialize_settings_controls()
+	volume_decrease_button.grab_focus()
 
 func _connect_controls() -> void:
 	# references to the buttons, sliders, or checks
