@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://drxivbxd5v1ma"]
 
 [ext_resource type="Script" uid="uid://cy704063y1u6c" path="res://scripts/settings.gd" id="1_gis3k"]
+[ext_resource type="Texture2D" uid="uid://c738wov4jpaii" path="res://assets/UI/Title_Screen/Title_ScreenV2.png" id="2_gis3k"]
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="3_gjs24"]
 [ext_resource type="Texture2D" uid="uid://cowwmvythqm41" path="res://assets/UI/Buttons/back.png" id="4_am25x"]
 [ext_resource type="Script" uid="uid://b8ubdyemrg6uu" path="res://scripts/ui_text.gd" id="5_4ppmf"]
@@ -10,6 +11,13 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_gis3k")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1931838095]
+self_modulate = Color(1, 1, 1, 0.22352941)
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("2_gis3k")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1615563103]
 z_index = -1
