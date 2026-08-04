@@ -238,6 +238,8 @@ func set_blink_recharge_enabled(enabled: bool) -> void:
 # FUEL ==================
 
 var fuel_on_hand := false # player is carrying fuel?
+var packed_full_text := "PACK FULL" # text UI Display
+signal pack_full # emit when player tries to pick up fuel they already have
 
 # getter for fuel on hand
 func has_fuel():
@@ -246,6 +248,8 @@ func has_fuel():
 # called from pickup
 func attempt_recieve_fuel() -> bool:
 	if fuel_on_hand: # if already has fuel
+		AudioManager.play("jump") # PLACEHOLDER
+		pack_full.emit()
 		return false # don't accept it
 	recieve_fuel() # otherwise accept fuel
 	return true # and return true
@@ -625,4 +629,3 @@ func _process(_delta: float) -> void:
 		attempt_recieve_pickup(Pickup.PICKUP_TYPES.BLINK_RESTORE)
 	if Input.is_action_just_pressed("add_portfuel"):
 		attempt_recieve_pickup(Pickup.PICKUP_TYPES.PACKAGED_FUEL)
-	

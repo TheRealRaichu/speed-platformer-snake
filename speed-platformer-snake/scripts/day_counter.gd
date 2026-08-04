@@ -19,6 +19,14 @@ func update_label(day_count_num : int, quick := false, blinkless := false):
 	set_score_reaction_text(quick, blinkless)
 	get_tree().create_timer(SCORE_REACTION_DURATION).timeout.connect(func(): score_reaction.text = ""; plusses.text = "") # wait for score reaction duration and reset label
 
+func show_status_text(text: String, plus_text := ""):
+	score_reaction.text = text
+	plusses.text = plus_text
+	get_tree().create_timer(SCORE_REACTION_DURATION).timeout.connect(func():
+		if score_reaction.text == text and plusses.text == plus_text:
+			score_reaction.text = ""
+			plusses.text = "")
+
 func set_score_reaction_text(quick : bool, blinkless : bool):
 	if quick and blinkless:
 		score_reaction.text = "Masterful!!!"

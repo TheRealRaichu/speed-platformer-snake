@@ -24,6 +24,7 @@ func _ready() -> void:
 	# connect signals
 	level.base_received_fuel.connect(base_received_fuel)
 	level.base_died_out.connect(game_over)
+	player.pack_full.connect(_on_player_pack_full)
 
 	# set references for UI
 	UI.player = player
@@ -55,6 +56,9 @@ func base_received_fuel():
 
 func increment_day_counter():
 	UI.update_day_count()
+
+func _on_player_pack_full():
+	UI.show_status_text(player.packed_full_text)
 
 func apply_tutorial_room_rules(room_path: String) -> void:
 	if room_path.is_empty():
