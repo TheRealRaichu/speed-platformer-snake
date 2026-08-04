@@ -500,17 +500,21 @@ func channeling(delta: float):
 		if not channeling_active:
 			channeling_active = true
 			channel_hold_time = 0.0
+			jump_buffer = false
+			play_anim("blink")# PLAY ANIMATION CHARGING PLACEHOLDER
 			print("Channel started")
 			AudioManager.play("jump") # placeholder charge start sound
 		channel_hold_time += delta # Timer
 		if channel_hold_time >= CHANNEL_RECHARGE_DURATION:
 			current_blink_count = min(current_blink_count + 1, MAX_BLINK) # Add +1 Blink Charge
 			blink_empty = current_blink_count <= 0
+			play_anim("blink")# PLAY ANIMATION COMPLETION PLACEHOLDER
 			print("Channel complete")
 			AudioManager.play("jump") # placeholder charge complete sound
 			channeling_active = false
 			channel_hold_time = 0.0
 	elif channeling_active:
+		# PLAY CANCEL ANIMATION (MAYBE)
 		print("Channel canceled")
 		# Maybe audio player for cancelling it.
 		channeling_active = false
@@ -522,6 +526,12 @@ func _physics_process(delta: float) -> void:
 		dying_process(delta)
 		return # dont do anything else
 	if is_blinking: # if currently in blink
+		move_and_slide()
+		return
+	if channeling_active: # if player is channeling
+		velocity.x = 0
+		velocity.y = 0
+		channeling(delta) # continue charging while frozen
 		move_and_slide()
 		return
 	
