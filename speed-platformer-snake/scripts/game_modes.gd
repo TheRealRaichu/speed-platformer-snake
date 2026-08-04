@@ -34,6 +34,7 @@ func _ready() -> void:
 	_connect_controls()
 	_setup_initial_state()
 
+# set up transitions between scenes.
 func _connect_controls() -> void:
 	normal_button.focus_entered.connect(_on_normal_focus_entered)
 	normal_button.focus_exited.connect(_on_normal_focus_exited)
@@ -51,6 +52,7 @@ func _connect_controls() -> void:
 	back_button.focus_exited.connect(_on_back_focus_exited)
 	back_button.pressed.connect(_on_back_pressed)
 
+# set up cursor visibility when player moves the arrow.
 func _setup_initial_state() -> void:
 	main_screen.visible = true
 	normal_mode.visible = true
@@ -64,6 +66,8 @@ func _setup_initial_state() -> void:
 	back_cursor.visible = false
 
 	normal_button.grab_focus()
+
+## Call entered and focused scenes when pressed from button
 
 func _on_normal_pressed() -> void:
 	scene_manager.normal_mode()

@@ -102,10 +102,8 @@ func _on_blink_refresh_timer_timeout() -> void:
 		blink_refresh_timer.start() # start timer
 
 func blinked_charge_update(): 
-	if not blink_recharge_enabled:
-		return
-	current_blink_count -= 1 # remove blink charge
-	if blink_refresh_timer.is_stopped(): # if refresh timer not going
+	current_blink_count = max(current_blink_count - 1, 0) # spend 1 blink charge on blink use
+	if blink_recharge_enabled and blink_refresh_timer.is_stopped(): # only auto-recharge when enabled
 		blink_refresh_timer.start() # start timer
 
 # called from blink usage and reeler usage
@@ -322,6 +320,12 @@ var is_blinking := false # ignore all other physics while true
 var blink_on_cooldown := false # is blink on cooldown?
 signal blinked # emit when blinked
 
+# channeling
+const CHANNEL_RECHARGE_DURATION := 2.0 # hold duration needed to create 1 blink charge
+var blink_empty := false # check if blink charges is empty or not
+var channeling_active := false # true while channel input is actively held
+var channel_hold_time := 0.0 # hold time toward a charge
+
 # HELPERS FOR CHARACTER CONTROLLER
 # called from physics process
 
@@ -467,10 +471,47 @@ func blink_process():
 		await anim_sprite.animation_finished
 		no_interrupt = false
 	
+	blink_empty = current_blink_count <= 0
+	
 	# scarf penalty
 	if check_in_scarf():
 		scarf_slowdown() # enact scarf penalty
 	AudioManager.scarf_collision_playing = true if is_in_scarf else false # set scarf collision noise depending on if in scarf
+
+# NEW CHANNELING MOVE. Hold X to charge when blink charges are empty.
+func channeling(delta: float):
+	# Keep this synchronized so other systems can still read it.
+	blink_empty = current_blink_count <= 0
+
+	# Checks if blink is empty
+	if current_blink_count > 0:
+		if channeling_active:
+			print("Channel canceled")
+		channeling_active = false
+		channel_hold_time = 0.0
+		return
+
+	# Hold X to channel and get 1 blink charge.
+	if Input.is_action_pressed("channeling"):
+		if not channeling_active:
+			channeling_active = true
+			channel_hold_time = 0.0
+			print("Channel started")
+			AudioManager.play("jump") # placeholder charge start sound
+		channel_hold_time += delta # Timer
+		if channel_hold_time >= CHANNEL_RECHARGE_DURATION:
+			current_blink_count = min(current_blink_count + 1, MAX_BLINK) # Add +1 Blink Charge
+			blink_empty = current_blink_count <= 0
+			print("Channel complete")
+			AudioManager.play("jump") # placeholder charge complete sound
+			channeling_active = false
+			channel_hold_time = 0.0
+	elif channeling_active:
+		print("Channel canceled")
+		# Maybe audio player for cancelling it.
+		channeling_active = false
+		channel_hold_time = 0.0
+
 
 func _physics_process(delta: float) -> void:
 	if dying: # if flag
@@ -521,6 +562,9 @@ func _physics_process(delta: float) -> void:
 
 	# BLINKING
 	blink_process()
+	
+	# CHANNELING
+	channeling(delta)
 	
 	move_and_slide() # duh
 	

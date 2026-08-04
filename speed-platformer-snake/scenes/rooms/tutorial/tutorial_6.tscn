@@ -12,5 +12,5 @@ tile_set = ExtResource("1_rr0o5")
 
 [node name="fuel" parent="." unique_id=768821429 instance=ExtResource("2_ppry5")]
 editor_description = "For Channeling, but for now have fuel on the bottom. Rmeove blinksa nd rehcrage for this tutorial."
-position = Vector2(98, 294)
+position = Vector2(113, 160)
 type = 1
