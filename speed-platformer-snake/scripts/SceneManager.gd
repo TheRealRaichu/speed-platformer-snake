@@ -26,7 +26,6 @@ const SCENES := {
 	"gameplay" : preload("res://scenes/game.tscn"),
 	"tutorial" : preload("res://scenes/tutorial.tscn"),
 	"game_over" : preload("res://scenes/game_over.tscn"),
-	"game_modes" : preload("res://scenes/game_modes.tscn"),
 }
 
 ## initialize game
