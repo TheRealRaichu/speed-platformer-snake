@@ -321,7 +321,7 @@ var blink_on_cooldown := false # is blink on cooldown?
 signal blinked # emit when blinked
 
 # channeling
-const CHANNEL_RECHARGE_DURATION := 2.0 # hold duration needed to create 1 blink charge
+const CHANNEL_RECHARGE_DURATION := 1.0 # hold duration needed to create 1 blink charge
 var blink_empty := false # check if blink charges is empty or not
 var channeling_active := false # true while channel input is actively held
 var channel_hold_time := 0.0 # hold time toward a charge
