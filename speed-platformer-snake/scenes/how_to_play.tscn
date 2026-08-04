@@ -83,7 +83,7 @@ focus_next = NodePath("../../BackNode/back")
 focus_previous = NodePath("../../BackNode/back")
 mouse_filter = 2
 theme = ExtResource("4_crhno")
-text = "PLAY"
+text = "TUTORIAL"
 
 [node name="PlayTutorialText" type="TextureRect" parent="TutorialPlayNode" unique_id=1533314608]
 editor_description = "Hid it for now until a texture is available."
