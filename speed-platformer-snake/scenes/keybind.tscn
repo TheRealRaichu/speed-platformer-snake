@@ -722,5 +722,3 @@ offset_bottom = 330.25
 scale = Vector2(0.8, 0.8)
 theme = ExtResource("2_hylqw")
 texture = ExtResource("3_lix1u")
-
-[node name="Node2D" type="Node2D" parent="." unique_id=1150868702]

@@ -34,9 +34,6 @@ animations = [{
 "speed": 1.0
 }]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pajh"]
-bg_color = Color(0.11489678, 0.11489683, 0.11489671, 1)
-
 [node name="mainMenu" type="Control" unique_id=1836141774]
 layout_mode = 3
 anchors_preset = 0
@@ -49,6 +46,7 @@ offset_bottom = 360.0
 texture = ExtResource("2_8ln24")
 
 [node name="Main" type="VBoxContainer" parent="." unique_id=1979905102]
+visible = false
 layout_mode = 0
 offset_left = 354.0
 offset_top = 89.00002
@@ -509,37 +507,6 @@ offset_bottom = -12.684937
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("15_5pajh")
 
-[node name="THE BASICS header" type="Label" parent="." unique_id=1983250262]
-visible = false
-layout_mode = 0
-offset_left = 40.0
-offset_top = 80.0
-offset_right = 264.0
-offset_bottom = 123.0
-theme = ExtResource("2_ekxnf")
-theme_override_colors/font_color = Color(0.2627451, 0.32156864, 0.43137255, 1)
-theme_override_font_sizes/font_size = 32
-text = "THE BASICS"
-
-[node name="THE BASICS body" type="Label" parent="." unique_id=304102775]
-visible = false
-layout_mode = 0
-offset_left = 40.0
-offset_top = 112.0
-offset_right = 312.0
-offset_bottom = 296.0
-theme = ExtResource("2_ekxnf")
-theme_override_colors/font_color = Color(0.2627451, 0.32156864, 0.43137255, 1)
-theme_override_font_sizes/font_size = 12
-text = "Your objective is to fetch firewood and feed it to the campfire to survive the day.
-
-Your scarf is trailing you and growing longer each day, and coming into contact with it will slow you down severely.
-
-Your blink ability allows you to travel through the scarf, or escape it when stuck.
-
-There are various pickups that can appear. Try them out!"
-autowrap_mode = 2
-
 [node name="Settings" type="VBoxContainer" parent="." unique_id=171827202]
 visible = false
 layout_mode = 0
@@ -747,10 +714,10 @@ offset_bottom = 285.59998
 scale = Vector2(-1.37, -1)
 
 [node name="Keybind" type="VBoxContainer" parent="." unique_id=1283645151]
-visible = false
 layout_mode = 0
+offset_top = -20.0
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 28.0
 
 [node name="Placeholder_DELETE" type="Node2D" parent="Keybind" unique_id=1945921759]
 position = Vector2(103, 59)
@@ -968,22 +935,17 @@ theme = ExtResource("2_ekxnf")
 theme_type_variation = &"HeaderMedium"
 text = "HOLD M2"
 
-[node name="PanelContainer" type="PanelContainer" parent="Keybind" unique_id=1372454376]
-z_index = -1
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5pajh")
-
-[node name="Keybind_Up" type="Control" parent="Keybind/PanelContainer" unique_id=64794129]
+[node name="Keybind_Up" type="Control" parent="Keybind" unique_id=64794129]
 layout_mode = 2
 
-[node name="Cursor" parent="Keybind/PanelContainer/Keybind_Up" unique_id=1319548065 instance=ExtResource("3_bqqt6")]
+[node name="Cursor" parent="Keybind/Keybind_Up" unique_id=1319548065 instance=ExtResource("3_bqqt6")]
 layout_mode = 0
 offset_left = 206.0
 offset_top = 70.0
 offset_right = 206.0
 offset_bottom = 70.0
 
-[node name="DisplayText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Up" unique_id=441215437]
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Up" unique_id=441215437]
 layout_mode = 0
 offset_left = 80.00001
 offset_top = 59.000008
@@ -996,7 +958,7 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="InputText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Up" unique_id=1630016506]
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Up" unique_id=1630016506]
 layout_mode = 0
 offset_left = 217.0
 offset_top = 60.000008
@@ -1009,10 +971,10 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="Keybind_Down" type="Control" parent="Keybind/PanelContainer" unique_id=804257298]
+[node name="Keybind_Down" type="Control" parent="Keybind" unique_id=804257298]
 layout_mode = 2
 
-[node name="DisplayText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Down" unique_id=1567003318]
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Down" unique_id=1567003318]
 layout_mode = 0
 offset_left = 79.0
 offset_top = 101.00001
@@ -1025,7 +987,7 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="InputText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Down" unique_id=495007210]
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Down" unique_id=495007210]
 layout_mode = 0
 offset_left = 214.99997
 offset_top = 103.00001
@@ -1038,17 +1000,17 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="Cursor" parent="Keybind/PanelContainer/Keybind_Down" unique_id=1073676251 instance=ExtResource("3_bqqt6")]
+[node name="Cursor" parent="Keybind/Keybind_Down" unique_id=1073676251 instance=ExtResource("3_bqqt6")]
 layout_mode = 0
 offset_left = 207.0
 offset_top = 113.53828
 offset_right = 207.0
 offset_bottom = 113.53828
 
-[node name="Keybind_Right" type="Control" parent="Keybind/PanelContainer" unique_id=1435183976]
+[node name="Keybind_Right" type="Control" parent="Keybind" unique_id=1435183976]
 layout_mode = 2
 
-[node name="DisplayText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Right" unique_id=1083250034]
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Right" unique_id=1083250034]
 layout_mode = 0
 offset_left = 79.0
 offset_top = 144.0
@@ -1061,7 +1023,7 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="InputText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Right" unique_id=411111101]
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Right" unique_id=411111101]
 layout_mode = 0
 offset_left = 214.99997
 offset_top = 146.0
@@ -1074,17 +1036,17 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="Cursor" parent="Keybind/PanelContainer/Keybind_Right" unique_id=1490468195 instance=ExtResource("3_bqqt6")]
+[node name="Cursor" parent="Keybind/Keybind_Right" unique_id=1490468195 instance=ExtResource("3_bqqt6")]
 layout_mode = 0
 offset_left = 207.0
 offset_top = 156.53827
 offset_right = 207.0
 offset_bottom = 156.53827
 
-[node name="Keybind_Left" type="Control" parent="Keybind/PanelContainer" unique_id=325035584]
+[node name="Keybind_Left" type="Control" parent="Keybind" unique_id=325035584]
 layout_mode = 2
 
-[node name="DisplayText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Left" unique_id=208445071]
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Left" unique_id=208445071]
 layout_mode = 0
 offset_left = 79.0
 offset_top = 186.0
@@ -1097,7 +1059,7 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="InputText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Left" unique_id=1932623926]
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Left" unique_id=1932623926]
 layout_mode = 0
 offset_left = 214.99997
 offset_top = 188.0
@@ -1110,17 +1072,17 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="Cursor" parent="Keybind/PanelContainer/Keybind_Left" unique_id=343413003 instance=ExtResource("3_bqqt6")]
+[node name="Cursor" parent="Keybind/Keybind_Left" unique_id=343413003 instance=ExtResource("3_bqqt6")]
 layout_mode = 0
 offset_left = 207.0
 offset_top = 198.53827
 offset_right = 207.0
 offset_bottom = 198.53827
 
-[node name="Keybind_Jump" type="Control" parent="Keybind/PanelContainer" unique_id=362260599]
+[node name="Keybind_Jump" type="Control" parent="Keybind" unique_id=362260599]
 layout_mode = 2
 
-[node name="DisplayText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Jump" unique_id=1684288956]
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Jump" unique_id=1684288956]
 layout_mode = 0
 offset_left = 79.0
 offset_top = 231.0
@@ -1133,7 +1095,7 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="InputText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Jump" unique_id=1745843006]
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Jump" unique_id=1745843006]
 layout_mode = 0
 offset_left = 214.99997
 offset_top = 233.0
@@ -1146,24 +1108,24 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="Cursor" parent="Keybind/PanelContainer/Keybind_Jump" unique_id=817677693 instance=ExtResource("3_bqqt6")]
+[node name="Cursor" parent="Keybind/Keybind_Jump" unique_id=817677693 instance=ExtResource("3_bqqt6")]
 layout_mode = 0
 offset_left = 207.0
 offset_top = 243.53827
 offset_right = 207.0
 offset_bottom = 243.53827
 
-[node name="Keybind_Blink" type="Control" parent="Keybind/PanelContainer" unique_id=1627224469]
+[node name="Keybind_Blink" type="Control" parent="Keybind" unique_id=1627224469]
 layout_mode = 2
 
-[node name="Cursor" parent="Keybind/PanelContainer/Keybind_Blink" unique_id=1462291992 instance=ExtResource("3_bqqt6")]
+[node name="Cursor" parent="Keybind/Keybind_Blink" unique_id=1462291992 instance=ExtResource("3_bqqt6")]
 layout_mode = 0
 offset_left = 458.0
 offset_top = 70.31796
 offset_right = 458.0
 offset_bottom = 70.31796
 
-[node name="DisplayText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Blink" unique_id=1342399102]
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Blink" unique_id=1342399102]
 layout_mode = 0
 offset_left = 338.0
 offset_top = 59.000008
@@ -1176,7 +1138,7 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="InputText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Blink" unique_id=1547470663]
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Blink" unique_id=1547470663]
 layout_mode = 0
 offset_left = 475.0
 offset_top = 60.000008
@@ -1189,17 +1151,17 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="Keybind_Item" type="Control" parent="Keybind/PanelContainer" unique_id=1629480279]
+[node name="Keybind_Item" type="Control" parent="Keybind" unique_id=1629480279]
 layout_mode = 2
 
-[node name="Cursor" parent="Keybind/PanelContainer/Keybind_Item" unique_id=341818583 instance=ExtResource("3_bqqt6")]
+[node name="Cursor" parent="Keybind/Keybind_Item" unique_id=341818583 instance=ExtResource("3_bqqt6")]
 layout_mode = 0
 offset_left = 458.0
 offset_top = 108.317955
 offset_right = 458.0
 offset_bottom = 108.317955
 
-[node name="DisplayText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Item" unique_id=1018278826]
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Item" unique_id=1018278826]
 layout_mode = 0
 offset_left = 338.0
 offset_top = 97.0
@@ -1212,7 +1174,7 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="InputText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Item" unique_id=1603847974]
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Item" unique_id=1603847974]
 layout_mode = 0
 offset_left = 475.0
 offset_top = 98.0
@@ -1225,17 +1187,17 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="Keybind_Mute" type="Control" parent="Keybind/PanelContainer" unique_id=446308158]
+[node name="Keybind_Mute" type="Control" parent="Keybind" unique_id=446308158]
 layout_mode = 2
 
-[node name="Cursor" parent="Keybind/PanelContainer/Keybind_Mute" unique_id=28181782 instance=ExtResource("3_bqqt6")]
+[node name="Cursor" parent="Keybind/Keybind_Mute" unique_id=28181782 instance=ExtResource("3_bqqt6")]
 layout_mode = 0
 offset_left = 458.0
 offset_top = 156.31796
 offset_right = 458.0
 offset_bottom = 156.31796
 
-[node name="DisplayText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Mute" unique_id=727087385]
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Mute" unique_id=727087385]
 layout_mode = 0
 offset_left = 338.0
 offset_top = 145.0
@@ -1248,7 +1210,7 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="InputText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Mute" unique_id=1739327621]
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Mute" unique_id=1739327621]
 layout_mode = 0
 offset_left = 475.0
 offset_top = 146.0
@@ -1261,17 +1223,17 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="Keybind_DecreaseVolume" type="Control" parent="Keybind/PanelContainer" unique_id=1057115199]
+[node name="Keybind_DecreaseVolume" type="Control" parent="Keybind" unique_id=1057115199]
 layout_mode = 2
 
-[node name="Cursor" parent="Keybind/PanelContainer/Keybind_DecreaseVolume" unique_id=1142066780 instance=ExtResource("3_bqqt6")]
+[node name="Cursor" parent="Keybind/Keybind_DecreaseVolume" unique_id=1142066780 instance=ExtResource("3_bqqt6")]
 layout_mode = 0
 offset_left = 458.0
 offset_top = 200.31796
 offset_right = 458.0
 offset_bottom = 200.31796
 
-[node name="DisplayText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_DecreaseVolume" unique_id=1356850228]
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_DecreaseVolume" unique_id=1356850228]
 layout_mode = 0
 offset_left = 338.0
 offset_top = 189.0
@@ -1284,7 +1246,7 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="InputText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_DecreaseVolume" unique_id=2144979996]
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_DecreaseVolume" unique_id=2144979996]
 layout_mode = 0
 offset_left = 475.0
 offset_top = 190.0
@@ -1297,17 +1259,17 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="Keybind_IncreaseVolume" type="Control" parent="Keybind/PanelContainer" unique_id=101685547]
+[node name="Keybind_IncreaseVolume" type="Control" parent="Keybind" unique_id=101685547]
 layout_mode = 2
 
-[node name="Cursor" parent="Keybind/PanelContainer/Keybind_IncreaseVolume" unique_id=781012550 instance=ExtResource("3_bqqt6")]
+[node name="Cursor" parent="Keybind/Keybind_IncreaseVolume" unique_id=781012550 instance=ExtResource("3_bqqt6")]
 layout_mode = 0
 offset_left = 458.0
 offset_top = 240.31796
 offset_right = 458.0
 offset_bottom = 240.31796
 
-[node name="DisplayText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_IncreaseVolume" unique_id=730769052]
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_IncreaseVolume" unique_id=730769052]
 layout_mode = 0
 offset_left = 338.0
 offset_top = 229.0
@@ -1320,7 +1282,7 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="InputText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_IncreaseVolume" unique_id=1575547784]
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_IncreaseVolume" unique_id=1575547784]
 layout_mode = 0
 offset_left = 475.0
 offset_top = 230.0
@@ -1333,10 +1295,10 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="Keybind_Pause" type="Control" parent="Keybind/PanelContainer" unique_id=812007358]
+[node name="Keybind_Pause" type="Control" parent="Keybind" unique_id=812007358]
 layout_mode = 2
 
-[node name="DisplayText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Pause" unique_id=697685358]
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Pause" unique_id=697685358]
 layout_mode = 0
 offset_left = 79.0
 offset_top = 275.0
@@ -1349,7 +1311,7 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="InputText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Pause" unique_id=1604062870]
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Pause" unique_id=1604062870]
 layout_mode = 0
 offset_left = 214.99997
 offset_top = 277.0
@@ -1362,24 +1324,24 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="Cursor" parent="Keybind/PanelContainer/Keybind_Pause" unique_id=2143092166 instance=ExtResource("3_bqqt6")]
+[node name="Cursor" parent="Keybind/Keybind_Pause" unique_id=2143092166 instance=ExtResource("3_bqqt6")]
 layout_mode = 0
 offset_left = 207.0
 offset_top = 287.53827
 offset_right = 207.0
 offset_bottom = 287.53827
 
-[node name="Keybind_Channel" type="Control" parent="Keybind/PanelContainer" unique_id=88765931]
+[node name="Keybind_Channel" type="Control" parent="Keybind" unique_id=88765931]
 layout_mode = 2
 
-[node name="Cursor" parent="Keybind/PanelContainer/Keybind_Channel" unique_id=1008526964 instance=ExtResource("3_bqqt6")]
+[node name="Cursor" parent="Keybind/Keybind_Channel" unique_id=1008526964 instance=ExtResource("3_bqqt6")]
 layout_mode = 0
 offset_left = 458.0
 offset_top = 283.31796
 offset_right = 458.0
 offset_bottom = 283.31796
 
-[node name="DisplayText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Channel" unique_id=1498858375]
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Channel" unique_id=1498858375]
 layout_mode = 0
 offset_left = 338.0
 offset_top = 272.0
@@ -1392,7 +1354,7 @@ stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="InputText" type="TextureRect" parent="Keybind/PanelContainer/Keybind_Channel" unique_id=530218927]
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Channel" unique_id=530218927]
 layout_mode = 0
 offset_left = 475.0
 offset_top = 273.0
@@ -1404,3 +1366,59 @@ theme = ExtResource("2_ekxnf")
 stretch_mode = 3
 script = ExtResource("6_1ajci")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="BackNode" type="Control" parent="Keybind" unique_id=1515195479]
+layout_mode = 2
+
+[node name="back" type="Button" parent="Keybind/BackNode" unique_id=1796769154]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 61.0
+offset_top = 300.00003
+offset_right = 108.0
+offset_bottom = 325.00003
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_ekxnf")
+text = "BACK
+"
+
+[node name="BackText" type="TextureRect" parent="Keybind/BackNode" unique_id=1654523763]
+layout_mode = 0
+offset_left = 66.24996
+offset_top = 306.25
+offset_right = 130.24997
+offset_bottom = 330.25
+scale = Vector2(0.8, 0.8)
+theme = ExtResource("2_ekxnf")
+texture = ExtResource("16_j7ex8")
+
+[node name="THE BASICS header" type="Label" parent="." unique_id=1960504804]
+visible = false
+layout_mode = 0
+offset_left = 40.0
+offset_top = 80.0
+offset_right = 264.0
+offset_bottom = 123.0
+theme = ExtResource("2_ekxnf")
+theme_override_colors/font_color = Color(0.2627451, 0.32156864, 0.43137255, 1)
+theme_override_font_sizes/font_size = 32
+text = "THE BASICS"
+
+[node name="THE BASICS body" type="Label" parent="." unique_id=1117283330]
+visible = false
+layout_mode = 0
+offset_left = 40.0
+offset_top = 112.0
+offset_right = 312.0
+offset_bottom = 296.0
+theme = ExtResource("2_ekxnf")
+theme_override_colors/font_color = Color(0.2627451, 0.32156864, 0.43137255, 1)
+theme_override_font_sizes/font_size = 12
+text = "Your objective is to fetch firewood and feed it to the campfire to survive the day.
+
+Your scarf is trailing you and growing longer each day, and coming into contact with it will slow you down severely.
+
+Your blink ability allows you to travel through the scarf, or escape it when stuck.
+
+There are various pickups that can appear. Try them out!"
+autowrap_mode = 2
