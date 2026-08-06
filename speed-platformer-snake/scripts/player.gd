@@ -10,9 +10,14 @@ extends CharacterBody2D
 @onready var left_wall_detector := $"left wall jump detector"
 @onready var right_wall_detector := $"right wall jump detector"
 
+var scarf_enabled := true
+var blink_recharge_enabled := true
+
 # ready
 func _ready() -> void:
 	blink_refresh_timer.wait_time = BLINK_REFRESH_DURATION # set blink timer duration
+	set_blink_recharge_enabled(true)
+	set_scarf_enabled(true)
 
 # ANIMATION HANDLER ======
 
@@ -60,6 +65,9 @@ var scarf_invincible := false # is invincible to scarf?
 var is_in_scarf := false # is currently in scarf?
 
 func check_in_scarf() -> bool: # check if overlapping with scarf via scarf box
+	if not scarf_enabled:
+		is_in_scarf = false
+		return false
 	for area in scarf_box.get_overlapping_areas(): # check each body
 		if area.get_parent().is_active: # only if that scarf is active
 			is_in_scarf = true
@@ -77,6 +85,8 @@ func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
 	if velocity.x < -current_scarf_speed_limit: velocity.x = move_toward(velocity.x, -current_scarf_speed_limit, SCARF_DECELERATION)
 
 func scarf_increment(): # call scarf to increment lifespan
+	if not scarf_enabled:
+		return
 	scarf.increment_node_lifespan()
 
 const MAX_BLINK := 3 # max amount of blink charges that can be held
@@ -84,14 +94,16 @@ const BLINK_REFRESH_DURATION := 3 # time it takes to charge another blink
 var current_blink_count := MAX_BLINK # current number of blinks on hand
 
 func _on_blink_refresh_timer_timeout() -> void:
+	if not blink_recharge_enabled:
+		return
 	if current_blink_count < MAX_BLINK: # if blinks are not full
 		current_blink_count += 1 # add blink charge
 	if current_blink_count < MAX_BLINK: # if still not full
 		blink_refresh_timer.start() # start timer
 
 func blinked_charge_update(): 
-	current_blink_count -= 1 # remove blink charge
-	if blink_refresh_timer.is_stopped(): # if refresh timer not going
+	current_blink_count = max(current_blink_count - 1, 0) # spend 1 blink charge on blink use
+	if blink_recharge_enabled and blink_refresh_timer.is_stopped(): # only auto-recharge when enabled
 		blink_refresh_timer.start() # start timer
 
 # called from blink usage and reeler usage
@@ -194,6 +206,8 @@ func use_sugar():
 	current_sugar_timer.timeout.connect(sugar_timeout) # after duration, disable sugar effects
 
 func use_reeler():
+	if not scarf_enabled:
+		return
 	AudioManager.play("usescarfreeler", 3) # play blink restore use noise
 	scarf.reel() # tell scarf to reel back
 
@@ -204,9 +218,28 @@ func use_blink_restore():
 	AudioManager.play("useblinkrestore") # play blink restore use noise
 	current_blink_count = MAX_BLINK # reset blinks
 
+func set_scarf_enabled(enabled: bool) -> void:
+	scarf_enabled = enabled
+	scarf.visible = enabled
+	scarf_box.monitoring = enabled
+	if not enabled:
+		is_in_scarf = false
+		AudioManager.play_scarf_reeler(false)
+
+func set_blink_recharge_enabled(enabled: bool) -> void:
+	blink_recharge_enabled = enabled
+	blink_refresh_timer.stop()
+	if enabled:
+		current_blink_count = MAX_BLINK
+	else:
+		current_blink_count = 0
+		blink_on_cooldown = false
+
 # FUEL ==================
 
 var fuel_on_hand := false # player is carrying fuel?
+var packed_full_text := "PACK FULL" # text UI Display
+signal pack_full # emit when player tries to pick up fuel they already have
 
 # getter for fuel on hand
 func has_fuel():
@@ -215,6 +248,8 @@ func has_fuel():
 # called from pickup
 func attempt_recieve_fuel() -> bool:
 	if fuel_on_hand: # if already has fuel
+		AudioManager.play("jump") # PLACEHOLDER
+		pack_full.emit()
 		return false # don't accept it
 	recieve_fuel() # otherwise accept fuel
 	return true # and return true
@@ -226,7 +261,8 @@ func recieve_fuel():
 func give_fuel():
 	AudioManager.play("fueldeposit", -2) # play fuel deposit noise
 	fuel_on_hand = false # lose fuel
-	scarf_increment() # fuel given, increment scarf
+	if scarf_enabled:
+		scarf_increment() # fuel given, increment scarf
 
 # called from base, return true if fuel is had and can be given, false if not
 func attempt_give_fuel() -> bool:
@@ -287,6 +323,12 @@ const BLINK_SCARF_I_DURATION := .5 # duration of being invincible to scarf after
 var is_blinking := false # ignore all other physics while true
 var blink_on_cooldown := false # is blink on cooldown?
 signal blinked # emit when blinked
+
+# channeling
+const CHANNEL_RECHARGE_DURATION := 1.0 # hold duration needed to create 1 blink charge
+var blink_empty := false # check if blink charges is empty or not
+var channeling_active := false # true while channel input is actively held
+var channel_hold_time := 0.0 # hold time toward a charge
 
 # HELPERS FOR CHARACTER CONTROLLER
 # called from physics process
@@ -433,16 +475,63 @@ func blink_process():
 		await anim_sprite.animation_finished
 		no_interrupt = false
 	
+	blink_empty = current_blink_count <= 0
+	
 	# scarf penalty
 	if check_in_scarf():
 		scarf_slowdown() # enact scarf penalty
 	AudioManager.scarf_collision_playing = true if is_in_scarf else false # set scarf collision noise depending on if in scarf
+
+# NEW CHANNELING MOVE. Hold X to charge when blink charges are empty.
+func channeling(delta: float):
+	# Keep this synchronized so other systems can still read it.
+	blink_empty = current_blink_count <= 0
+
+	# Checks if blink is empty
+	if current_blink_count > 0:
+		if channeling_active:
+			print("Channel canceled")
+		channeling_active = false
+		channel_hold_time = 0.0
+		return
+
+	# Hold X to channel and get 1 blink charge.
+	if Input.is_action_pressed("channeling"):
+		if not channeling_active:
+			channeling_active = true
+			channel_hold_time = 0.0
+			play_anim("blink")# PLAY ANIMATION CHARGING PLACEHOLDER
+			print("Channel started")
+			AudioManager.play("jump") # placeholder charge start sound
+		channel_hold_time += delta # Timer
+		if channel_hold_time >= CHANNEL_RECHARGE_DURATION:
+			current_blink_count = min(current_blink_count + 1, MAX_BLINK) # Add +1 Blink Charge
+			blink_empty = current_blink_count <= 0
+			play_anim("blink")# PLAY ANIMATION COMPLETION PLACEHOLDER
+			print("Channel complete")
+			AudioManager.play("jump") # placeholder charge complete sound
+			channeling_active = false
+			channel_hold_time = 0.0
+	elif channeling_active:
+		# PLAY CANCEL ANIMATION (MAYBE)
+		print("Channel canceled")
+		# Maybe audio player for cancelling it.
+		channeling_active = false
+		channel_hold_time = 0.0
+
 
 func _physics_process(delta: float) -> void:
 	if dying: # if flag
 		dying_process(delta)
 		return # dont do anything else
 	if is_blinking: # if currently in blink
+		move_and_slide()
+		return
+	if channeling_active: # if player is channeling
+		velocity.x = 0
+		velocity.y = 0
+		jump_buffer = false
+		channeling(delta) # continue charging while frozen
 		move_and_slide()
 		return
 	
@@ -487,6 +576,9 @@ func _physics_process(delta: float) -> void:
 
 	# BLINKING
 	blink_process()
+	
+	# CHANNELING
+	channeling(delta)
 	
 	move_and_slide() # duh
 	
@@ -547,4 +639,3 @@ func _process(_delta: float) -> void:
 		attempt_recieve_pickup(Pickup.PICKUP_TYPES.BLINK_RESTORE)
 	if Input.is_action_just_pressed("add_portfuel"):
 		attempt_recieve_pickup(Pickup.PICKUP_TYPES.PACKAGED_FUEL)
-	

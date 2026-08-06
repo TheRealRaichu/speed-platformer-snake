@@ -73,11 +73,20 @@ func _process(_delta: float) -> void:
 # courtesy of claude ai
 
 const MASTER_BUS := "Master"
+const MUSIC_BUS := "Music"
 const VOLUME_STEP := 5.0 # db per increase/decrease
 const MIN_VOLUME := -80.0
 const MAX_VOLUME := 0.0
 var muted := false
 var volume_before_mute := 0.0
+
+func get_bus_volume_db(bus_name: String) -> float:
+	var bus := AudioServer.get_bus_index(bus_name)
+	return AudioServer.get_bus_volume_db(bus)
+
+func set_bus_volume_db(bus_name: String, value: float) -> void:
+	var bus := AudioServer.get_bus_index(bus_name)
+	AudioServer.set_bus_volume_db(bus, clamp(value, MIN_VOLUME, MAX_VOLUME))
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("increase_volume"):

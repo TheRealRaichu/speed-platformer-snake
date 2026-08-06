@@ -12,20 +12,22 @@
 [ext_resource type="Texture2D" uid="uid://diri7yqpu0mc5" path="res://assets/UI/Buttons/quit.png" id="6_5dd4i"]
 [ext_resource type="Texture2D" uid="uid://cyee32edfxhou" path="res://assets/UI/Buttons/start_alt.png" id="7_7b55j"]
 [ext_resource type="Texture2D" uid="uid://cm7l6vd7lkio" path="res://assets/UI/Buttons/htp_alt.png" id="9_5pajh"]
-[ext_resource type="Texture2D" uid="uid://cowwmvythqm41" path="res://assets/UI/Buttons/back.png" id="10_5dd4i"]
-[ext_resource type="Texture2D" uid="uid://dpm31yynu8u2d" path="res://assets/UI/Buttons/quit_alt.png" id="11_j7ex8"]
-[ext_resource type="Texture2D" uid="uid://b5cqmxj3jpev8" path="res://assets/UI/Subscreens/HTP/HTP_Screen.png" id="14_5pajh"]
-[ext_resource type="Texture2D" uid="uid://dw1pwh01uutvn" path="res://assets/UI/Subscreens/HTP/HTP_Screen2.png" id="15_j7ex8"]
-[ext_resource type="Texture2D" uid="uid://byr80kw5ep35c" path="res://assets/UI/Buttons/htp_arrow.png" id="17_j7ex8"]
+[ext_resource type="Texture2D" uid="uid://b5cqmxj3jpev8" path="res://assets/UI/Subscreens/HTP/HTP_Screen.png" id="12_j24oi"]
+[ext_resource type="Texture2D" uid="uid://dw1pwh01uutvn" path="res://assets/UI/Subscreens/HTP/HTP_Screen2.png" id="13_3f9fw"]
+[ext_resource type="Texture2D" uid="uid://byr80kw5ep35c" path="res://assets/UI/Buttons/htp_arrow.png" id="15_5pajh"]
+[ext_resource type="Texture2D" uid="uid://cowwmvythqm41" path="res://assets/UI/Buttons/back.png" id="16_j7ex8"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_a8gd2"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7b55j"]
+bg_color = Color(0.11489678, 0.11489683, 0.11489671, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5pajh"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("14_5pajh")
+"texture": ExtResource("12_j24oi")
 }, {
 "duration": 1.0,
-"texture": ExtResource("15_j7ex8")
+"texture": ExtResource("13_3f9fw")
 }],
 "loop": true,
 "name": &"idle",
@@ -43,29 +45,47 @@ offset_right = 640.0
 offset_bottom = 360.0
 texture = ExtResource("2_8ln24")
 
-[node name="MainMenuTitle" type="Node2D" parent="." unique_id=35243169]
-position = Vector2(-64, 16)
+[node name="Main" type="VBoxContainer" parent="." unique_id=1979905102]
+visible = false
+layout_mode = 0
+offset_left = 354.0
+offset_top = 89.00002
+offset_right = 684.0
+offset_bottom = 270.25003
+scale = Vector2(0.7385218, 0.887773)
+theme_override_constants/separation = 20
+metadata/_edit_use_anchors_ = true
 
-[node name="Game Title" type="TextureRect" parent="MainMenuTitle" unique_id=1430529614]
+[node name="Game Title" type="TextureRect" parent="Main" unique_id=1430529614]
 texture_filter = 1
-offset_left = 416.0
-offset_top = 72.0
-offset_right = 696.0
-offset_bottom = 108.0
+layout_mode = 2
 theme = ExtResource("2_ekxnf")
 theme_type_variation = &"HeaderLarge"
 texture = ExtResource("4_jk1qb")
+metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuTitle" unique_id=1979905102]
-offset_left = 424.00003
-offset_top = 152.0
-offset_right = 754.0
-offset_bottom = 292.0
-scale = Vector2(0.8, 0.8)
-theme_override_constants/separation = 20
-
-[node name="StartText" type="TextureRect" parent="MainMenuTitle/VBoxContainer" unique_id=547315264]
+[node name="StartNode" type="Control" parent="Main" unique_id=237786408]
 layout_mode = 2
+
+[node name="start game" type="Button" parent="Main/StartNode" unique_id=83286208]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 124.99994
+offset_top = 1.25
+offset_right = 185.99997
+offset_bottom = 26.25
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 16
+text = "START"
+script = ExtResource("3_wu84c")
+metadata/_custom_type_script = "uid://bldstivarsngb"
+metadata/_edit_use_anchors_ = true
+
+[node name="StartText" type="TextureRect" parent="Main/StartNode" unique_id=547315264]
+layout_mode = 0
+offset_right = 329.0
+offset_bottom = 28.0
 size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_ekxnf")
@@ -75,9 +95,25 @@ script = ExtResource("6_1ajci")
 focused_image = ExtResource("7_7b55j")
 unfocused_image = ExtResource("4_tbmy8")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+metadata/_edit_use_anchors_ = true
 
-[node name="HowToPlayText" type="TextureRect" parent="MainMenuTitle/VBoxContainer" unique_id=436346324]
+[node name="StartCursor" parent="Main/StartNode" unique_id=529316777 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 114.99994
+offset_top = 17.5
+offset_right = 114.99994
+offset_bottom = 17.5
+metadata/_edit_use_anchors_ = true
+
+[node name="HTPNode" type="Control" parent="Main" unique_id=1928492032]
 layout_mode = 2
+
+[node name="HowToPlayText" type="TextureRect" parent="Main/HTPNode" unique_id=436346324]
+layout_mode = 0
+offset_left = 1.2499084
+offset_top = 27.499985
+offset_right = 330.2499
+offset_bottom = 63.49999
 theme = ExtResource("2_ekxnf")
 texture = ExtResource("5_jk1qb")
 stretch_mode = 3
@@ -86,108 +122,1279 @@ focused_image = ExtResource("9_5pajh")
 unfocused_image = ExtResource("5_jk1qb")
 metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="QuitText" type="TextureRect" parent="MainMenuTitle/VBoxContainer" unique_id=2028578962]
-layout_mode = 2
-theme = ExtResource("2_ekxnf")
-texture = ExtResource("6_5dd4i")
-stretch_mode = 3
-script = ExtResource("6_1ajci")
-focused_image = ExtResource("11_j7ex8")
-unfocused_image = ExtResource("6_5dd4i")
-metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
-
-[node name="start game" type="Button" parent="MainMenuTitle" unique_id=83286208]
+[node name="howtoplay game" type="Button" parent="Main/HTPNode" unique_id=881764021]
 modulate = Color(1, 1, 1, 0)
-offset_left = 472.00003
-offset_top = 152.00002
-offset_right = 533.00006
-offset_bottom = 177.00002
-scale = Vector2(1.3, 1.3)
-theme = ExtResource("2_ekxnf")
-theme_override_font_sizes/font_size = 16
-text = "START"
-script = ExtResource("3_wu84c")
-metadata/_custom_type_script = "uid://bldstivarsngb"
-
-[node name="howtoplay game" type="Button" parent="MainMenuTitle" unique_id=881764021]
-modulate = Color(1, 1, 1, 0)
-offset_left = 463.0
-offset_top = 192.0
-offset_right = 558.0
-offset_bottom = 217.0
+layout_mode = 0
+offset_left = 97.49988
+offset_top = 34.999985
+offset_right = 192.49988
+offset_bottom = 59.999985
 scale = Vector2(1.3, 1.3)
 theme = ExtResource("2_ekxnf")
 text = "HOW TO PLAY"
 script = ExtResource("3_wu84c")
 metadata/_custom_type_script = "uid://bldstivarsngb"
 
-[node name="quit game" type="Button" parent="MainMenuTitle" unique_id=2016756342]
+[node name="HTPCursor" parent="Main/HTPNode" unique_id=1890186492 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 67.49994
+offset_top = 43.749985
+offset_right = 67.49994
+offset_bottom = 43.749985
+
+[node name="SettingsNode" type="Control" parent="Main" unique_id=1349163741]
+layout_mode = 2
+
+[node name="PLACEHOLDER" type="Label" parent="Main/SettingsNode" unique_id=666172751]
+layout_mode = 0
+offset_left = 104.99994
+offset_top = 56.25
+offset_right = 185.99994
+offset_bottom = 84.25
+scale = Vector2(1.2945772, 1.3100395)
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderLarge"
+text = "settings"
+
+[node name="SettingsText" type="TextureRect" parent="Main/SettingsNode" unique_id=13172943]
+layout_mode = 0
+offset_left = 13.7499695
+offset_top = 57.5
+offset_right = 342.74997
+offset_bottom = 93.5
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="settings" type="Button" parent="Main/SettingsNode" unique_id=1959377549]
 modulate = Color(1, 1, 1, 0)
-offset_left = 472.00006
-offset_top = 256.0
-offset_right = 519.0
-offset_bottom = 281.0
+layout_mode = 0
+offset_left = 98.74994
+offset_top = 61.25
+offset_right = 193.74994
+offset_bottom = 86.25
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_ekxnf")
+text = "SETTINGS"
+script = ExtResource("3_wu84c")
+metadata/_custom_type_script = "uid://bldstivarsngb"
+
+[node name="SettingsCursor" parent="Main/SettingsNode" unique_id=894841464 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 91.24994
+offset_top = 76.25
+offset_right = 91.24994
+offset_bottom = 76.25
+
+[node name="QuitNode" type="Control" parent="Main" unique_id=1140553078]
+layout_mode = 2
+
+[node name="quit game" type="Button" parent="Main/QuitNode" unique_id=2016756342]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 133.74988
+offset_top = 91.25
+offset_right = 180.74982
+offset_bottom = 116.25
 scale = Vector2(1.3, 1.3)
 theme = ExtResource("2_ekxnf")
 text = "QUIT"
 metadata/_custom_type_script = "uid://bldstivarsngb"
 
-[node name="Cursor_1" parent="MainMenuTitle" unique_id=529316777 instance=ExtResource("3_bqqt6")]
-offset_left = 516.0
-offset_top = 166.0
-offset_right = 516.0
-offset_bottom = 166.0
+[node name="QuitText" type="TextureRect" parent="Main/QuitNode" unique_id=34875076]
+layout_mode = 0
+offset_left = -6.2500916
+offset_top = 83.75
+offset_right = 322.7499
+offset_bottom = 119.75
+theme = ExtResource("2_ekxnf")
+texture = ExtResource("6_5dd4i")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+focused_image = ExtResource("6_5dd4i")
+unfocused_image = ExtResource("6_5dd4i")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
 
-[node name="Cursor_2" parent="MainMenuTitle" unique_id=1890186492 instance=ExtResource("3_bqqt6")]
-offset_left = 475.0
-offset_top = 204.0
-offset_right = 475.0
-offset_bottom = 204.0
+[node name="QuitCursor" parent="Main/QuitNode" unique_id=453276808 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 117.49988
+offset_top = 103.75
+offset_right = 117.49988
+offset_bottom = 103.75
 
-[node name="Cursor_3" parent="MainMenuTitle" unique_id=195575091 instance=ExtResource("3_bqqt6")]
-offset_left = 519.0
-offset_top = 252.0
-offset_right = 519.0
-offset_bottom = 252.0
-
-[node name="HowToPlay" type="Node2D" parent="." unique_id=1158100470]
+[node name="GameModes" type="VBoxContainer" parent="." unique_id=298723783]
 visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="HTP bg" type="AnimatedSprite2D" parent="HowToPlay" unique_id=1655926663]
-position = Vector2(320, 180)
-sprite_frames = SubResource("SpriteFrames_a8gd2")
-animation = &"idle"
-autoplay = "idle"
+[node name="PanelContainer" type="PanelContainer" parent="GameModes" unique_id=1037180727]
+z_index = -1
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7b55j")
 
-[node name="back" type="Button" parent="HowToPlay" unique_id=1079116797]
+[node name="NormalMode" type="Control" parent="GameModes" unique_id=105747526]
+layout_mode = 2
+
+[node name="PLACEHOLDER" type="Label" parent="GameModes/NormalMode" unique_id=262043411]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 79.0
+offset_right = 369.0
+offset_bottom = 102.0
+scale = Vector2(1.2945772, 1.3100395)
+theme = ExtResource("2_ekxnf")
+text = "NORMAL"
+
+[node name="normal" type="Button" parent="GameModes/NormalMode" unique_id=32180616]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 240.00002
+offset_top = 67.0
+offset_right = 248.00002
+offset_bottom = 75.0
+scale = Vector2(20.376854, 4.762971)
+
+[node name="NormalText" type="TextureRect" parent="GameModes/NormalMode" unique_id=655100223]
+layout_mode = 0
+offset_left = 158.0
+offset_top = 71.0
+offset_right = 487.0
+offset_bottom = 99.0
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+metadata/_edit_use_anchors_ = true
+
+[node name="NormalCursor" parent="GameModes/NormalMode" unique_id=989540833 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 275.0
+offset_top = 89.0
+offset_right = 275.0
+offset_bottom = 89.0
+metadata/_edit_use_anchors_ = true
+
+[node name="PracticeMode" type="Control" parent="GameModes" unique_id=931583859]
+layout_mode = 2
+
+[node name="PLACEHOLDER" type="Label" parent="GameModes/PracticeMode" unique_id=2080875230]
+layout_mode = 0
+offset_left = 286.0
+offset_top = 128.0
+offset_right = 367.0
+offset_bottom = 151.0
+scale = Vector2(1.2945772, 1.3100395)
+theme = ExtResource("2_ekxnf")
+text = "PRACTICE"
+
+[node name="practice" type="Button" parent="GameModes/PracticeMode" unique_id=309825153]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 237.0
+offset_top = 115.0
+offset_right = 245.0
+offset_bottom = 123.0
+scale = Vector2(20.376854, 4.762971)
+
+[node name="PracticeText" type="TextureRect" parent="GameModes/PracticeMode" unique_id=864492933]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 119.0
+offset_right = 486.0
+offset_bottom = 147.0
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+metadata/_edit_use_anchors_ = true
+
+[node name="PracticeCursor" parent="GameModes/PracticeMode" unique_id=1323594387 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 274.0
+offset_top = 137.0
+offset_right = 274.0
+offset_bottom = 137.0
+metadata/_edit_use_anchors_ = true
+
+[node name="2PlayerMode" type="Control" parent="GameModes" unique_id=657115398]
+layout_mode = 2
+
+[node name="PLACEHOLDER" type="Label" parent="GameModes/2PlayerMode" unique_id=559052576]
+layout_mode = 0
+offset_left = 285.0
+offset_top = 175.0
+offset_right = 366.0
+offset_bottom = 198.0
+scale = Vector2(1.2945772, 1.3100395)
+theme = ExtResource("2_ekxnf")
+text = "2 PLAYER"
+
+[node name="2player" type="Button" parent="GameModes/2PlayerMode" unique_id=558637999]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 242.00002
+offset_top = 162.0
+offset_right = 250.00002
+offset_bottom = 170.0
+scale = Vector2(20.376854, 4.762971)
+
+[node name="2PlayerText" type="TextureRect" parent="GameModes/2PlayerMode" unique_id=2096313329]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 166.0
+offset_right = 486.0
+offset_bottom = 194.0
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+metadata/_edit_use_anchors_ = true
+
+[node name="2PlayerCursor" parent="GameModes/2PlayerMode" unique_id=1717310778 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 274.0
+offset_top = 185.0
+offset_right = 274.0
+offset_bottom = 185.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Back" type="Control" parent="GameModes" unique_id=955962302]
+layout_mode = 2
+
+[node name="PLACEHOLDER" type="Label" parent="GameModes/Back" unique_id=1484667535]
+layout_mode = 0
+offset_left = 286.0
+offset_top = 213.0
+offset_right = 367.0
+offset_bottom = 236.0
+scale = Vector2(1.2945772, 1.3100395)
+theme = ExtResource("2_ekxnf")
+text = "BACK"
+
+[node name="back" type="Button" parent="GameModes/Back" unique_id=1666912481]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = 9.0
-offset_top = 318.00003
-offset_right = 56.0
-offset_bottom = 343.00003
+layout_mode = 0
+offset_left = 285.0
+offset_top = 205.0
+offset_right = 332.0
+offset_bottom = 230.0
 scale = Vector2(1.3, 1.3)
 theme = ExtResource("2_ekxnf")
 text = "BACK
 "
 
-[node name="BackText" type="TextureRect" parent="HowToPlay" unique_id=801229319]
-offset_left = 31.999998
-offset_top = 304.0
-offset_right = 96.0
-offset_bottom = 328.0
+[node name="BackText" type="TextureRect" parent="GameModes/Back" unique_id=2125544661]
+layout_mode = 0
+offset_left = 290.5
+offset_top = 211.24997
+offset_right = 354.5
+offset_bottom = 235.24997
 scale = Vector2(0.8, 0.8)
 theme = ExtResource("2_ekxnf")
-texture = ExtResource("10_5dd4i")
 
-[node name="TextureRect" type="TextureRect" parent="HowToPlay" unique_id=594981]
-offset_left = 88.0
-offset_top = 307.0
-offset_right = 128.0
-offset_bottom = 347.0
+[node name="BackCursor" parent="GameModes/Back" unique_id=1471224464 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 275.0
+offset_top = 223.0
+offset_right = 275.0
+offset_bottom = 223.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HowToPlay" type="VBoxContainer" parent="." unique_id=924277608]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Background" type="TextureRect" parent="HowToPlay" unique_id=242030505]
+layout_mode = 2
+texture = ExtResource("2_8ln24")
+
+[node name="HTP bg" type="AnimatedSprite2D" parent="HowToPlay" unique_id=1612146094]
+position = Vector2(320, 180)
+sprite_frames = SubResource("SpriteFrames_5pajh")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="TutorialPlayNode" type="Control" parent="HowToPlay" unique_id=659386796]
+layout_mode = 2
+
+[node name="tutorial" type="Button" parent="HowToPlay/TutorialPlayNode" unique_id=1374946867]
+layout_mode = 0
+offset_left = 274.0
+offset_top = -65.0
+offset_right = 374.0
+offset_bottom = -36.0
+focus_neighbor_bottom = NodePath("../../BackNode/back")
+focus_next = NodePath("../../BackNode/back")
+focus_previous = NodePath("../../BackNode/back")
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+text = "TUTORIAL"
+
+[node name="PlayTutorialText" type="TextureRect" parent="HowToPlay/TutorialPlayNode" unique_id=122871400]
+editor_description = "Hid it for now until a texture is available."
+visible = false
+layout_mode = 0
+offset_left = 295.0
+offset_top = -62.0
+offset_right = 367.0
+offset_bottom = -34.0
+scale = Vector2(0.8, 0.8)
+theme = ExtResource("2_ekxnf")
+texture = ExtResource("4_tbmy8")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+focused_image = ExtResource("7_7b55j")
+unfocused_image = ExtResource("4_tbmy8")
+
+[node name="PlayCursor" type="TextureRect" parent="HowToPlay/TutorialPlayNode" unique_id=1086665017]
+layout_mode = 0
+offset_left = 374.99997
+offset_top = -61.0
+offset_right = 419.99997
+offset_bottom = -11.684937
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("17_j7ex8")
+texture = ExtResource("15_5pajh")
 
-[node name="THE BASICS header" type="Label" parent="HowToPlay" unique_id=1732665632]
+[node name="BackNode" type="Control" parent="HowToPlay" unique_id=432662701]
+layout_mode = 2
+
+[node name="back" type="Button" parent="HowToPlay/BackNode" unique_id=1320748786]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 40.000004
+offset_top = -70.0
+offset_right = 87.0
+offset_bottom = -45.0
+scale = Vector2(1.3, 1.3)
+focus_neighbor_top = NodePath("../../TutorialPlayNode/tutorial")
+focus_next = NodePath("../../TutorialPlayNode/tutorial")
+focus_previous = NodePath("../../TutorialPlayNode/tutorial")
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+text = "BACK
+"
+
+[node name="BackText" type="TextureRect" parent="HowToPlay/BackNode" unique_id=682342444]
+layout_mode = 0
+offset_left = 9.000002
+offset_top = -66.0
+offset_right = 161.0
+offset_bottom = -38.0
+scale = Vector2(0.8, 0.8)
+theme = ExtResource("2_ekxnf")
+texture = ExtResource("16_j7ex8")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+focused_image = ExtResource("16_j7ex8")
+unfocused_image = ExtResource("16_j7ex8")
+
+[node name="BackCursor" type="TextureRect" parent="HowToPlay/BackNode" unique_id=795661805]
+layout_mode = 0
+offset_left = 100.0
+offset_top = -62.0
+offset_right = 144.99997
+offset_bottom = -12.684937
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("15_5pajh")
+
+[node name="Settings" type="VBoxContainer" parent="." unique_id=171827202]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Audio" type="Control" parent="Settings" unique_id=1396400196]
+layout_mode = 2
+
+[node name="PLACEHOLDER1" type="Label" parent="Settings/Audio" unique_id=548896948]
+layout_mode = 0
+offset_left = 201.0
+offset_top = 58.0
+offset_right = 252.0
+offset_bottom = 81.0
+scale = Vector2(1.2945772, 1.3100395)
+theme = ExtResource("2_ekxnf")
+text = "MUSIC"
+
+[node name="PLACEHOLDER2" type="Label" parent="Settings/Audio" unique_id=241869350]
+layout_mode = 0
+offset_left = 332.0
+offset_top = 58.0
+offset_right = 383.0
+offset_bottom = 81.0
+scale = Vector2(1.2945772, 1.3100395)
+theme = ExtResource("2_ekxnf")
+text = "100%"
+
+[node name="AudioText" type="TextureRect" parent="Settings/Audio" unique_id=1296354798]
+layout_mode = 0
+offset_left = 158.0
+offset_top = 54.0
+offset_right = 338.0
+offset_bottom = 82.0
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="VolumeDown" type="Button" parent="Settings/Audio" unique_id=1875318783]
+layout_mode = 0
+offset_left = 307.0
+offset_top = 51.0
+offset_right = 347.0
+offset_bottom = 87.0
+theme = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 20
+text = "(-)"
+flat = true
+
+[node name="VolumeValue" type="TextureRect" parent="Settings/Audio" unique_id=1135331286]
+layout_mode = 0
+offset_left = 324.0
+offset_top = 55.600006
+offset_right = 396.0
+offset_bottom = 83.600006
+scale = Vector2(0.7803771, 0.8053697)
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="VolumeUp" type="Button" parent="Settings/Audio" unique_id=1610023297]
+layout_mode = 0
+offset_left = 357.0
+offset_top = 51.0
+offset_right = 397.0
+offset_bottom = 87.0
+theme = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 20
+text = "(+)"
+flat = true
+
+[node name="AudioCursor" parent="Settings/Audio" unique_id=1357188601 instance=ExtResource("3_bqqt6")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0678611
+anchor_top = 2.047247
+anchor_right = 0.0678611
+anchor_bottom = 2.047247
+offset_left = 190.28555
+offset_top = 64.600006
+offset_right = 190.28555
+offset_bottom = 64.600006
+
+[node name="Fullscreen" type="Control" parent="Settings" unique_id=2061493168]
+layout_mode = 2
+
+[node name="PLACEHOLDER" type="Label" parent="Settings/Fullscreen" unique_id=1345732417]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 129.0
+offset_right = 281.0
+offset_bottom = 152.0
+scale = Vector2(1.2945772, 1.3100395)
+theme = ExtResource("2_ekxnf")
+text = "FULLSCREEN"
+
+[node name="FullScreenCursor" parent="Settings/Fullscreen" unique_id=458352728 instance=ExtResource("3_bqqt6")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 2.7127657
+anchor_bottom = 2.7127657
+offset_left = 194.20001
+offset_top = 135.6
+offset_right = 194.20001
+offset_bottom = 135.6
+metadata/_edit_use_anchors_ = true
+
+[node name="FullScreenCheckText" type="TextureRect" parent="Settings/Fullscreen" unique_id=1147626210]
+layout_mode = 0
+offset_left = 98.2
+offset_top = 117.6
+offset_right = 427.2
+offset_bottom = 153.6
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="FullScreenCheck" type="CheckBox" parent="Settings/Fullscreen" unique_id=61140626]
+modulate = Color(4.0059752, 4.0059752, 4.0059752, 1)
+layout_mode = 0
+offset_left = 331.2
+offset_top = 125.600006
+offset_right = 355.2
+offset_bottom = 149.6
+
+[node name="Keybinds" type="Control" parent="Settings" unique_id=1693846233]
+layout_mode = 2
+
+[node name="PLACEHOLDER" type="Label" parent="Settings/Keybinds" unique_id=2059566042]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 193.0
+offset_right = 281.0
+offset_bottom = 216.0
+scale = Vector2(1.2945772, 1.3100395)
+theme = ExtResource("2_ekxnf")
+text = "KEYBIND"
+
+[node name="KeybindCursor" parent="Settings/Keybinds" unique_id=923010224 instance=ExtResource("3_bqqt6")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 2.7127657
+anchor_bottom = 2.7127657
+offset_left = 194.0
+offset_top = 200.6
+offset_right = 194.0
+offset_bottom = 200.6
+metadata/_edit_use_anchors_ = true
+
+[node name="keybind" type="Button" parent="Settings/Keybinds" unique_id=689837903]
+layout_mode = 0
+offset_left = 268.0
+offset_top = 184.0
+offset_right = 448.0
+offset_bottom = 220.0
+theme = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 20
+text = "[ Edit Keybinds ]"
+flat = true
+
+[node name="KeybindText" type="TextureRect" parent="Settings/Keybinds" unique_id=1359172066]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 182.0
+offset_right = 427.0
+offset_bottom = 218.0
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="BackNode" type="Control" parent="Settings" unique_id=951283691]
+layout_mode = 2
+
+[node name="back" type="Button" parent="Settings/BackNode" unique_id=1097111949]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 274.0
+offset_right = 252.0
+offset_bottom = 302.0
+theme = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 20
+flat = true
+
+[node name="BackText" type="TextureRect" parent="Settings/BackNode" unique_id=277946789]
+layout_mode = 0
+offset_left = 163.0
+offset_top = 274.0
+offset_right = 227.00002
+offset_bottom = 298.0
+scale = Vector2(0.8, 0.8)
+theme = ExtResource("2_ekxnf")
+texture = ExtResource("16_j7ex8")
+
+[node name="BackCursor" parent="Settings/BackNode" unique_id=147883552 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 226.00002
+offset_top = 285.59998
+offset_right = 226.00002
+offset_bottom = 285.59998
+scale = Vector2(-1.37, -1)
+
+[node name="Keybind" type="VBoxContainer" parent="." unique_id=1283645151]
+layout_mode = 0
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 28.0
+
+[node name="Placeholder_DELETE" type="Node2D" parent="Keybind" unique_id=1945921759]
+position = Vector2(103, 59)
+
+[node name="PLACEHOLDER" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=659556523]
+offset_right = 218.0
+offset_bottom = 24.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "UP"
+
+[node name="PLACEHOLDER2" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=1215952846]
+offset_left = 141.0
+offset_right = 359.0
+offset_bottom = 24.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "W"
+
+[node name="PLACEHOLDER3" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=1510773725]
+offset_left = -14.0
+offset_top = 43.0
+offset_right = 204.0
+offset_bottom = 67.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "DOWN"
+
+[node name="PLACEHOLDER4" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=861809276]
+offset_left = 141.0
+offset_top = 43.0
+offset_right = 359.0
+offset_bottom = 67.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "S"
+
+[node name="PLACEHOLDER5" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=325814705]
+offset_left = -14.0
+offset_top = 87.0
+offset_right = 204.0
+offset_bottom = 111.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "RIGHT"
+
+[node name="PLACEHOLDER6" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=1247557729]
+offset_left = 141.0
+offset_top = 87.0
+offset_right = 359.0
+offset_bottom = 111.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "D"
+
+[node name="PLACEHOLDER7" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=1882805184]
+offset_left = -14.0
+offset_top = 129.0
+offset_right = 204.0
+offset_bottom = 153.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "LEFT"
+
+[node name="PLACEHOLDER8" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=2062342512]
+offset_left = 141.0
+offset_top = 129.0
+offset_right = 359.0
+offset_bottom = 153.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "A"
+
+[node name="PLACEHOLDER9" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=336427221]
+offset_left = -14.0
+offset_top = 175.0
+offset_right = 204.0
+offset_bottom = 199.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "JUMP"
+
+[node name="PLACEHOLDER10" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=932502594]
+offset_left = 119.0
+offset_top = 175.0
+offset_right = 337.0
+offset_bottom = 199.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "SPACE"
+
+[node name="PLACEHOLDER11" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=1695358934]
+offset_left = 247.0
+offset_top = -1.0
+offset_right = 465.0
+offset_bottom = 23.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "BLINK"
+
+[node name="PLACEHOLDER12" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=14792348]
+offset_left = 394.0
+offset_top = -1.0
+offset_right = 612.0
+offset_bottom = 23.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "M2"
+
+[node name="PLACEHOLDER13" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=1056235278]
+offset_left = -15.0
+offset_top = 220.0
+offset_right = 203.0
+offset_bottom = 244.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "PAUSE"
+
+[node name="PLACEHOLDER14" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=881720701]
+offset_left = 129.0
+offset_top = 220.0
+offset_right = 347.0
+offset_bottom = 244.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "ESC"
+
+[node name="PLACEHOLDER15" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=59754767]
+offset_left = 247.0
+offset_top = 42.0
+offset_right = 465.0
+offset_bottom = 66.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "ITEM"
+
+[node name="PLACEHOLDER16" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=1852011347]
+offset_left = 394.0
+offset_top = 42.0
+offset_right = 612.0
+offset_bottom = 66.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "M1"
+
+[node name="PLACEHOLDER17" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=1695043595]
+offset_left = 247.0
+offset_top = 88.0
+offset_right = 465.0
+offset_bottom = 112.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "MUTE"
+
+[node name="PLACEHOLDER18" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=1429023180]
+offset_left = 400.0
+offset_top = 90.0
+offset_right = 618.0
+offset_bottom = 114.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "0"
+
+[node name="PLACEHOLDER19" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=146584228]
+offset_left = 247.0
+offset_top = 127.0
+offset_right = 465.0
+offset_bottom = 160.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "VOL↓"
+
+[node name="PLACEHOLDER20" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=693228571]
+offset_left = 400.0
+offset_top = 129.0
+offset_right = 618.0
+offset_bottom = 153.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "-"
+
+[node name="PLACEHOLDER21" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=685191147]
+offset_left = 247.0
+offset_top = 167.0
+offset_right = 465.0
+offset_bottom = 200.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "VOL↑"
+
+[node name="PLACEHOLDER22" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=232233276]
+offset_left = 400.0
+offset_top = 169.0
+offset_right = 618.0
+offset_bottom = 193.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "+"
+
+[node name="PLACEHOLDER23" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=618174565]
+offset_left = 247.0
+offset_top = 218.0
+offset_right = 465.0
+offset_bottom = 251.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "CHANNEL"
+
+[node name="PLACEHOLDER24" type="Label" parent="Keybind/Placeholder_DELETE" unique_id=2034245631]
+offset_left = 364.0
+offset_top = 218.0
+offset_right = 582.0
+offset_bottom = 242.0
+theme = ExtResource("2_ekxnf")
+theme_type_variation = &"HeaderMedium"
+text = "HOLD M2"
+
+[node name="Keybind_Up" type="Control" parent="Keybind" unique_id=64794129]
+layout_mode = 2
+
+[node name="Cursor" parent="Keybind/Keybind_Up" unique_id=1319548065 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 206.0
+offset_top = 70.0
+offset_right = 206.0
+offset_bottom = 70.0
+
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Up" unique_id=441215437]
+layout_mode = 0
+offset_left = 80.00001
+offset_top = 59.000008
+offset_right = 152.0
+offset_bottom = 87.00001
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Up" unique_id=1630016506]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 60.000008
+offset_right = 288.99994
+offset_bottom = 87.99999
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="Keybind_Down" type="Control" parent="Keybind" unique_id=804257298]
+layout_mode = 2
+
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Down" unique_id=1567003318]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 101.00001
+offset_right = 151.0
+offset_bottom = 129.00003
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Down" unique_id=495007210]
+layout_mode = 0
+offset_left = 214.99997
+offset_top = 103.00001
+offset_right = 286.99997
+offset_bottom = 131.00006
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="Cursor" parent="Keybind/Keybind_Down" unique_id=1073676251 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 113.53828
+offset_right = 207.0
+offset_bottom = 113.53828
+
+[node name="Keybind_Right" type="Control" parent="Keybind" unique_id=1435183976]
+layout_mode = 2
+
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Right" unique_id=1083250034]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 144.0
+offset_right = 151.0
+offset_bottom = 172.00003
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Right" unique_id=411111101]
+layout_mode = 0
+offset_left = 214.99997
+offset_top = 146.0
+offset_right = 286.99997
+offset_bottom = 174.00006
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="Cursor" parent="Keybind/Keybind_Right" unique_id=1490468195 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 156.53827
+offset_right = 207.0
+offset_bottom = 156.53827
+
+[node name="Keybind_Left" type="Control" parent="Keybind" unique_id=325035584]
+layout_mode = 2
+
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Left" unique_id=208445071]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 186.0
+offset_right = 151.0
+offset_bottom = 214.00003
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Left" unique_id=1932623926]
+layout_mode = 0
+offset_left = 214.99997
+offset_top = 188.0
+offset_right = 286.99997
+offset_bottom = 216.00006
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="Cursor" parent="Keybind/Keybind_Left" unique_id=343413003 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 198.53827
+offset_right = 207.0
+offset_bottom = 198.53827
+
+[node name="Keybind_Jump" type="Control" parent="Keybind" unique_id=362260599]
+layout_mode = 2
+
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Jump" unique_id=1684288956]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 231.0
+offset_right = 151.0
+offset_bottom = 259.00003
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Jump" unique_id=1745843006]
+layout_mode = 0
+offset_left = 214.99997
+offset_top = 233.0
+offset_right = 286.99997
+offset_bottom = 261.00006
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="Cursor" parent="Keybind/Keybind_Jump" unique_id=817677693 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 243.53827
+offset_right = 207.0
+offset_bottom = 243.53827
+
+[node name="Keybind_Blink" type="Control" parent="Keybind" unique_id=1627224469]
+layout_mode = 2
+
+[node name="Cursor" parent="Keybind/Keybind_Blink" unique_id=1462291992 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 70.31796
+offset_right = 458.0
+offset_bottom = 70.31796
+
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Blink" unique_id=1342399102]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 59.000008
+offset_right = 410.0
+offset_bottom = 87.00001
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Blink" unique_id=1547470663]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 60.000008
+offset_right = 546.99994
+offset_bottom = 87.99999
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="Keybind_Item" type="Control" parent="Keybind" unique_id=1629480279]
+layout_mode = 2
+
+[node name="Cursor" parent="Keybind/Keybind_Item" unique_id=341818583 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 108.317955
+offset_right = 458.0
+offset_bottom = 108.317955
+
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Item" unique_id=1018278826]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 97.0
+offset_right = 410.0
+offset_bottom = 125.0
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Item" unique_id=1603847974]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 98.0
+offset_right = 546.99994
+offset_bottom = 125.999985
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="Keybind_Mute" type="Control" parent="Keybind" unique_id=446308158]
+layout_mode = 2
+
+[node name="Cursor" parent="Keybind/Keybind_Mute" unique_id=28181782 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 156.31796
+offset_right = 458.0
+offset_bottom = 156.31796
+
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Mute" unique_id=727087385]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 145.0
+offset_right = 410.0
+offset_bottom = 173.0
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Mute" unique_id=1739327621]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 146.0
+offset_right = 546.99994
+offset_bottom = 173.99998
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="Keybind_DecreaseVolume" type="Control" parent="Keybind" unique_id=1057115199]
+layout_mode = 2
+
+[node name="Cursor" parent="Keybind/Keybind_DecreaseVolume" unique_id=1142066780 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 200.31796
+offset_right = 458.0
+offset_bottom = 200.31796
+
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_DecreaseVolume" unique_id=1356850228]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 189.0
+offset_right = 410.0
+offset_bottom = 217.0
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_DecreaseVolume" unique_id=2144979996]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 190.0
+offset_right = 546.99994
+offset_bottom = 217.99998
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="Keybind_IncreaseVolume" type="Control" parent="Keybind" unique_id=101685547]
+layout_mode = 2
+
+[node name="Cursor" parent="Keybind/Keybind_IncreaseVolume" unique_id=781012550 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 240.31796
+offset_right = 458.0
+offset_bottom = 240.31796
+
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_IncreaseVolume" unique_id=730769052]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 229.0
+offset_right = 410.0
+offset_bottom = 257.0
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_IncreaseVolume" unique_id=1575547784]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 230.0
+offset_right = 546.99994
+offset_bottom = 258.0
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="Keybind_Pause" type="Control" parent="Keybind" unique_id=812007358]
+layout_mode = 2
+
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Pause" unique_id=697685358]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 275.0
+offset_right = 151.0
+offset_bottom = 303.00003
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Pause" unique_id=1604062870]
+layout_mode = 0
+offset_left = 214.99997
+offset_top = 277.0
+offset_right = 286.99997
+offset_bottom = 305.00006
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="Cursor" parent="Keybind/Keybind_Pause" unique_id=2143092166 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 287.53827
+offset_right = 207.0
+offset_bottom = 287.53827
+
+[node name="Keybind_Channel" type="Control" parent="Keybind" unique_id=88765931]
+layout_mode = 2
+
+[node name="Cursor" parent="Keybind/Keybind_Channel" unique_id=1008526964 instance=ExtResource("3_bqqt6")]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 283.31796
+offset_right = 458.0
+offset_bottom = 283.31796
+
+[node name="DisplayText" type="TextureRect" parent="Keybind/Keybind_Channel" unique_id=1498858375]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 272.0
+offset_right = 410.0
+offset_bottom = 300.0
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="InputText" type="TextureRect" parent="Keybind/Keybind_Channel" unique_id=530218927]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 273.0
+offset_right = 546.99994
+offset_bottom = 301.0
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_ekxnf")
+stretch_mode = 3
+script = ExtResource("6_1ajci")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="BackNode" type="Control" parent="Keybind" unique_id=1515195479]
+layout_mode = 2
+
+[node name="back" type="Button" parent="Keybind/BackNode" unique_id=1796769154]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 61.0
+offset_top = 300.00003
+offset_right = 108.0
+offset_bottom = 325.00003
+scale = Vector2(1.3, 1.3)
+theme = ExtResource("2_ekxnf")
+text = "BACK
+"
+
+[node name="BackText" type="TextureRect" parent="Keybind/BackNode" unique_id=1654523763]
+layout_mode = 0
+offset_left = 66.24996
+offset_top = 306.25
+offset_right = 130.24997
+offset_bottom = 330.25
+scale = Vector2(0.8, 0.8)
+theme = ExtResource("2_ekxnf")
+texture = ExtResource("16_j7ex8")
+
+[node name="THE BASICS header" type="Label" parent="." unique_id=1960504804]
+visible = false
+layout_mode = 0
 offset_left = 40.0
 offset_top = 80.0
 offset_right = 264.0
@@ -197,7 +1404,9 @@ theme_override_colors/font_color = Color(0.2627451, 0.32156864, 0.43137255, 1)
 theme_override_font_sizes/font_size = 32
 text = "THE BASICS"
 
-[node name="THE BASICS body" type="Label" parent="HowToPlay" unique_id=971389269]
+[node name="THE BASICS body" type="Label" parent="." unique_id=1117283330]
+visible = false
+layout_mode = 0
 offset_left = 40.0
 offset_top = 112.0
 offset_right = 312.0
@@ -213,16 +1422,3 @@ Your blink ability allows you to travel through the scarf, or escape it when stu
 
 There are various pickups that can appear. Try them out!"
 autowrap_mode = 2
-
-[connection signal="focus_entered" from="MainMenuTitle/start game" to="." method="_on_start_game_focus_entered"]
-[connection signal="focus_exited" from="MainMenuTitle/start game" to="." method="_on_start_game_focus_exited"]
-[connection signal="pressed" from="MainMenuTitle/start game" to="." method="_on_start_game_pressed"]
-[connection signal="focus_entered" from="MainMenuTitle/howtoplay game" to="." method="_on_howtoplay_game_focus_entered"]
-[connection signal="focus_exited" from="MainMenuTitle/howtoplay game" to="." method="_on_howtoplay_game_focus_exited"]
-[connection signal="pressed" from="MainMenuTitle/howtoplay game" to="." method="_on_howtoplay_game_pressed"]
-[connection signal="focus_entered" from="MainMenuTitle/quit game" to="." method="_on_quit_game_focus_entered"]
-[connection signal="focus_exited" from="MainMenuTitle/quit game" to="." method="_on_quit_game_focus_exited"]
-[connection signal="pressed" from="MainMenuTitle/quit game" to="." method="_on_quit_game_pressed"]
-[connection signal="focus_entered" from="HowToPlay/back" to="." method="_on_back_focus_entered"]
-[connection signal="focus_exited" from="HowToPlay/back" to="." method="_on_back_focus_exited"]
-[connection signal="pressed" from="HowToPlay/back" to="." method="_on_back_pressed"]

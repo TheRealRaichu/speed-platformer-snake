@@ -5,13 +5,13 @@ var player
 ## GAME OVER SCREEN
 
 # child reference
-@onready var restart_button := $PanelContainer/VBoxContainer/Restart
-@onready var quit_button := $PanelContainer/VBoxContainer/Quit
+@onready var restart_button := $PanelContainer/VBoxContainer/RestartNode/Restart
+@onready var cursor_restart := $PanelContainer/VBoxContainer/RestartNode/RestartCursor
+@onready var try_again_text := $PanelContainer/VBoxContainer/RestartNode/TryAgainText
+@onready var quit_button := $PanelContainer/VBoxContainer/QuitNode/Quit
+@onready var cursor_quit := $PanelContainer/VBoxContainer/QuitNode/QuitCursor
+@onready var quit_text := $PanelContainer/VBoxContainer/QuitNode/QuitText
 @onready var score_label := $ScoreLabel
-@onready var cursor_restart := $Cursor_1
-@onready var cursor_quit := $Cursor_2
-@onready var try_again_text := $TryAgainText
-@onready var quit_text := $QuitText
 
 func _ready() -> void:
 	display_score() # display score of game
@@ -23,7 +23,7 @@ func display_score():
 
 ## Restarts game
 func _on_restart_pressed() -> void:
-	scene_manager.start_game()
+	scene_manager.restart_current_mode()
 
 func _on_restart_focus_entered() -> void:
 	cursor_restart.visible = true

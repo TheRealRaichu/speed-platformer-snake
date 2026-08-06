@@ -15,12 +15,22 @@ var base # set from Game
 func update_day_count():
 	day_counter.set_day_count(Globals.score, base.is_quick_success, base.is_blinkless_success) # display score and text based on speed
 
+func show_status_text(text: String, plus_text := ""):
+	day_counter.show_status_text(text, plus_text)
+
+## Have a scoreboard
+
 # show pickup relay from game to pickup indicator
 func show_pickup(type : Pickup.PICKUP_TYPES):
 	pickup_indicator.show_pickup(type)
 
+func set_life_bar_visible(visible: bool) -> void:
+	life_bar.visible = visible
+
 
 func _process(_delta: float) -> void:
+	if not player or not base:
+		return
 	
 	show_pickup(player.pickup_type) # keep pickup counter updated
 	

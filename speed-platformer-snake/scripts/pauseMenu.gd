@@ -4,18 +4,18 @@ var player
 
 ## PAUSE MENU
 # child reference
-@onready var continue_button := $PanelContainer/VBoxContainer/Continue
-@onready var restart_button := $PanelContainer/VBoxContainer/Restart
-@onready var quit_button := $PanelContainer/VBoxContainer/Quit
+@onready var continue_button := $PanelContainer/VBoxContainer/ContinueNode/Continue
+@onready var restart_button := $PanelContainer/VBoxContainer/RestartNode/Restart
+@onready var quit_button := $PanelContainer/VBoxContainer/QuitNode/Quit
 
 # child references to the cursor sprites
-@onready var cursor_continue := $Cursor_1
-@onready var cursor_restart := $Cursor_2
-@onready var cursor_quit := $Cursor_3
+@onready var cursor_continue := $PanelContainer/VBoxContainer/ContinueNode/ContinueCursor
+@onready var cursor_restart := $PanelContainer/VBoxContainer/RestartNode/RestartCursor
+@onready var cursor_quit := $PanelContainer/VBoxContainer/QuitNode/QuitCursor
 # ui text
-@onready var coninue_text := $"ContinueText"
-@onready var restart_text := $"RestartText"
-@onready var quit_text := $"QuitText"
+@onready var coninue_text := $"PanelContainer/VBoxContainer/ContinueNode/ContinueText"
+@onready var restart_text := $"PanelContainer/VBoxContainer/RestartNode/RestartText"
+@onready var quit_text := $"PanelContainer/VBoxContainer/QuitNode/QuitText"
 
 func _ready() -> void:
 	continue_button.grab_focus() # continue button takes focus for key navigation
@@ -54,7 +54,7 @@ func _on_continue_focus_exited() -> void:
 ## RESTART
 func _on_restart_pressed() -> void:
 	resume()
-	scene_manager.start_game()
+	scene_manager.restart_current_mode()
 
 func _on_restart_focus_entered() -> void:
 	cursor_restart.visible = true

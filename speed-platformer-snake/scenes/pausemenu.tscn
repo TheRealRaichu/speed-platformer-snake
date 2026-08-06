@@ -23,52 +23,6 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_k5gjg")
 
-[node name="ContinueText" type="TextureRect" parent="." unique_id=1760670781]
-layout_mode = 0
-offset_left = 272.0
-offset_top = 149.0
-offset_right = 464.0
-offset_bottom = 149.0
-scale = Vector2(0.5, 0.5)
-theme = ExtResource("2_r33we")
-texture = ExtResource("3_v4mab")
-expand_mode = 3
-stretch_mode = 3
-script = ExtResource("4_lkswt")
-focused_image = ExtResource("5_kv823")
-unfocused_image = ExtResource("3_v4mab")
-metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
-
-[node name="RestartText" type="TextureRect" parent="." unique_id=202294988]
-layout_mode = 0
-offset_left = 272.0
-offset_top = 181.0
-offset_right = 464.0
-offset_bottom = 209.0
-scale = Vector2(0.5, 0.5)
-theme = ExtResource("2_r33we")
-texture = ExtResource("6_elpj7")
-stretch_mode = 3
-script = ExtResource("4_lkswt")
-focused_image = ExtResource("7_sqm04")
-unfocused_image = ExtResource("6_elpj7")
-metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
-
-[node name="QuitText" type="TextureRect" parent="." unique_id=402799957]
-layout_mode = 0
-offset_left = 272.0
-offset_top = 219.0
-offset_right = 464.0
-offset_bottom = 255.0
-scale = Vector2(0.5, 0.5)
-theme = ExtResource("2_r33we")
-texture = ExtResource("8_pyfwo")
-stretch_mode = 3
-script = ExtResource("4_lkswt")
-focused_image = ExtResource("9_hd25v")
-unfocused_image = ExtResource("8_pyfwo")
-metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
-
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1179945272]
 layout_mode = 0
 offset_left = 272.0
@@ -93,13 +47,30 @@ layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Continue" type="Button" parent="PanelContainer/VBoxContainer" unique_id=56651912]
+[node name="ContinueNode" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=354944433]
+
+[node name="ContinueText" type="TextureRect" parent="PanelContainer/VBoxContainer/ContinueNode" unique_id=1760670781]
+offset_top = 21.0
+offset_right = 192.0
+offset_bottom = 21.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("2_r33we")
+texture = ExtResource("3_v4mab")
+expand_mode = 3
+stretch_mode = 3
+script = ExtResource("4_lkswt")
+focused_image = ExtResource("5_kv823")
+unfocused_image = ExtResource("3_v4mab")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="Continue" type="Button" parent="PanelContainer/VBoxContainer/ContinueNode" unique_id=56651912]
 self_modulate = Color(0.20784314, 0.20784314, 0.20784314, 0.039215688)
-layout_mode = 2
+offset_right = 96.0
+offset_bottom = 37.0
 size_flags_vertical = 3
-focus_neighbor_bottom = NodePath("../Restart")
-focus_next = NodePath("../Restart")
-focus_previous = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../../RestartNode/Restart")
+focus_next = NodePath("../../RestartNode/Restart")
+focus_previous = NodePath("../../QuitNode/Quit")
 mouse_filter = 2
 theme = ExtResource("2_r33we")
 button_mask = 0
@@ -107,60 +78,89 @@ text = "Continue"
 script = ExtResource("3_vpyy4")
 metadata/_custom_type_script = "uid://bldstivarsngb"
 
-[node name="Restart" type="Button" parent="PanelContainer/VBoxContainer" unique_id=391842428]
+[node name="ContinueCursor" parent="PanelContainer/VBoxContainer/ContinueNode" unique_id=529316777 instance=ExtResource("4_vpyy4")]
+offset_left = 8.0
+offset_top = 23.0
+offset_right = 8.0
+offset_bottom = 23.0
+
+[node name="RestartNode" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=1255594480]
+
+[node name="RestartText" type="TextureRect" parent="PanelContainer/VBoxContainer/RestartNode" unique_id=202294988]
+offset_top = 53.0
+offset_right = 192.0
+offset_bottom = 81.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("2_r33we")
+texture = ExtResource("6_elpj7")
+stretch_mode = 3
+script = ExtResource("4_lkswt")
+focused_image = ExtResource("7_sqm04")
+unfocused_image = ExtResource("6_elpj7")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="Restart" type="Button" parent="PanelContainer/VBoxContainer/RestartNode" unique_id=391842428]
 self_modulate = Color(0.20784314, 0.20784314, 0.20784314, 0.039215688)
-layout_mode = 2
+offset_right = 96.0
+offset_bottom = 58.0
 size_flags_vertical = 3
-focus_neighbor_top = NodePath("../Continue")
-focus_neighbor_bottom = NodePath("../Quit")
-focus_next = NodePath("../Quit")
-focus_previous = NodePath("../Continue")
+focus_neighbor_top = NodePath("../../ContinueNode/Continue")
+focus_neighbor_bottom = NodePath("../../QuitNode/Quit")
+focus_next = NodePath("../../QuitNode/Quit")
+focus_previous = NodePath("../../ContinueNode/Continue")
 mouse_filter = 2
 theme = ExtResource("2_r33we")
 text = "Restart"
 script = ExtResource("3_vpyy4")
 metadata/_custom_type_script = "uid://bldstivarsngb"
 
-[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer" unique_id=940729623]
+[node name="RestartCursor" parent="PanelContainer/VBoxContainer/RestartNode" unique_id=1563674841 instance=ExtResource("4_vpyy4")]
+offset_left = 12.0
+offset_top = 62.0
+offset_right = 12.0
+offset_bottom = 62.0
+
+[node name="QuitNode" type="Node2D" parent="PanelContainer/VBoxContainer" unique_id=1235287687]
+
+[node name="QuitText" type="TextureRect" parent="PanelContainer/VBoxContainer/QuitNode" unique_id=402799957]
+offset_top = 91.0
+offset_right = 192.0
+offset_bottom = 127.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("2_r33we")
+texture = ExtResource("8_pyfwo")
+stretch_mode = 3
+script = ExtResource("4_lkswt")
+focused_image = ExtResource("9_hd25v")
+unfocused_image = ExtResource("8_pyfwo")
+metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+
+[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer/QuitNode" unique_id=940729623]
 self_modulate = Color(0.20784314, 0.20784314, 0.20784314, 0.039215688)
-layout_mode = 2
+offset_right = 96.0
+offset_bottom = 120.0
 size_flags_vertical = 3
-focus_neighbor_top = NodePath("../Restart")
-focus_next = NodePath("../Continue")
-focus_previous = NodePath("../Restart")
+focus_neighbor_top = NodePath("../../RestartNode/Restart")
+focus_next = NodePath("../../ContinueNode/Continue")
+focus_previous = NodePath("../../RestartNode/Restart")
 mouse_filter = 2
 theme = ExtResource("2_r33we")
 text = "Quit"
 script = ExtResource("3_vpyy4")
 metadata/_custom_type_script = "uid://bldstivarsngb"
 
-[node name="Cursor_1" parent="." unique_id=529316777 instance=ExtResource("4_vpyy4")]
-layout_mode = 0
-offset_left = 280.0
-offset_top = 151.0
-offset_right = 280.0
-offset_bottom = 151.0
+[node name="QuitCursor" parent="PanelContainer/VBoxContainer/QuitNode" unique_id=1493859624 instance=ExtResource("4_vpyy4")]
+offset_left = 23.0
+offset_top = 101.0
+offset_right = 23.0
+offset_bottom = 101.0
 
-[node name="Cursor_2" parent="." unique_id=1563674841 instance=ExtResource("4_vpyy4")]
-layout_mode = 0
-offset_left = 284.0
-offset_top = 190.0
-offset_right = 284.0
-offset_bottom = 190.0
-
-[node name="Cursor_3" parent="." unique_id=1493859624 instance=ExtResource("4_vpyy4")]
-layout_mode = 0
-offset_left = 295.0
-offset_top = 229.0
-offset_right = 295.0
-offset_bottom = 229.0
-
-[connection signal="focus_entered" from="PanelContainer/VBoxContainer/Continue" to="." method="_on_continue_focus_entered"]
-[connection signal="focus_exited" from="PanelContainer/VBoxContainer/Continue" to="." method="_on_continue_focus_exited"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
-[connection signal="focus_entered" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_focus_entered"]
-[connection signal="focus_exited" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_focus_exited"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
-[connection signal="focus_entered" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_focus_entered"]
-[connection signal="focus_exited" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_focus_exited"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="focus_entered" from="PanelContainer/VBoxContainer/ContinueNode/Continue" to="." method="_on_continue_focus_entered"]
+[connection signal="focus_exited" from="PanelContainer/VBoxContainer/ContinueNode/Continue" to="." method="_on_continue_focus_exited"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/ContinueNode/Continue" to="." method="_on_continue_pressed"]
+[connection signal="focus_entered" from="PanelContainer/VBoxContainer/RestartNode/Restart" to="." method="_on_restart_focus_entered"]
+[connection signal="focus_exited" from="PanelContainer/VBoxContainer/RestartNode/Restart" to="." method="_on_restart_focus_exited"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/RestartNode/Restart" to="." method="_on_restart_pressed"]
+[connection signal="focus_entered" from="PanelContainer/VBoxContainer/QuitNode/Quit" to="." method="_on_quit_focus_entered"]
+[connection signal="focus_exited" from="PanelContainer/VBoxContainer/QuitNode/Quit" to="." method="_on_quit_focus_exited"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/QuitNode/Quit" to="." method="_on_quit_pressed"]
