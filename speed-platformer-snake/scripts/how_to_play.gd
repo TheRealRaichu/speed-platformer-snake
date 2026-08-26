@@ -4,7 +4,10 @@ extends Control
 
 var scene_manager : SceneManager
 # exports
-@export var back : Button
+@export var back : TextureButton
+
+func _ready() -> void:
+	back.grab_focus()
 
 ## return to main menu
 func _on_back_pressed() -> void:
