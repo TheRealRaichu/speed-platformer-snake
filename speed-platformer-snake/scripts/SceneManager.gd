@@ -8,6 +8,7 @@ var is_paused := false # pause menu open?
 
 enum SCENES_ENUM {
 	mainmenu,
+	how_to_play,
 	gameplay,
 	gameover,
 }
@@ -15,6 +16,7 @@ enum SCENES_ENUM {
 # SCENE REFERENCES
 const SCENES := {
 	"main_menu" : preload("res://scenes/main_menu.tscn"),
+	"how_to_play" : preload("res://scenes/how_to_play.tscn"),
 	"gameplay" : preload("res://scenes/game.tscn"),
 	"game_over" : preload("res://scenes/game_over.tscn"),
 }
@@ -35,6 +37,11 @@ func main_menu():
 	MusicManager.set_state(MusicManager.STATE.MAIN_MENU)
 	current_scene = SCENES_ENUM.mainmenu
 	_switch_scene(SCENES.get("main_menu"))
+
+func how_to_play():
+	MusicManager.set_state(MusicManager.STATE.HOW_TO_PLAY)
+	current_scene = SCENES_ENUM.how_to_play
+	_switch_scene(SCENES.get("how_to_play"))
 
 func game_over():
 	MusicManager.set_state(MusicManager.STATE.GAME_OVER)

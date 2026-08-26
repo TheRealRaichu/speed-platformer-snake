@@ -4,9 +4,9 @@ var player
 
 ## PAUSE MENU
 # child reference
-@onready var continue_button := $MarginContainer/VBoxContainer/continue
-@onready var restart_button := $MarginContainer/VBoxContainer/restart
-@onready var quit_button := $MarginContainer/VBoxContainer/quit
+@export var continue_button : UIButton
+@export var restart_button : UIButton
+@export var quit_button : UIButton
 
 func _ready() -> void:
 	continue_button.grab_focus() # continue button takes focus for key navigation

@@ -12,13 +12,16 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r33we"]
 bg_color = Color(0.11489678, 0.11489683, 0.11489671, 1)
 
-[node name="PauseMenu" type="Control" unique_id=1585469177]
+[node name="PauseMenu" type="Control" unique_id=1585469177 node_paths=PackedStringArray("continue_button", "restart_button", "quit_button")]
 process_mode = 3
 z_index = 2
 z_as_relative = false
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_k5gjg")
+continue_button = NodePath("MarginContainer/VBoxContainer/continue")
+restart_button = NodePath("MarginContainer/VBoxContainer/restart")
+quit_button = NodePath("MarginContainer/VBoxContainer/quit")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=864970074]
 z_index = -1
@@ -49,18 +52,18 @@ alignment = 1
 
 [node name="continue" parent="MarginContainer/VBoxContainer" unique_id=1943041356 instance=ExtResource("7_e0wba")]
 layout_mode = 2
-focused_texture = ExtResource("5_kv823")
-unfocused_texture = ExtResource("3_v4mab")
+texture_normal = ExtResource("3_v4mab")
+texture_focused = ExtResource("5_kv823")
 
 [node name="restart" parent="MarginContainer/VBoxContainer" unique_id=1145893538 instance=ExtResource("7_e0wba")]
 layout_mode = 2
-focused_texture = ExtResource("7_sqm04")
-unfocused_texture = ExtResource("6_elpj7")
+texture_normal = ExtResource("6_elpj7")
+texture_focused = ExtResource("7_sqm04")
 
 [node name="quit" parent="MarginContainer/VBoxContainer" unique_id=1567953179 instance=ExtResource("7_e0wba")]
 layout_mode = 2
-focused_texture = ExtResource("9_hd25v")
-unfocused_texture = ExtResource("8_pyfwo")
+texture_normal = ExtResource("8_pyfwo")
+texture_focused = ExtResource("9_hd25v")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/restart" to="." method="_on_restart_pressed"]

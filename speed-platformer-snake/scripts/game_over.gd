@@ -5,9 +5,9 @@ var player
 ## GAME OVER SCREEN
 
 # child reference
-@onready var restart_button := $PanelContainer/VBoxContainer/TryAgain
-@onready var quit_button := $PanelContainer/VBoxContainer/Quit
-@onready var score_label := $ScoreLabel
+@export var restart_button : UIButton
+@export var quit_button : UIButton
+@export var score_label : Label
 
 func _ready() -> void:
 	display_score() # display score of game

@@ -12,7 +12,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqhvx"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[node name="game over" type="Control" unique_id=972485002]
+[node name="game over" type="Control" unique_id=972485002 node_paths=PackedStringArray("restart_button", "quit_button", "score_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,6 +20,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xeevv")
+restart_button = NodePath("PanelContainer/VBoxContainer/TryAgain")
+quit_button = NodePath("PanelContainer/VBoxContainer/Quit")
+score_label = NodePath("ScoreLabel")
 
 [node name="screen" type="TextureRect" parent="." unique_id=1803868711]
 layout_mode = 0
@@ -54,13 +57,13 @@ alignment = 1
 
 [node name="TryAgain" parent="PanelContainer/VBoxContainer" unique_id=1943041356 instance=ExtResource("4_racf3")]
 layout_mode = 2
-focused_texture = ExtResource("6_uq3qu")
-unfocused_texture = ExtResource("4_56v3a")
+texture_normal = ExtResource("4_56v3a")
+texture_focused = ExtResource("6_uq3qu")
 
 [node name="Quit" parent="PanelContainer/VBoxContainer" unique_id=1033426083 instance=ExtResource("4_racf3")]
 layout_mode = 2
-focused_texture = ExtResource("8_s4bmq")
-unfocused_texture = ExtResource("7_0p6qk")
+texture_normal = ExtResource("7_0p6qk")
+texture_focused = ExtResource("8_s4bmq")
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/TryAgain" to="." method="_on_try_again_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

@@ -6,6 +6,7 @@ extends Node
 
 enum STATE {
 	MAIN_MENU,   # piano + pads
+	HOW_TO_PLAY, # piano + pads + TODO htp element
 	GAMEPLAY,    # piano + pad + drums
 	GAMEPLAY_BLUE_FIRE, # gameplay + tamb
 	GAME_OVER,   # piano only

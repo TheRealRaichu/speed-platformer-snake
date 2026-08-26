@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://cm5dglagd4fpa"]
+
+[ext_resource type="Script" uid="uid://bev14equoov7" path="res://scripts/how_to_play.gd" id="1_e0xnd"]
+[ext_resource type="Texture2D" uid="uid://b5cqmxj3jpev8" path="res://assets/UI/Subscreens/HTP/HTP_Screen.png" id="1_wi5qh"]
+[ext_resource type="Texture2D" uid="uid://dw1pwh01uutvn" path="res://assets/UI/Subscreens/HTP/HTP_Screen2.png" id="2_e0xnd"]
+[ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="3_m8x0n"]
+[ext_resource type="Texture2D" uid="uid://cowwmvythqm41" path="res://assets/UI/Buttons/back.png" id="4_crhno"]
+[ext_resource type="Texture2D" uid="uid://byr80kw5ep35c" path="res://assets/UI/Buttons/htp_arrow.png" id="5_xqkvd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a8gd2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wi5qh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_e0xnd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[node name="HowToPlay" type="Control" unique_id=353194978 node_paths=PackedStringArray("back")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_e0xnd")
+back = NodePath("back")
+
+[node name="HTP bg" type="AnimatedSprite2D" parent="." unique_id=1963304616]
+position = Vector2(320, 180)
+sprite_frames = SubResource("SpriteFrames_a8gd2")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="back" type="TextureButton" parent="." unique_id=1782471437]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 304.0
+offset_right = 85.0
+offset_bottom = 323.0
+button_mask = 0
+texture_normal = ExtResource("4_crhno")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Cursor" type="TextureRect" parent="." unique_id=2101674686]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 307.0
+offset_right = 128.0
+offset_bottom = 347.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_xqkvd")
+
+[node name="THE BASICS header" type="Label" parent="." unique_id=1109548826]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 80.0
+offset_right = 264.0
+offset_bottom = 123.0
+theme = ExtResource("3_m8x0n")
+theme_override_colors/font_color = Color(0.2627451, 0.32156864, 0.43137255, 1)
+theme_override_font_sizes/font_size = 32
+text = "THE BASICS"
+
+[node name="THE BASICS body" type="Label" parent="." unique_id=263036831]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 112.0
+offset_right = 312.0
+offset_bottom = 296.0
+theme = ExtResource("3_m8x0n")
+theme_override_colors/font_color = Color(0.2627451, 0.32156864, 0.43137255, 1)
+theme_override_font_sizes/font_size = 12
+text = "Your objective is to fetch firewood and feed it to the campfire to survive the day.
+
+Your scarf is trailing you and growing longer each day, and coming into contact with it will slow you down severely.
+
+Your blink ability allows you to travel through the scarf, or escape it when stuck.
+
+There are various pickups that can appear. Try them out!"
+autowrap_mode = 2
+
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]

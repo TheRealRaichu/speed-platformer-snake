@@ -1,47 +1,67 @@
 [gd_scene format=3 uid="uid://sch5k12631xx"]
 
 [ext_resource type="Script" uid="uid://cjpkodimv5irw" path="res://scripts/charge indicator.gd" id="1_0s8vh"]
-[ext_resource type="Script" uid="uid://b8ubdyemrg6uu" path="res://scripts/ui_text.gd" id="2_j1bm5"]
 [ext_resource type="Texture2D" uid="uid://bv63qxt7ktwgl" path="res://assets/UI/game_scene/blink_charge.png" id="3_6mxef"]
+[ext_resource type="Texture2D" uid="uid://ctrjfsptjbjkw" path="res://assets/UI/game_scene/blink_recharge_1.png" id="3_f8shk"]
 [ext_resource type="Texture2D" uid="uid://ctuvgblyjh2qb" path="res://assets/UI/game_scene/blink_charge_empty.png" id="4_f8shk"]
+[ext_resource type="Texture2D" uid="uid://78u3ua2yivj4" path="res://assets/UI/game_scene/blink_recharge_2.png" id="4_mot25"]
 
-[node name="charge indicator" type="Control" unique_id=658306353]
+[sub_resource type="SpriteFrames" id="SpriteFrames_7h83d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6mxef")
+}],
+"loop": false,
+"name": &"charged",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_f8shk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_mot25")
+}],
+"loop": true,
+"name": &"charging",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_f8shk")
+}],
+"loop": true,
+"name": &"uncharged",
+"speed": 0.0
+}]
+
+[node name="charge indicator" type="Control" unique_id=658306353 node_paths=PackedStringArray("charge_1", "charge_2", "charge_3")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_0s8vh")
+charge_1 = NodePath("container/charge 1")
+charge_2 = NodePath("container/charge 2")
+charge_3 = NodePath("container/charge 3")
 
-[node name="charge 1" type="TextureRect" parent="." unique_id=1416823]
+[node name="container" type="HBoxContainer" parent="." unique_id=304389508]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 12.0
-offset_right = 40.0
-offset_bottom = 44.0
-texture = ExtResource("3_6mxef")
-script = ExtResource("2_j1bm5")
-focused_image = ExtResource("3_6mxef")
-unfocused_image = ExtResource("4_f8shk")
-metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+offset_right = 128.0
+offset_bottom = 40.0
+theme_override_constants/separation = 8
+alignment = 1
 
-[node name="charge 2" type="TextureRect" parent="." unique_id=1582559604]
-layout_mode = 0
-offset_left = 48.0
-offset_top = 12.0
-offset_right = 80.0
-offset_bottom = 44.0
-texture = ExtResource("3_6mxef")
-script = ExtResource("2_j1bm5")
-focused_image = ExtResource("3_6mxef")
-unfocused_image = ExtResource("4_f8shk")
-metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+[node name="charge 1" type="AnimatedSprite2D" parent="container" unique_id=202845283]
+position = Vector2(24, 20)
+sprite_frames = SubResource("SpriteFrames_7h83d")
+animation = &"charged"
 
-[node name="charge 3" type="TextureRect" parent="." unique_id=465712835]
-layout_mode = 0
-offset_left = 88.0
-offset_top = 12.0
-offset_right = 120.0
-offset_bottom = 44.0
-texture = ExtResource("3_6mxef")
-script = ExtResource("2_j1bm5")
-focused_image = ExtResource("3_6mxef")
-unfocused_image = ExtResource("4_f8shk")
-metadata/_custom_type_script = "uid://b8ubdyemrg6uu"
+[node name="charge 2" type="AnimatedSprite2D" parent="container" unique_id=2073833455]
+position = Vector2(64, 20)
+sprite_frames = SubResource("SpriteFrames_7h83d")
+animation = &"charged"
+
+[node name="charge 3" type="AnimatedSprite2D" parent="container" unique_id=926399571]
+position = Vector2(104, 20)
+sprite_frames = SubResource("SpriteFrames_7h83d")
+animation = &"charged"
