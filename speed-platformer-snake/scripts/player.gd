@@ -3,16 +3,18 @@ extends CharacterBody2D
 
 ## PLAYER
 # child references
-@onready var scarf := $Scarf
-@onready var scarf_box := $"scarf detector"
-@onready var anim_sprite := $AnimatedSprite2D
-@onready var blink_refresh_timer := $"blink refresh timer"
-@onready var left_wall_detector := $"left wall jump detector"
-@onready var right_wall_detector := $"right wall jump detector"
+@export var scarf : Node2D
+@export var scarf_box : Area2D
+@export var anim_sprite : AnimatedSprite2D
+@export var blink_refresh_timer : Timer
+@export var channeling_timer : Timer
+@export var left_wall_detector : RayCast2D
+@export var right_wall_detector : RayCast2D
 
 # ready
 func _ready() -> void:
 	blink_refresh_timer.wait_time = BLINK_REFRESH_DURATION # set blink timer duration
+	channeling_timer.wait_time = CHANNELING_DURATION # set channeling timer's duration
 
 # ANIMATION HANDLER ======
 
@@ -79,6 +81,8 @@ func scarf_slowdown(): # apply slowdown pentaly to player when overlapping
 func scarf_increment(): # call scarf to increment lifespan
 	scarf.increment_node_lifespan()
 
+# BLINK ===============
+
 const MAX_BLINK := 3 # max amount of blink charges that can be held
 const BLINK_REFRESH_DURATION := 3 # time it takes to charge another blink
 var current_blink_count := MAX_BLINK # current number of blinks on hand
@@ -97,6 +101,31 @@ func blinked_charge_update():
 # called from blink usage and reeler usage
 func scarf_invincible_timer():
 	get_tree().create_timer(BLINK_SCARF_I_DURATION).timeout.connect(func(): scarf_invincible = false) # start timer to end cooldown
+
+# CHANNELING currently buggy asl
+
+const CHANNELING_BLINKS := 1 # how many blinks gained after channeling
+const CHANNELING_DURATION := 1.0 # how long it takes to channel
+const CHANNELING_VELOCITY := 40.0 # max velocity while channeling
+const CHANNELING_VELOCITY_SCARF := 10.0 # max velocity while channeling in scarf
+var is_channeling := false
+var failed_channel := false
+
+func start_channeling():
+	if failed_channel:
+		return # can't start a channel when you've already failed
+	is_channeling = true
+	no_interrupt = true # mark as unanimatable
+	channeling_timer.start()
+
+func _on_channeling_timer_timeout() -> void:
+	end_channel()
+	current_blink_count += 1
+
+func end_channel():
+	is_channeling = false
+	no_interrupt = false
+	channeling_timer.stop()
 
 # PICKUPS ===============
 
@@ -394,45 +423,68 @@ func wall_slide_process():
 		velocity.y = move_toward(velocity.y, WALL_SLIDE_Y_VELOCITY, 50)  # move toward wall sliding speed 
 
 func blink_process():
-	if Input.is_action_just_pressed("ability") and not blink_on_cooldown and current_blink_count > 0: # when blink input pressed and cooldown not active and atleast one blink charge
-		AudioManager.play("blink") # play audio
-		blinked.emit() # signal blink
-		# cooldown
-		blinked_charge_update() # tell blink management system that blink was used
-		blink_on_cooldown = true # start cooldown
-		get_tree().create_timer(BLINK_COOLDOWN).timeout.connect(func(): blink_on_cooldown = false) # start timer to end cooldown
-		# check direction
-		var blink_vector := Vector2(horizontal_direction, vertical_direction) # take direction of blink
-		blink_vector = blink_vector.normalized() # normalize
-		
-		# fix jump flags
-		reset_jump_attributes_process()
-		velocity = blink_vector*BLINKING_VELOCITY # set velocity during blink
-		is_blinking = true # mark player as blinking
-		
-		no_interrupt = true # mark as unanimatable
-		
-		play_anim("blink_in") # play in animation
-		
-		await get_tree().create_timer(BLINK_DURATION).timeout
-		
-		play_anim("blink_out") # play out animation
-		
-		# flag update
-		is_blinking = false # no longer blinking
-		scarf_invincible = true # post blink invincibility
-		# set timer to remove invincibility
-		scarf_invincible_timer()
-		
-		# set velocity
-		velocity = Vector2(
-			BLINK_OUT_VELOCITY * blink_vector.x,
-			BLINK_OUT_VELOCITY * blink_vector.y)
-		
-		# finish blink out animation and mark as animatable
-		await anim_sprite.animation_finished
-		no_interrupt = false
+	# return gates
+	if not Input.is_action_just_pressed("ability") or is_channeling: # when blink input pressed or if channeling
+		return
+	if current_blink_count <= 0: # if blinks not available
+		start_channeling()
+		return
+	if blink_on_cooldown: # if on cooldown
+		return
 	
+	AudioManager.play("blink") # play audio
+	blinked.emit() # signal blink
+	# cooldown
+	blinked_charge_update() # tell blink management system that blink was used
+	blink_on_cooldown = true # start cooldown
+	get_tree().create_timer(BLINK_COOLDOWN).timeout.connect(func(): blink_on_cooldown = false) # start timer to end cooldown
+	# check direction
+	var blink_vector := Vector2(horizontal_direction, vertical_direction) # take direction of blink
+	blink_vector = blink_vector.normalized() # normalize
+	
+	# fix jump flags
+	reset_jump_attributes_process()
+	velocity = blink_vector*BLINKING_VELOCITY # set velocity during blink
+	is_blinking = true # mark player as blinking
+	
+	no_interrupt = true # mark as unanimatable
+	
+	play_anim("blink_in") # play in animation
+	
+	await get_tree().create_timer(BLINK_DURATION).timeout
+	
+	play_anim("blink_out") # play out animation
+	
+	# flag update
+	is_blinking = false # no longer blinking
+	scarf_invincible = true # post blink invincibility
+	# set timer to remove invincibility
+	scarf_invincible_timer()
+	
+	# set velocity
+	velocity = Vector2(
+		BLINK_OUT_VELOCITY * blink_vector.x,
+		BLINK_OUT_VELOCITY * blink_vector.y)
+	
+	# finish blink out animation and markxx as animatable
+	await anim_sprite.animation_finished
+	no_interrupt = false
+
+func channeling_process():
+	if failed_channel and (current_blink_count > 0 or is_on_floor()): # if have blinks, and channel is failed
+		failed_channel = false # reset fail flag
+
+	if is_channeling and Input.is_action_pressed("ability"): # if still channeling
+		if velocity.length() > CHANNELING_VELOCITY if is_in_scarf else CHANNELING_VELOCITY_SCARF:
+			velocity = velocity.normalized()*CHANNELING_VELOCITY
+		# play channeling animation
+		play_anim("channeling" if not is_in_scarf else "channeling_scarf")
+	else:
+		# fail the channel
+		failed_channel = true
+		end_channel() 
+
+func scarf_pentalty_process():
 	# scarf penalty
 	if check_in_scarf():
 		scarf_slowdown() # enact scarf penalty
@@ -443,6 +495,10 @@ func _physics_process(delta: float) -> void:
 		dying_process(delta)
 		return # dont do anything else
 	if is_blinking: # if currently in blink
+		move_and_slide()
+		return
+	if is_channeling:
+		channeling_process()
 		move_and_slide()
 		return
 	
@@ -488,6 +544,12 @@ func _physics_process(delta: float) -> void:
 	# BLINKING
 	blink_process()
 	
+	# CHANNELING
+	channeling_process()
+	
+	# SCARF PENALTY
+	scarf_pentalty_process()
+	
 	move_and_slide() # duh
 	
 	# SOUND
@@ -496,6 +558,7 @@ func _physics_process(delta: float) -> void:
 	
 	# ANIMATION PROCESS
 	# ordered by precedence (e.g. check tangle after run)
+	# blinks and channels are in blink_process and start_channel respectively
 	# facing
 	if horizontal_direction:
 		anim_sprite.flip_h = false if horizontal_direction < 0 else true
