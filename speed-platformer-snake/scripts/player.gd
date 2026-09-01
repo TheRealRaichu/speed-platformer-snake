@@ -11,6 +11,8 @@ extends CharacterBody2D
 @export var left_wall_detector : RayCast2D
 @export var right_wall_detector : RayCast2D
 
+@export var epic_debug : Label
+
 # ready
 func _ready() -> void:
 	blink_refresh_timer.wait_time = BLINK_REFRESH_DURATION # set blink timer duration
@@ -102,7 +104,7 @@ func blinked_charge_update():
 func scarf_invincible_timer():
 	get_tree().create_timer(BLINK_SCARF_I_DURATION).timeout.connect(func(): scarf_invincible = false) # start timer to end cooldown
 
-# CHANNELING currently buggy asl
+# CHANNELING
 
 const CHANNELING_BLINKS := 1 # how many blinks gained after channeling
 const CHANNELING_DURATION := 1.0 # how long it takes to channel
@@ -473,12 +475,15 @@ func blink_process():
 func channeling_process():
 	if failed_channel and (current_blink_count > 0 or is_on_floor()): # if have blinks, and channel is failed
 		failed_channel = false # reset fail flag
-
-	if is_channeling and Input.is_action_pressed("ability"): # if still channeling
+	
+	if not is_channeling: # if not channeling just return
+		return
+	
+	if Input.is_action_pressed("ability"): # if still channeling
 		if velocity.length() > CHANNELING_VELOCITY if is_in_scarf else CHANNELING_VELOCITY_SCARF:
 			velocity = velocity.normalized()*CHANNELING_VELOCITY
 		# play channeling animation
-		play_anim("channeling" if not is_in_scarf else "channeling_scarf")
+		play_anim("channeling" if not is_in_scarf else "scarfed_channeling")
 	else:
 		# fail the channel
 		failed_channel = true
@@ -610,4 +615,8 @@ func _process(_delta: float) -> void:
 		attempt_recieve_pickup(Pickup.PICKUP_TYPES.BLINK_RESTORE)
 	if Input.is_action_just_pressed("add_portfuel"):
 		attempt_recieve_pickup(Pickup.PICKUP_TYPES.PACKAGED_FUEL)
+	
+	# variable display
+	#epic_debug.text = "f_ch: " + str(failed_channel) + "\nisch: " + str(is_channeling)
+	
 	

@@ -368,6 +368,38 @@ region = Rect2(256, 48, 32, 32)
 atlas = ExtResource("4_dqkch")
 region = Rect2(288, 48, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2a33p"]
+atlas = ExtResource("4_qlg0r")
+region = Rect2(256, 168, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_reqs7"]
+atlas = ExtResource("4_qlg0r")
+region = Rect2(288, 168, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2yjfb"]
+atlas = ExtResource("4_qlg0r")
+region = Rect2(320, 168, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnnjp"]
+atlas = ExtResource("4_qlg0r")
+region = Rect2(352, 168, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqna8"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(256, 168, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7gmo"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(288, 168, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kft7l"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(320, 168, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2s4os"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(352, 168, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_lw0jh"]
 atlas = ExtResource("4_qlg0r")
 region = Rect2(0, 168, 32, 32)
@@ -766,6 +798,40 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_2a33p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_reqs7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2yjfb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnnjp")
+}],
+"loop": true,
+"name": &"scarfed_channeling_has_fuel",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqna8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7gmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kft7l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2s4os")
+}],
+"loop": true,
+"name": &"scarfed_channeling_no_fuel",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_lw0jh")
 }, {
 "duration": 1.0,
@@ -803,7 +869,7 @@ animations = [{
 "speed": 1.0
 }]
 
-[node name="player" type="CharacterBody2D" unique_id=1759500252 node_paths=PackedStringArray("scarf", "scarf_box", "anim_sprite", "blink_refresh_timer", "channeling_timer", "left_wall_detector", "right_wall_detector") groups=["player"]]
+[node name="player" type="CharacterBody2D" unique_id=1759500252 node_paths=PackedStringArray("scarf", "scarf_box", "anim_sprite", "blink_refresh_timer", "channeling_timer", "left_wall_detector", "right_wall_detector", "epic_debug") groups=["player"]]
 safe_margin = 0.1
 script = ExtResource("1_3vyb7")
 scarf = NodePath("Scarf")
@@ -813,13 +879,14 @@ blink_refresh_timer = NodePath("blink refresh timer")
 channeling_timer = NodePath("channeling timer")
 left_wall_detector = NodePath("left wall jump detector")
 right_wall_detector = NodePath("right wall jump detector")
+epic_debug = NodePath("epic debug")
 
 [node name="collision box" type="CollisionShape2D" parent="." unique_id=854408467]
 position = Vector2(0, -15)
 shape = SubResource("CapsuleShape2D_u8vuu")
 
 [node name="blink refresh timer" type="Timer" parent="." unique_id=803798667]
-wait_time = 5.0
+wait_time = 100000.0
 one_shot = true
 
 [node name="channeling timer" type="Timer" parent="." unique_id=1614370263]
@@ -852,6 +919,16 @@ collision_mask = 2
 position = Vector2(0, -16)
 target_position = Vector2(16, 0)
 collision_mask = 2
+
+[node name="epic debug" type="Label" parent="." unique_id=1255108789]
+visible = false
+offset_left = -48.0
+offset_top = -80.0
+offset_right = 48.0
+offset_bottom = -48.0
+theme_override_font_sizes/font_size = 16
+text = "chng:
+f_ch: "
 
 [connection signal="timeout" from="blink refresh timer" to="." method="_on_blink_refresh_timer_timeout"]
 [connection signal="timeout" from="channeling timer" to="." method="_on_channeling_timer_timeout"]
