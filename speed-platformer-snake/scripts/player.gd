@@ -15,7 +15,7 @@ extends CharacterBody2D
 
 # ready
 func _ready() -> void:
-	blink_refresh_timer.wait_time = BLINK_REFRESH_DURATION # set blink timer duration
+	#blink_refresh_timer.wait_time = BLINK_REFRESH_DURATION # set blink timer duration
 	channeling_timer.wait_time = CHANNELING_DURATION # set channeling timer's duration
 
 # ANIMATION HANDLER ======
@@ -480,8 +480,7 @@ func channeling_process():
 		return
 	
 	if Input.is_action_pressed("ability"): # if still channeling
-		if velocity.length() > CHANNELING_VELOCITY if is_in_scarf else CHANNELING_VELOCITY_SCARF:
-			velocity = velocity.normalized()*CHANNELING_VELOCITY
+		velocity = velocity.normalized()*clamp(velocity.length(), 0, CHANNELING_VELOCITY if not is_in_scarf else CHANNELING_VELOCITY_SCARF)
 		# play channeling animation
 		play_anim("channeling" if not is_in_scarf else "scarfed_channeling")
 	else:
