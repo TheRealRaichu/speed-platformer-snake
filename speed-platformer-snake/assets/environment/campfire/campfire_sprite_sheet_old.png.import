@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4y2mxa455542"
-path="res://.godot/imported/campfire_sprite_sheet.png-1358697b91514df4f88b22bb7ff5b32a.ctex"
+uid="uid://bpmo5qvtf6h7y"
+path="res://.godot/imported/campfire_sprite_sheet_old.png-5b0a4b893ef0b2e4f769a791675190a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/environment/campfire/campfire_sprite_sheet.png"
-dest_files=["res://.godot/imported/campfire_sprite_sheet.png-1358697b91514df4f88b22bb7ff5b32a.ctex"]
+source_file="res://assets/environment/campfire/campfire_sprite_sheet_old.png"
+dest_files=["res://.godot/imported/campfire_sprite_sheet_old.png-5b0a4b893ef0b2e4f769a791675190a0.ctex"]
 
 [params]
 

@@ -14,3 +14,4 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+speed-platformer-snake/Threadrunner 1.0.1.exe

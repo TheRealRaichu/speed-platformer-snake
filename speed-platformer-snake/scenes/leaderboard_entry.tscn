@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b8efbsgkac1ws"]
+
+[ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="1_dw4eb"]
+[ext_resource type="Script" uid="uid://dphj8xr7uekto" path="res://scenes/leaderboard_entry.gd" id="1_l8es1"]
+
+[node name="leaderboard entry" type="HBoxContainer" unique_id=805614273 node_paths=PackedStringArray("player_name_label", "player_score_label")]
+offset_right = 256.0
+offset_bottom = 40.0
+script = ExtResource("1_l8es1")
+player_name_label = NodePath("player name")
+player_score_label = NodePath("player score")
+
+[node name="player name" type="Label" parent="." unique_id=1574838260]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("1_dw4eb")
+theme_override_font_sizes/font_size = 32
+text = "PLAYER"
+
+[node name="player score" type="Label" parent="." unique_id=355078560]
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("1_dw4eb")
+theme_override_font_sizes/font_size = 32
+text = "10000"

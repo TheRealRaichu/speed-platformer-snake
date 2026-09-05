@@ -33,8 +33,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			current_pause_menu.player = player
 			add_child(current_pause_menu)
 
-
-
 # have option to restart the game
 func game_over(): # called when campfire dies and by signal
 	player.die() # tell player to do death animation

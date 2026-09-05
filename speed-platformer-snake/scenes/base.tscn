@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dqcaa0bjtj5wh"]
 
 [ext_resource type="Script" uid="uid://d1moe7g1kvpgy" path="res://scripts/base.gd" id="1_pvqg0"]
-[ext_resource type="Texture2D" uid="uid://bpmo5qvtf6h7y" path="res://assets/environment/campfire/campfire_sprite_sheet.png" id="2_1xxg6"]
+[ext_resource type="Texture2D" uid="uid://bpmo5qvtf6h7y" path="res://assets/environment/campfire/campfire_sprite_sheet_old.png" id="2_1xxg6"]
 [ext_resource type="Texture2D" uid="uid://cndolw3585urh" path="res://assets/environment/campfire/blue_weak/000.png" id="5_b085t"]
 [ext_resource type="Texture2D" uid="uid://dmosbh2hifb7y" path="res://assets/environment/campfire/blue_weak/001.png" id="6_33mrd"]
 [ext_resource type="Texture2D" uid="uid://bu6o5yeg8k41p" path="res://assets/environment/campfire/blue_weak/002.png" id="7_aomoi"]

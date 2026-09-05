@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://b4x3fhc3f2uxu"]
+
+[ext_resource type="Script" uid="uid://bcm2cbyn7351r" path="res://scripts/SceneManager.gd" id="1_3v20e"]
+[ext_resource type="Script" uid="uid://cfyeti00yl6op" path="res://command.gd" id="2_3p0gp"]
+
+[node name="SceneRoot" type="Node" unique_id=2066670468]
+script = ExtResource("1_3v20e")
+
+[node name="Termdot" type="Termdot" parent="." unique_id=2005185652]
+
+[node name="Node" type="Node" parent="Termdot" unique_id=980247136]
+script = ExtResource("2_3p0gp")
