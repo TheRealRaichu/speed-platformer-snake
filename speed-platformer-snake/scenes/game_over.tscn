@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d4na1brp03cva"]
 
 [ext_resource type="Script" uid="uid://dj0r0it8tc022" path="res://scripts/game_over.gd" id="1_xeevv"]
+[ext_resource type="PackedScene" uid="uid://cm4s87ov2b6sg" path="res://scenes/leaderboard.tscn" id="2_56v3a"]
 [ext_resource type="Texture2D" uid="uid://cxn4ro268jiac" path="res://assets/UI/Subscreens/Game_Over/Game_Over_Screen.png" id="2_wawo4"]
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_wqhvx"]
 [ext_resource type="Texture2D" uid="uid://cykh6y0v62qyo" path="res://assets/UI/Buttons/try_again.png" id="4_56v3a"]
@@ -26,6 +27,7 @@ leaderboard_button = NodePath("PanelContainer/VBoxContainer/Leaderboard")
 quit_button = NodePath("PanelContainer/VBoxContainer/Quit")
 days_label = NodePath("Labels/DaysLabel")
 score_label = NodePath("Labels/ScoreLabel")
+leaderboard_scene = ExtResource("2_56v3a")
 
 [node name="screen" type="TextureRect" parent="." unique_id=1803868711]
 layout_mode = 0

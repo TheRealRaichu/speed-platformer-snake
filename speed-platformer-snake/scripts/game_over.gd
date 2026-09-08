@@ -12,6 +12,7 @@ var player
 @export var score_label : Label
 
 @export var leaderboard_scene : PackedScene
+var score_registered : bool = false
 
 func _ready() -> void:
 	display_score() # display score of game
@@ -29,7 +30,7 @@ func _on_try_again_pressed() -> void:
 
 ## Opens leaderboard menu
 func _on_leaderboard_pressed() -> void:
-	pass # Replace with function body.
+	pass
 
 ## Quits to Main Menu
 func _on_quit_pressed() -> void:

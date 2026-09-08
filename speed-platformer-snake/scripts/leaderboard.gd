@@ -54,5 +54,4 @@ func get_score_data() -> Dictionary:
 
 func test_add_entries():
 	for i in range(50):
-		leaderboard_file.set_value("Player" + str(i), "player_name", str(i))
-		leaderboard_file.set_value("Player" + str(i), "player_score", str(i))
+		add_leaderboard_entry(str(i), i)
