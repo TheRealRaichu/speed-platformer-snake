@@ -23,7 +23,6 @@ const SCENES := {
 
 ## initialize game
 func _ready() -> void:
-	clear_child_scenes() # ensure no children
 	AudioManager.scenemanager = self # give audio manager reference
 	# load into main menu
 	main_menu()

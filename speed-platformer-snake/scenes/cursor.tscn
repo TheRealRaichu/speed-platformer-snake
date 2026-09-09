@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c2fqqr5mv6gl3"]
 
-[ext_resource type="Script" uid="uid://c54j37rcx0s7r" path="res://scenes/cursor.gd" id="1_ndevg"]
+[ext_resource type="Script" uid="uid://c54j37rcx0s7r" path="res://scripts/cursor.gd" id="1_ndevg"]
 [ext_resource type="Texture2D" uid="uid://b7cpeiux7hyrp" path="res://assets/UI/Buttons/arrow.png" id="1_s0nli"]
 [ext_resource type="Texture2D" uid="uid://c2r12834aj8mt" path="res://assets/UI/Buttons/arrow_alt.png" id="2_ndevg"]
 
@@ -20,16 +20,17 @@ animations = [{
 
 [node name="Cursor" type="Control" unique_id=894841464]
 layout_mode = 3
-anchors_preset = 0
-size_flags_horizontal = 4
-size_flags_vertical = 4
+anchor_bottom = 0.089
+offset_bottom = -0.040000916
+size_flags_horizontal = 6
+size_flags_vertical = 3
 script = ExtResource("1_ndevg")
 
 [node name="Cursor" type="AnimatedSprite2D" parent="." unique_id=1557875295]
-position = Vector2(0, 8)
+position = Vector2(0, 16)
 scale = Vector2(1.3333334, 1.1999999)
 sprite_frames = SubResource("SpriteFrames_n5qf0")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.8489118
-offset = Vector2(6, 10)
+offset = Vector2(-4.5, -9.536743e-07)

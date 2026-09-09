@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://dpa7h648wu2w"]
+
+[ext_resource type="Script" uid="uid://co7qrp6papxo8" path="res://scripts/leaderboard_register.gd" id="1_bj5rk"]
+[ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="1_j136i"]
+[ext_resource type="PackedScene" uid="uid://bvku6moivsmv6" path="res://scenes/letter_entry.tscn" id="2_s0s6k"]
+
+[node name="leaderboard register" type="Control" unique_id=1059426120 node_paths=PackedStringArray("entry_field")]
+layout_mode = 3
+anchors_preset = 0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bj5rk")
+entry_field = NodePath("entry field")
+
+[node name="window" type="ColorRect" parent="." unique_id=1589765338]
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 144.0
+color = Color(0.30980393, 0.34901962, 0.54901963, 1)
+
+[node name="score label" type="Label" parent="." unique_id=1348988299]
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 24.0
+theme = ExtResource("1_j136i")
+theme_override_font_sizes/font_size = 16
+text = "score: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="enter_your_name" type="Label" parent="." unique_id=1565207064]
+layout_mode = 0
+offset_top = 24.0
+offset_right = 192.0
+offset_bottom = 48.0
+theme = ExtResource("1_j136i")
+text = "enter your name:"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="enter_your_name2" type="Label" parent="." unique_id=725507546]
+layout_mode = 0
+offset_top = 120.0
+offset_right = 192.0
+offset_bottom = 144.0
+theme = ExtResource("1_j136i")
+text = "press confirm   "
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="entry field" type="HBoxContainer" parent="." unique_id=1602312876]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 72.0
+offset_right = 187.0
+offset_bottom = 120.0
+theme_override_constants/separation = 27
+
+[node name="letter entry" parent="entry field" unique_id=2086790051 instance=ExtResource("2_s0s6k")]
+layout_mode = 2
+
+[node name="letter entry2" parent="entry field" unique_id=1322716352 instance=ExtResource("2_s0s6k")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../letter entry")
+focus_neighbor_right = NodePath("../letter entry3")
+
+[node name="letter entry3" parent="entry field" unique_id=1427721959 instance=ExtResource("2_s0s6k")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../letter entry2")
+focus_neighbor_right = NodePath("../letter entry4")
+
+[node name="letter entry4" parent="entry field" unique_id=610827986 instance=ExtResource("2_s0s6k")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../letter entry3")
+focus_neighbor_right = NodePath("../letter entry5")
+
+[node name="letter entry5" parent="entry field" unique_id=2037398894 instance=ExtResource("2_s0s6k")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../letter entry4")
+focus_neighbor_right = NodePath("../letter entry6")
+
+[node name="letter entry6" parent="entry field" unique_id=1225355448 instance=ExtResource("2_s0s6k")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../letter entry5")
+focus_neighbor_right = NodePath("../letter entry7")
+
+[node name="letter entry7" parent="entry field" unique_id=517297951 instance=ExtResource("2_s0s6k")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../letter entry6")

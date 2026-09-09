@@ -4,9 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://c2fqqr5mv6gl3" path="res://scenes/cursor.tscn" id="2_fpmxc"]
 
 [node name="MenuButton" type="TextureButton" unique_id=1044529896]
+anchors_preset = -1
+anchor_right = 0.112
+anchor_bottom = 0.089
 offset_left = 8.0
-offset_right = 72.0
-offset_bottom = 40.0
+offset_right = 0.3199997
+offset_bottom = -0.040000916
+pivot_offset = Vector2(-8, 16)
 size_flags_horizontal = 6
 size_flags_vertical = 3
 mouse_filter = 2
@@ -14,13 +18,13 @@ button_mask = 0
 script = ExtResource("1_xsssc")
 
 [node name="Cursor" parent="." unique_id=894841464 instance=ExtResource("2_fpmxc")]
-layout_mode = 0
-offset_left = -28.0
-offset_top = -4.0
-offset_right = -28.0
-offset_bottom = -4.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_bottom = 0.0
+grow_vertical = 2
+pivot_offset = Vector2(0, 16)
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
