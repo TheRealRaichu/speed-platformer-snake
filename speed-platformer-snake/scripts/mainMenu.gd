@@ -1,4 +1,4 @@
-extends Control
+extends Menu
 
 ## MAIN MENU
 # reference to scenemanger, set when initialized

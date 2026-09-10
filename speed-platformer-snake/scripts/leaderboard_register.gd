@@ -1,4 +1,5 @@
 extends Control
+class_name LeaderboardRegister
 
 @export var entry_field : HBoxContainer
 signal name_confirm
@@ -11,7 +12,8 @@ func confirm_name():
 	var name := ""
 	for child in entry_field.get_children():
 		name += child.current_letter
-	name_confirm.emit(name)
+	if name:
+		name_confirm.emit(name)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):

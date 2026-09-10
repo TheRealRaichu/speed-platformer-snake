@@ -1,4 +1,4 @@
-extends Control
+extends Menu
 var scene_manager
 var player
 
@@ -22,7 +22,7 @@ func display_days():
 	score_label.text = "days survived: " + str(Globals.day_count - 1)
 
 func display_score():
-	score_label.text = "score: " + str(Globals.score - 1)
+	score_label.text = "score: " + str(Globals.score)
 
 ## Restarts game
 func _on_try_again_pressed() -> void:
@@ -30,8 +30,17 @@ func _on_try_again_pressed() -> void:
 
 ## Opens leaderboard menu
 func _on_leaderboard_pressed() -> void:
-	pass
+	var leaderboard_inst = leaderboard_scene.instantiate() as LeaderboardUI
+	leaderboard_inst.earned_score = Globals.score
+	leaderboard_inst.closed.connect(leaderboard_closed)
+	enbacken(true)
+	# add to scene manager for modulate and input indpendence!
+	add_sibling(leaderboard_inst)
 
 ## Quits to Main Menu
 func _on_quit_pressed() -> void:
 	scene_manager.main_menu()
+
+func leaderboard_closed():
+	enbacken(false)
+	leaderboard_button.grab_focus()

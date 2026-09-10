@@ -4,8 +4,10 @@
 [ext_resource type="Script" uid="uid://booofuu6qa543" path="res://scenes/leaderboard_ui.gd" id="1_wgq7h"]
 [ext_resource type="Script" uid="uid://chvj6cv51xqgu" path="res://scripts/leaderboard.gd" id="2_8lgqg"]
 [ext_resource type="PackedScene" uid="uid://b8efbsgkac1ws" path="res://scenes/leaderboard_entry.tscn" id="3_e4dr1"]
+[ext_resource type="PackedScene" uid="uid://dpa7h648wu2w" path="res://scenes/leaderboard_register.tscn" id="4_jfen3"]
 
-[node name="Leaderboard" type="Control" unique_id=631310220 node_paths=PackedStringArray("entries", "register_score_button")]
+[node name="Leaderboard" type="Control" unique_id=631310220 node_paths=PackedStringArray("entries", "register_score_button", "close_button")]
+z_index = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +23,8 @@ leaderboard_script = ExtResource("2_8lgqg")
 leaderboard_entry_scene = ExtResource("3_e4dr1")
 entries = NodePath("Leaderboard Body/entries")
 register_score_button = NodePath("Leaderboard Footer/register score button")
+leaderboard_register_scene = ExtResource("4_jfen3")
+close_button = NodePath("Leaderboard Footer/close")
 
 [node name="Leaderboard Header" type="Control" parent="." unique_id=1256077477]
 anchors_preset = 0
@@ -129,6 +133,7 @@ theme_override_font_sizes/font_size = 15
 disabled = true
 text = "register score"
 
+[connection signal="pressed" from="Leaderboard Footer/close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="Leaderboard Footer/prev" to="." method="previous_page"]
 [connection signal="pressed" from="Leaderboard Footer/next" to="." method="next_page"]
 [connection signal="pressed" from="Leaderboard Footer/register score button" to="." method="register_score"]

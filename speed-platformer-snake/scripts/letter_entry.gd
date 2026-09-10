@@ -6,7 +6,10 @@ class_name LetterEntry
 
 const LETTERS := [
 	" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
-	"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+	"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "!",
+	"?", "#", "$", "*", "(", ")"]
+
+const SYMBOL_COUNT := len(LETTERS)
 
 var current_letter : String
 var current_index : int = 0
@@ -20,14 +23,14 @@ func set_letter():
 
 func increment_letter():
 	current_index += 1
-	if current_index == 27:
-		current_index -= 27
+	if current_index == SYMBOL_COUNT:
+		current_index -= SYMBOL_COUNT
 	set_letter()
 
 func decrement_letter():
 	current_index -= 1
 	if current_index == -1:
-		current_index = 26
+		current_index = SYMBOL_COUNT-1
 	set_letter()
 
 func _process(delta: float) -> void:

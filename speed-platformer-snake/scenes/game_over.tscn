@@ -55,7 +55,6 @@ text = "score: 0"
 horizontal_alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1840598803]
-z_index = 8
 layout_mode = 0
 offset_left = 116.0
 offset_top = 216.0

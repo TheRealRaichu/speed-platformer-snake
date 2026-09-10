@@ -869,7 +869,7 @@ animations = [{
 "speed": 1.0
 }]
 
-[node name="player" type="CharacterBody2D" unique_id=1759500252 node_paths=PackedStringArray("scarf", "scarf_box", "anim_sprite", "blink_refresh_timer", "channeling_timer", "left_wall_detector", "right_wall_detector", "epic_debug") groups=["player"]]
+[node name="player" type="CharacterBody2D" unique_id=1759500252 node_paths=PackedStringArray("scarf", "scarf_box", "anim_sprite", "blink_refresh_timer", "channeling_timer", "left_wall_detector", "right_wall_detector") groups=["player"]]
 safe_margin = 0.1
 script = ExtResource("1_3vyb7")
 scarf = NodePath("Scarf")
@@ -879,7 +879,6 @@ blink_refresh_timer = NodePath("blink refresh timer")
 channeling_timer = NodePath("channeling timer")
 left_wall_detector = NodePath("left wall jump detector")
 right_wall_detector = NodePath("right wall jump detector")
-epic_debug = NodePath("epic debug")
 
 [node name="collision box" type="CollisionShape2D" parent="." unique_id=854408467]
 position = Vector2(0, -15)

@@ -2,8 +2,11 @@ extends Node
 
 ## AUTOLOADED REFERENCE FOR GLOBAL VARIABLES
 
+# debug :>
+var debug_mode := true
+
 var day_count := 1 # how many days survived, start at one for day one
-var score := 1 # score that gets displayed
+var score := 0 # score that gets displayed
 
 # make sure to update with the list in pickup.gd as well
 enum PICKUP_TYPES {
@@ -18,4 +21,4 @@ enum PICKUP_TYPES {
 
 func reset_score():
 	day_count = 1
-	score = 1
+	score = 0

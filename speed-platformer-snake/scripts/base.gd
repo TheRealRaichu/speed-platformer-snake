@@ -118,5 +118,9 @@ func _process(_delta: float) -> void:
 		if body.attempt_give_fuel(): # returns true if player has fuel
 			recieve_fuel() # continue in function
 		break # there will only be one player, so quit looking
-
 	
+	## DEBUG MODE !!!
+	if not Globals.debug_mode:
+		return
+	if Input.is_action_just_pressed("debug_die"):
+		died_out.emit()

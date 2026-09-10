@@ -33,13 +33,14 @@ func add_leaderboard_entry(player_name : String, score : int):
 		section = _get_new_section()
 	# add entry
 	leaderboard_file.set_value(section, player_name, score)
+	save()
 
 ## gets a unique section ID for new registers
 func _get_new_section():
 	# sections are titled 'Player[section_number]'
 	# a new section would have a new number on increment
 	var section_count := len(leaderboard_file.get_sections())
-	return "Player" + str(section_count + 1) # 'Player#'
+	return "Player" + str(section_count) # 'Player#'
 
 ## find a section ID from a player name or returns null
 func _get_section_from_key(player_name) -> Variant:
@@ -50,7 +51,11 @@ func _get_section_from_key(player_name) -> Variant:
 	return null
 
 func get_score_data() -> Dictionary:
+	_load_leaderboard_data()
 	return score_data
+
+func save():
+	leaderboard_file.save(leaderboard_filepath)
 
 func test_add_entries():
 	for i in range(50):
