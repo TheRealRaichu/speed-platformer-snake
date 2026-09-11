@@ -38,20 +38,17 @@ func display_leaderboard(page : int = 0):
 	current_page = page
 	clear_entries()
 	
-	var score_data = leaderboard.get_score_data() as Dictionary
-	var all_keys = score_data.keys()
+	var score_data = leaderboard.get_score_data() as Array
 	# slice boundaries
 	var start_index = current_page * DISPLAY_PER_PAGE
-	var end_index = min(start_index + DISPLAY_PER_PAGE, len(all_keys))
+	var end_index = min(start_index + DISPLAY_PER_PAGE, score_data.size())
 	
 	for i in range(start_index, end_index):
-		var player_name = all_keys[i]
-		
-		if player_name == null: continue # skip nulls
+		var entry = score_data[i]
 		
 		var leaderboard_entry_inst = leaderboard_entry_scene.instantiate()
-		leaderboard_entry_inst.player_name = player_name
-		leaderboard_entry_inst.player_score = score_data[player_name]
+		leaderboard_entry_inst.player_name = entry[Leaderboard.player_name_index]
+		leaderboard_entry_inst.player_score = entry[Leaderboard.player_score_index]
 		entries.add_child(leaderboard_entry_inst)
 
 func next_page() -> void:
@@ -67,7 +64,7 @@ func clear_entries():
 		child.queue_free()
 
 func get_page_count() -> int:
-	return (len((leaderboard.get_score_data().keys())) + (DISPLAY_PER_PAGE-1))/DISPLAY_PER_PAGE
+	return (len((leaderboard.get_score_data())) + (DISPLAY_PER_PAGE-1))/DISPLAY_PER_PAGE
 
 func register_score() -> void:
 	var leaderboard_register_inst = leaderboard_register_scene.instantiate() as LeaderboardRegister
@@ -76,7 +73,9 @@ func register_score() -> void:
 	add_sibling(leaderboard_register_inst)
 
 func accept_name(name : String):
+	name = name.strip_edges()
 	enbacken(false)
+	register_score_button.disabled = true
 	leaderboard.add_leaderboard_entry(name, earned_score)
 	initialize_leaderboard_script()
 	display_leaderboard()

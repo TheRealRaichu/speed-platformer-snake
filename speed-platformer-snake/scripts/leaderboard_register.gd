@@ -8,17 +8,17 @@ func _ready() -> void:
 	# first field gets focus
 	entry_field.get_child(0).grab_focus()
 
-func confirm_name():
+func attempt_confirm_name():
 	var name := ""
 	for child in entry_field.get_children():
 		name += child.current_letter
-	if name:
+	if name.strip_edges() != "": # finish only if valid name
 		name_confirm.emit(name)
+		die()
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
-		confirm_name()
-		die()
+		attempt_confirm_name()
 
 func die():
 	queue_free()
