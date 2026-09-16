@@ -14,13 +14,12 @@
 [ext_resource type="Texture2D" uid="uid://jtriyh3wgchk" path="res://assets/UI/Buttons/continue.png" id="10_flqon"]
 [ext_resource type="Texture2D" uid="uid://dpm31yynu8u2d" path="res://assets/UI/Buttons/quit_alt.png" id="11_j7ex8"]
 
-[node name="mainMenu" type="Control" unique_id=1836141774 node_paths=PackedStringArray("start_button", "howtoplay_button", "leaderboard_button", "quit_button", "menu_buttons")]
+[node name="mainMenu" type="Control" unique_id=1836141774 node_paths=PackedStringArray("start_button", "howtoplay_button", "quit_button", "menu_buttons")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_l6cm7")
 start_button = NodePath("MainMenuTitle/MenuButtons/Start")
 howtoplay_button = NodePath("MainMenuTitle/MenuButtons/HowToPlay")
-leaderboard_button = NodePath("MainMenuTitle/MenuButtons/Leaderboard")
 quit_button = NodePath("MainMenuTitle/MenuButtons/Quit")
 menu_buttons = NodePath("MainMenuTitle/MenuButtons")
 leaderboard_scene = ExtResource("2_rcqid")

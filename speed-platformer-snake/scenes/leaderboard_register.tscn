@@ -5,10 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://bvku6moivsmv6" path="res://scenes/letter_entry.tscn" id="2_s0s6k"]
 
 [node name="leaderboard register" type="Control" unique_id=1059426120 node_paths=PackedStringArray("entry_field")]
+z_index = 1
 layout_mode = 3
 anchors_preset = 0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 224.0
+offset_top = 112.0
+offset_right = 224.0
+offset_bottom = 112.0
 script = ExtResource("1_bj5rk")
 entry_field = NodePath("entry field")
 
