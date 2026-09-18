@@ -6,8 +6,9 @@ extends Node
 
 enum STATE {
 	MAIN_MENU,   # piano + pads
-	HOW_TO_PLAY, # piano + pads + TODO htp element
-	GAMEPLAY,    # piano + pad + drums
+	HOW_TO_PLAY, # piano + pads
+	TUTORIAL,    # piano + pad + bass
+	GAMEPLAY,    # piano + pad + bass + drums
 	GAMEPLAY_BLUE_FIRE, # gameplay + tamb
 	GAME_OVER,   # piano only
 }
@@ -51,6 +52,12 @@ func set_state(state: STATE) -> void:
 			fade(drums_bass, TARGET_VOLUME)
 			fade(backing, TARGET_VOLUME)
 			fade(tamb, MUTE_VOLUME)
+		#STATE.TUTORIAL:
+			#fade(piano, TARGET_VOLUME)
+			#fade(drums, MUTE_VOLUME)w
+			#fade(bass, TARGET_VOLUME)
+			#fade(backing, TARGET_VOLUME)
+			#fade(tamb, MUTE_VOLUME)
 		STATE.GAMEPLAY_BLUE_FIRE: # set from base.gd
 			fade(piano, TARGET_VOLUME)
 			fade(drums_bass, TARGET_VOLUME)
