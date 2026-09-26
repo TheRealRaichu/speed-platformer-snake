@@ -1,17 +1,28 @@
 [gd_scene format=3 uid="uid://dyw4obfopi6ch"]
 
 [ext_resource type="Script" uid="uid://durwu3r0lxlo2" path="res://scripts/MusicManager.gd" id="1_k17rw"]
-[ext_resource type="AudioStream" uid="uid://dj5ahqhuq3lv3" path="res://assets/music/freeze timing drum and bass.mp3" id="2_i3r22"]
+[ext_resource type="AudioStream" uid="uid://do4vsnn8cbl0n" path="res://assets/music/freeze timing drums.mp3" id="2_d6wjf"]
+[ext_resource type="AudioStream" uid="uid://b1ybddyjgsngy" path="res://assets/music/freeze timing bass.mp3" id="3_d6wjf"]
 [ext_resource type="AudioStream" uid="uid://yrafc6h3unoh" path="res://assets/music/freeze timing piano.mp3" id="3_wh65u"]
 [ext_resource type="AudioStream" uid="uid://b5h4rsukjn0du" path="res://assets/music/freeze timing backing.mp3" id="4_d6wjf"]
 [ext_resource type="AudioStream" uid="uid://cbx3buo7icp7h" path="res://assets/music/freeze timing tamb.mp3" id="5_wh65u"]
 
-[node name="MusicManager" type="Node" unique_id=15124038]
+[node name="MusicManager" type="Node" unique_id=15124038 node_paths=PackedStringArray("piano", "drums", "bass", "backing", "tamb")]
 process_mode = 3
 script = ExtResource("1_k17rw")
+piano = NodePath("piano")
+drums = NodePath("drums")
+bass = NodePath("bass")
+backing = NodePath("backing")
+tamb = NodePath("tamb")
 
-[node name="drums_bass" type="AudioStreamPlayer" parent="." unique_id=709933937]
-stream = ExtResource("2_i3r22")
+[node name="drums" type="AudioStreamPlayer" parent="." unique_id=709933937]
+stream = ExtResource("2_d6wjf")
+bus = &"Music"
+parameters/looping = true
+
+[node name="bass" type="AudioStreamPlayer" parent="." unique_id=2027735895]
+stream = ExtResource("3_d6wjf")
 bus = &"Music"
 parameters/looping = true
 

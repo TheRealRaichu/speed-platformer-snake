@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://do4vsnn8cbl0n"
+path="res://.godot/imported/freeze timing drums.mp3-eb4f89d1b3a47e64045f584a507e3b81.mp3str"
+
+[deps]
+
+source_file="res://assets/music/freeze timing drums.mp3"
+dest_files=["res://.godot/imported/freeze timing drums.mp3-eb4f89d1b3a47e64045f584a507e3b81.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

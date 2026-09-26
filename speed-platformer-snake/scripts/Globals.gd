@@ -2,8 +2,12 @@ extends Node
 
 ## AUTOLOADED REFERENCE FOR GLOBAL VARIABLES
 
+## SETTINGS REFERENCES
 # debug :>
-var debug_mode := true
+var debug_mode : bool
+# tap jump :{
+var tap_jump : bool
+
 
 var day_count := 1 # how many days survived, start at one for day one
 var score := 0 # score that gets displayed

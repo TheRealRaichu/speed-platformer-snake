@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://dpbf48iijvff5" path="res://scripts/mainMenu.gd" id="1_l6cm7"]
 [ext_resource type="Texture2D" uid="uid://c738wov4jpaii" path="res://assets/UI/Title_Screen/Title_ScreenV2.png" id="2_8ln24"]
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="2_ekxnf"]
-[ext_resource type="PackedScene" uid="uid://ddwhkxtr8frnw" path="res://scenes/leaderboard.tscn" id="2_rcqid"]
+[ext_resource type="PackedScene" uid="uid://cm4s87ov2b6sg" path="res://scenes/leaderboard.tscn" id="2_rcqid"]
+[ext_resource type="PackedScene" uid="uid://ces4an3t3wdcw" path="res://scenes/settings.tscn" id="3_1ajci"]
 [ext_resource type="Texture2D" uid="uid://cocna63li02fo" path="res://assets/UI/Title_Screen/Title_Logo.png" id="4_jk1qb"]
 [ext_resource type="Texture2D" uid="uid://b32egywpbrhcx" path="res://assets/UI/Buttons/start.png" id="4_tbmy8"]
 [ext_resource type="PackedScene" uid="uid://cl3b08io2yaoi" path="res://scenes/menu_button.tscn" id="5_5pajh"]
@@ -14,16 +15,18 @@
 [ext_resource type="Texture2D" uid="uid://jtriyh3wgchk" path="res://assets/UI/Buttons/continue.png" id="10_flqon"]
 [ext_resource type="Texture2D" uid="uid://dpm31yynu8u2d" path="res://assets/UI/Buttons/quit_alt.png" id="11_j7ex8"]
 
-[node name="mainMenu" type="Control" unique_id=1836141774 node_paths=PackedStringArray("start_button", "howtoplay_button", "leaderboard_button", "quit_button", "menu_buttons")]
+[node name="mainMenu" type="Control" unique_id=1836141774 node_paths=PackedStringArray("start_button", "howtoplay_button", "leaderboard_button", "settings_button", "quit_button", "menu_buttons")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_l6cm7")
 start_button = NodePath("MainMenuTitle/MenuButtons/Start")
 howtoplay_button = NodePath("MainMenuTitle/MenuButtons/HowToPlay")
 leaderboard_button = NodePath("MainMenuTitle/MenuButtons/Leaderboard")
+settings_button = NodePath("MainMenuTitle/MenuButtons/Settings")
 quit_button = NodePath("MainMenuTitle/MenuButtons/Quit")
 menu_buttons = NodePath("MainMenuTitle/MenuButtons")
 leaderboard_scene = ExtResource("2_rcqid")
+settings_scene = ExtResource("3_1ajci")
 
 [node name="Main Screen" type="TextureRect" parent="." unique_id=146942708]
 layout_mode = 0
@@ -51,10 +54,10 @@ texture = ExtResource("4_jk1qb")
 
 [node name="MenuButtons" type="VBoxContainer" parent="MainMenuTitle" unique_id=1979905102]
 layout_mode = 0
-offset_left = 488.0
-offset_top = 144.0
+offset_left = 488.00003
+offset_top = 136.00002
 offset_right = 660.0
-offset_bottom = 308.0
+offset_bottom = 364.0
 scale = Vector2(0.8, 0.8)
 theme_override_constants/separation = 16
 alignment = 1
@@ -73,6 +76,10 @@ texture_focused = ExtResource("9_5pajh")
 layout_mode = 2
 texture_normal = ExtResource("10_flqon")
 
+[node name="Settings" parent="MainMenuTitle/MenuButtons" unique_id=1982966345 instance=ExtResource("5_5pajh")]
+layout_mode = 2
+texture_normal = ExtResource("10_flqon")
+
 [node name="Quit" parent="MainMenuTitle/MenuButtons" unique_id=1492484920 instance=ExtResource("5_5pajh")]
 layout_mode = 2
 texture_normal = ExtResource("6_5dd4i")
@@ -81,4 +88,5 @@ texture_focused = ExtResource("11_j7ex8")
 [connection signal="pressed" from="MainMenuTitle/MenuButtons/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MainMenuTitle/MenuButtons/HowToPlay" to="." method="_on_how_to_play_pressed"]
 [connection signal="pressed" from="MainMenuTitle/MenuButtons/Leaderboard" to="." method="_on_leaderboard_pressed"]
+[connection signal="pressed" from="MainMenuTitle/MenuButtons/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MainMenuTitle/MenuButtons/Quit" to="." method="_on_quit_pressed"]

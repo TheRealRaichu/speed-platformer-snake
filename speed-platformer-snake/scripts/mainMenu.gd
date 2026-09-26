@@ -8,11 +8,13 @@ var scene_manager
 @export var start_button : UIButton
 @export var howtoplay_button : UIButton
 @export var leaderboard_button : UIButton
+@export var settings_button : UIButton
 @export var quit_button : UIButton
 
 @export var menu_buttons : VBoxContainer
 
 @export var leaderboard_scene : PackedScene
+@export var settings_scene : PackedScene
 
 ## Initialize the main menu as true and How To Play section as false when first time running, and initilizaed cursor as false.
 func _ready() -> void:
@@ -37,6 +39,17 @@ func _on_leaderboard_pressed() -> void:
 func leaderboard_closed():
 	enbacken(false)
 	leaderboard_button.grab_focus()
+
+func _on_settings_pressed() -> void:
+	var settings_inst = settings_scene.instantiate() as SettingsUI
+	settings_inst.closed.connect(settings_closed)
+	enbacken(true)
+	# add to scene manager for modulate and input indpendence!
+	add_sibling(settings_inst)
+
+func settings_closed():
+	enbacken(false)
+	settings_button.grab_focus()
 
 ## Stops the game when pressed
 func _on_quit_pressed() -> void:

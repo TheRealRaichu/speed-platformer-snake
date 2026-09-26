@@ -73,6 +73,8 @@ func _process(_delta: float) -> void:
 # courtesy of claude ai
 
 const MASTER_BUS := "Master"
+const SFX_BUS := "SFX"
+const MUSIC_BUS := "Music"
 const VOLUME_STEP := 5.0 # db per increase/decrease
 const MIN_VOLUME := -80.0
 const MAX_VOLUME := 0.0
@@ -97,6 +99,11 @@ func decrease_volume() -> void:
 	var current := AudioServer.get_bus_volume_db(bus)
 	AudioServer.set_bus_volume_db(bus, clamp(current - VOLUME_STEP, MIN_VOLUME, MAX_VOLUME))
 
+func set_volume(target_bus, value) -> void:
+	var bus := AudioServer.get_bus_index(target_bus)
+	var current := AudioServer.get_bus_volume_db(bus)
+	AudioServer.set_bus_volume_db(bus, clamp(value, MIN_VOLUME, MAX_VOLUME))
+
 func toggle_mute() -> void:
 	var bus := AudioServer.get_bus_index(MASTER_BUS)
 	if muted:
@@ -106,3 +113,8 @@ func toggle_mute() -> void:
 		volume_before_mute = AudioServer.get_bus_volume_db(bus)
 		AudioServer.set_bus_volume_db(bus, MIN_VOLUME)
 		muted = true
+
+func get_volume(target_bus):
+	var bus := AudioServer.get_bus_index(target_bus)
+	var vol := AudioServer.get_bus_volume_db(bus)
+	return vol

@@ -1,6 +1,7 @@
-[gd_scene format=3 uid="uid://xlpfmmatdyjr"]
+[gd_scene format=3 uid="uid://ces4an3t3wdcw"]
 
 [ext_resource type="Theme" uid="uid://c7qmg3irhyxb7" path="res://assets/font/quicktheme.tres" id="1_5p8wc"]
+[ext_resource type="Script" uid="uid://do25uj537x1x" path="res://scripts/SettingsUI.gd" id="1_r6d6q"]
 
 [node name="Settings" type="Control" unique_id=631310220]
 z_index = 1
@@ -14,6 +15,7 @@ offset_right = -160.0
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_r6d6q")
 
 [node name="Settings Header" type="Control" parent="." unique_id=1256077477]
 anchors_preset = 0
@@ -30,6 +32,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.308, 0.3483333, 0.55, 1)
+metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="Settings Header/header back" unique_id=1178971878]
 layout_mode = 1
@@ -55,6 +58,7 @@ layout_mode = 0
 offset_right = 320.0
 offset_bottom = 264.0
 color = Color(0.18480001, 0.20899999, 0.33, 1)
+metadata/_edit_lock_ = true
 
 [node name="entries" type="VBoxContainer" parent="Settings Body" unique_id=1940528375]
 layout_mode = 0
@@ -62,6 +66,76 @@ offset_left = 32.0
 offset_top = 8.0
 offset_right = 288.0
 offset_bottom = 256.0
+
+[node name="General Label" type="Label" parent="Settings Body/entries" unique_id=2050600004]
+layout_mode = 2
+theme = ExtResource("1_5p8wc")
+text = "General"
+
+[node name="General Divider" type="ColorRect" parent="Settings Body/entries" unique_id=1449102534]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+
+[node name="Fullscreen" type="CheckButton" parent="Settings Body/entries" unique_id=329256213]
+layout_mode = 2
+theme = ExtResource("1_5p8wc")
+text = "Fullscreen"
+
+[node name="Audio Label" type="Label" parent="Settings Body/entries" unique_id=1891304415]
+layout_mode = 2
+theme = ExtResource("1_5p8wc")
+text = "Audio"
+
+[node name="Audio Divider" type="ColorRect" parent="Settings Body/entries" unique_id=740019866]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+
+[node name="SFX volume" type="HSlider" parent="Settings Body/entries" unique_id=1905665893]
+layout_mode = 2
+min_value = -80.0
+max_value = 0.0
+step = 5.0
+scrollable = false
+
+[node name="Music volume" type="HSlider" parent="Settings Body/entries" unique_id=422105486]
+layout_mode = 2
+min_value = -80.0
+max_value = 0.0
+step = 5.0
+scrollable = false
+
+[node name="Controls Label" type="Label" parent="Settings Body/entries" unique_id=470499661]
+layout_mode = 2
+theme = ExtResource("1_5p8wc")
+text = "Controls"
+
+[node name="Controls Divider" type="ColorRect" parent="Settings Body/entries" unique_id=541568183]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+
+[node name="Edit Keybinds" type="Button" parent="Settings Body/entries" unique_id=1041411300]
+layout_mode = 2
+theme = ExtResource("1_5p8wc")
+text = "Edit Keybinds"
+
+[node name="Tap Jump" type="CheckButton" parent="Settings Body/entries" unique_id=620588939]
+layout_mode = 2
+theme = ExtResource("1_5p8wc")
+text = "Tap Jump"
+
+[node name="Extras Label" type="Label" parent="Settings Body/entries" unique_id=1128508275]
+layout_mode = 2
+theme = ExtResource("1_5p8wc")
+text = "Extras"
+
+[node name="Extras Divider" type="ColorRect" parent="Settings Body/entries" unique_id=1721241525]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+
+[node name="Debug mode" type="CheckButton" parent="Settings Body/entries" unique_id=714707604]
+layout_mode = 2
+theme = ExtResource("1_5p8wc")
+text = "Debug Mode"
 
 [node name="Settings Footer" type="Control" parent="." unique_id=600853078]
 anchors_preset = 0
@@ -78,6 +152,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 color = Color(0.30980393, 0.34901962, 0.54901963, 1)
+metadata/_edit_lock_ = true
 
 [node name="close" type="Button" parent="Settings Footer" unique_id=530795802]
 layout_mode = 1
@@ -100,7 +175,12 @@ offset_bottom = 28.0
 theme = ExtResource("1_5p8wc")
 theme_override_font_sizes/font_size = 15
 disabled = true
-text = "register score"
+text = "apply settings"
 
+[connection signal="toggled" from="Settings Body/entries/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="value_changed" from="Settings Body/entries/SFX volume" to="." method="_on_sfx_volume_value_changed"]
+[connection signal="value_changed" from="Settings Body/entries/Music volume" to="." method="_on_music_volume_value_changed"]
+[connection signal="toggled" from="Settings Body/entries/Tap Jump" to="." method="_on_tap_jump_toggled"]
+[connection signal="toggled" from="Settings Body/entries/Debug mode" to="." method="_on_debug_mode_toggled"]
 [connection signal="pressed" from="Settings Footer/close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="Settings Footer/apply settings button" to="." method="register_score"]
